@@ -6,6 +6,8 @@ import Main from "./components/Main";
 import Layout from "./components/Layout";
 import Edit from "./components/edit";
 import LayoutOne from "./components/layoutOne";
+import { Provider } from "react-redux";
+import store from './store'
 
 const AppNavigator = createStackNavigator(
   {
@@ -21,6 +23,12 @@ const AppNavigator = createStackNavigator(
 
 const AppContainer = createAppContainer(AppNavigator);
 
-export default function App() {
-  return <AppContainer />;
+export default class App extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+       <AppContainer />
+      </Provider>
+   )
+  }
 }
