@@ -1,18 +1,44 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import React from "react";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
 export default class Main extends React.Component {
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Layout')}>
-          <Text>Button 1</Text>
+          style={styles.creat_own}
+          onPress={() => this.props.navigation.navigate("Layout")}
+        >
+          <Text>Create Own</Text>
         </TouchableOpacity>
-          <Text>Button 2</Text>
+        <TouchableOpacity style={styles.theme}>
+          <Text>Theme</Text>
+        </TouchableOpacity>
       </View>
-
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-around"
+  },
+  creat_own: {
+    width: 300,
+    height: 150,
+    backgroundColor: "blue",
+    borderColor: "black",
+    alignItems: "center",
+    justifyContent: "space-around"
+  },
+  theme: {
+    width: 300,
+    height: 150,
+    backgroundColor: "blue",
+    alignItems: "center",
+    justifyContent: "space-around"
+  }
+});
