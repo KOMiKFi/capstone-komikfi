@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     marginVertical: 30,
-    marginHorizontal: 20
+    marginHorizontal: 10
   }
 });
