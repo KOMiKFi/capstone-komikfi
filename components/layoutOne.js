@@ -1,54 +1,78 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import * as ImagePicker from 'expo-image-picker'
-import {connect} from 'react-redux'
-import {getPhotoFromLibrary} from '../store'
+import * as ImagePicker from "expo-image-picker";
+import { connect } from "react-redux";
+import { getPhotoFromLibrary } from "../store";
 
 class LayoutOne extends React.Component {
-
   constructor() {
-    super()
+    super();
     // this.openImagePicker = this.openImagePicker.bind(this)
   }
 
-// async openImagePicker() {
-//   let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync()
-
-//   if (permissionResult.granted === false) {
-//     alert('Permission to access camera roll is required')
-//     console.log('Permission to access camera roll is required')
-//     return
-//   }
-//   let pickerResult = await ImagePicker.launchImageLibraryAsync()
-//   console.log(pickerResult)
-// }
-
   render() {
-    console.log('STATE', this.props.state)
+    console.log("STATE", this.props.state);
     return (
-      <View>
-        <TouchableOpacity onPress ={this.props.getPhotoFromLibrary}>
-         <Text>Pick an image</Text>
-        </TouchableOpacity>
+      <View style={styles.container}>
+        <View style={styles.pictureFrame1}>
+          <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
+            <Text>Pick an image</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.pictureFrame2}>
+          <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
+            <Text>Pick an image</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 40,
+    paddingHorizontal: 10
+  },
+
+  pictureFrame1: {
+    width: 400,
+    height: 300,
+    borderColor: "black",
+    borderTopWidth: 5,
+    borderLeftWidth: 5,
+    borderRightWidth: 5,
+    alignItems: "center",
+    justifyContent: "space-around",
+    marginHorizontal: 10
+  },
+  pictureFrame2: {
+    width: 400,
+    height: 300,
+    borderColor: "black",
+    borderWidth: 5,
+    alignItems: "center",
+    justifyContent: "space-around",
+    marginHorizontal: 10
+  }
+});
+
+const mapStateToProps = state => {
   return {
     state: state
-  }
-}
+  };
+};
 
-
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     getPhotoFromLibrary: () => {
-      dispatch(getPhotoFromLibrary())
+      dispatch(getPhotoFromLibrary());
     }
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(LayoutOne)
+export default connect(mapStateToProps, mapDispatchToProps)(LayoutOne);
