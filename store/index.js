@@ -14,15 +14,6 @@ const initialState = {
   currentPhotoIdx: 0
 };
 // state will look like this:
-// const sampleState = {
-//   photos: [
-//     {image: {uri, cancelled, type, swidth, height},
-//       filter: true,
-//       bubble: [{position: {'x':0, 'y':0, 'z':0}, uri: '', text: '', rotation: 'degree', scale: {'x':0, 'y':0}}]
-//     },
-//     {},
-//   ]
-// }
 
 // const sampleStateInObject = {
 //   photos: {
@@ -44,11 +35,18 @@ const initialState = {
 // };
 
 const GOT_PHOTO = "GOT_PHOTO";
+const UPDATE_CURRENT_PHOTO_IDX = "UPDATE_CURRENT_PHOTO_IDX";
 
 const gotPhoto = (image, idx) => {
   return {
     type: GOT_PHOTO,
     image,
+    idx
+  };
+};
+export const updateCurrentPhotoIdx = idx => {
+  return {
+    type: UPDATE_CURRENT_PHOTO_IDX,
     idx
   };
 };
@@ -76,6 +74,8 @@ const reducer = (state = initialState, action) => {
         photos: { ...state.photos, [action.idx]: { image: action.image } },
         currentPhotoIdx: action.idx
       };
+    case UPDATE_CURRENT_PHOTO_IDX:
+      return { ...state, currentPhotoIdx: action.idx };
     default:
       return state;
   }

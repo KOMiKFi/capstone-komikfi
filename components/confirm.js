@@ -2,18 +2,13 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { getPhotoFromLibrary } from "../store";
+import { updateCurrentPhotoIdx } from "../store";
 
 class Confirm extends React.Component {
-  constructor() {
-    super();
-    // this.openImagePicker = this.openImagePicker.bind(this)
-  }
-
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.pictureFrame1}>
+        {/* <View style={styles.pictureFrame1}>
           <TouchableOpacity onPress={this.props.backToEdit}>
             <Text>Pick an image</Text>
           </TouchableOpacity>
@@ -22,7 +17,19 @@ class Confirm extends React.Component {
           <TouchableOpacity onPress={this.props.backToEdit}>
             <Text>Pick an image</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
+        {this.props.keysOfPhotos.map(key => (
+          <TouchableOpacity
+            style={styles[`pictureFrame${key}`]}
+            onPress={() => this.props.backToEdit(key)}
+          >
+            <Image
+              key={key}
+              source={{ uri: this.props.photos[key].image.uri }}
+              style={styles.pictureFrame1}
+            ></Image>
+          </TouchableOpacity>
+        ))}
       </View>
     );
   }
@@ -31,15 +38,24 @@ class Confirm extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    borderColor: "black",
+    borderWidth: 5,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 40,
     paddingHorizontal: 10
   },
+  imageContainer: {
+    borderColor: "black",
+    borderWidth: 5,
+    width: 400,
+    flex: 5, //in veritcal
+    flexDirection: "row" //defining for the image so it wouldn't go beyond the width
+  },
   pictureFrame1: {
     width: 400,
     height: 300,
-    borderColor: "black",
+    borderColor: "green",
     borderWidth: 5,
     alignItems: "center",
     justifyContent: "space-around",
@@ -60,13 +76,15 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    state: state
+    keysOfPhotos: Object.keys(state.photos),
+    photos: state.photos
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    backToEdit: async () => {
+    backToEdit: async idx => {
+      await dispatch(updateCurrentPhotoIdx(idx));
       ownProps.navigation.navigate("Edit");
     }
   };

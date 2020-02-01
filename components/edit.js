@@ -6,7 +6,6 @@ import { getPhotoFromLibrary } from "../store";
 
 class Edit extends React.Component {
   render() {
-    console.log(this.props.photos[0].image.uri);
     return (
       <View style={styles.container}>
         <View style={styles.confirm}>
@@ -91,7 +90,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     photos: state.photos,
     currentPhotoIdx: state.currentPhotoIdx
