@@ -36,14 +36,11 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
     paddingHorizontal: 10
   },
-
   pictureFrame1: {
     width: 400,
     height: 300,
     borderColor: "black",
-    borderTopWidth: 5,
-    borderLeftWidth: 5,
-    borderRightWidth: 5,
+    borderWidth: 5,
     alignItems: "center",
     justifyContent: "space-around",
     marginHorizontal: 10
@@ -52,7 +49,9 @@ const styles = StyleSheet.create({
     width: 400,
     height: 300,
     borderColor: "black",
-    borderWidth: 5,
+    borderBottomWidth: 5,
+    borderLeftWidth: 5,
+    borderRightWidth: 5,
     alignItems: "center",
     justifyContent: "space-around",
     marginHorizontal: 10

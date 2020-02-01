@@ -5,17 +5,29 @@ import { connect } from "react-redux";
 
 class Edit extends React.Component {
   render() {
-    console.log(this.props);
+    console.log(this.props.photos[0].image.uri);
     return (
-      <View>
-        <View style={styles.nav}>
-          <Text>Prev</Text>
-          <Text>Next</Text>
+      <View style={styles.container}>
+        <View style={styles.confirm}>
+          <TouchableOpacity>
+            <Text>confirm</Text>
+          </TouchableOpacity>
         </View>
-        <Image
-          style={styles.image}
-          source={{ uri: this.props.photos[0].image.uri }}
-        />
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={{ uri: this.props.photos[0].image.uri }}
+          />
+        </View>
+        <View style={styles.filterPlaceHolder}></View>
+        <View style={styles.nav}>
+          <TouchableOpacity style={styles.textContainer}>
+            <Text style={styles.text}>Filter</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.textContainer}>
+            <Text style={styles.text}>Bubble</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -26,26 +38,43 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 40,
     paddingHorizontal: 10
+  },
+  confirm: {
+    flex: 0.8
+  },
+
+  imageContainer: {
+    borderColor: "black",
+    borderWidth: 5,
+    width: 400,
+    flex: 5, //in veritcal
+    flexDirection: "row" //defining for the image so it wouldn't go beyond the width
+  },
+  image: {
+    flex: 1,
+    width: 400 //same as the layout component
+  },
+  filterPlaceHolder: {
+    flex: 2
   },
   nav: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
-
-  image: {
-    width: 400,
-    height: 300,
     borderColor: "black",
-    borderTopWidth: 5,
-    borderLeftWidth: 5,
-    borderRightWidth: 5,
-    alignItems: "center",
-    justifyContent: "space-around",
-    marginHorizontal: 10
-  }
+    borderWidth: 5,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "flex-end"
+  },
+  textContainer: {
+    margin: 5,
+    flex: 1,
+    // borderColor: "green",
+    // borderWidth: 5,
+    fontSize: 20,
+    justifyContent: "center"
+  },
+  text: { fontSize: 20, alignSelf: "center" }
 });
 
 const mapStateToProps = state => {
