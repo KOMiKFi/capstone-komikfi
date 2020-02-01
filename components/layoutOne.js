@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import * as ImagePicker from "expo-image-picker";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary } from "../store";
 
@@ -12,7 +11,6 @@ class LayoutOne extends React.Component {
   }
 
   render() {
-    console.log("STATE", this.props.state);
     return (
       <View style={styles.container}>
         <View style={styles.pictureFrame1}>
@@ -67,10 +65,11 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getPhotoFromLibrary: () => {
-      dispatch(getPhotoFromLibrary());
+    getPhotoFromLibrary: async () => {
+      await dispatch(getPhotoFromLibrary());
+      ownProps.navigation.push("Edit");
     }
   };
 };

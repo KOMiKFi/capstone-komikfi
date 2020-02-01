@@ -1,19 +1,21 @@
-import {createStore, combineReducers, applyMiddleware } from 'redux'
-import {createLogger} from 'redux-logger'
-import thunkMiddleware from 'redux-thunk'
-import * as ImagePicker from 'expo-image-picker'
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createLogger } from "redux-logger";
+import thunkMiddleware from "redux-thunk";
+import * as ImagePicker from "expo-image-picker";
 
-const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
-
+const middleware = applyMiddleware(
+  thunkMiddleware,
+  createLogger({ collapsed: true })
+);
 
 // REDUCER
 const initialState = {
   photos: []
-}
+};
 // state will look like this:
 // const sampleState = {
 //   photos: [
-//     {uri: 'string',
+//     {image: {uri, cancelled, type, swidth, height},
 //       filter: true,
 //       bubble: [{position: {'x':0, 'y':0, 'z':0}, uri: '', text: '', rotation: 'degree', scale: {'x':0, 'y':0}}]
 //     },
@@ -21,45 +23,39 @@ const initialState = {
 //   ]
 // }
 
-const GOT_PHOTO = 'GOT_PHOTO'
+const GOT_PHOTO = "GOT_PHOTO";
 
-const gotPhoto = (image) => {
+const gotPhoto = image => {
   return {
     type: GOT_PHOTO,
     image: image
-  }
-}
+  };
+};
 
 export const getPhotoFromLibrary = () => async dispatch => {
   try {
-    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync()
+    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
 
-     if (permissionResult.granted === false) {
-      alert('Permission to access camera roll is required')
-      console.log('Permission to access camera roll is required')
-      return
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required");
+      return;
+    }
+    let image = await ImagePicker.launchImageLibraryAsync();
+    dispatch(gotPhoto(image));
+  } catch (error) {
+    console.error(error);
   }
-    let image = await ImagePicker.launchImageLibraryAsync()
-    console.log(image)
-    dispatch(gotPhoto(image))
-
-  }
-  catch(error) {
-    console.error(error)
-  }
-}
-
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_PHOTO:
-      return {...state, photos: [...state.photos, {image: action.image}]}
-    default: return state
+      return { ...state, photos: [...state.photos, { image: action.image }] };
+    default:
+      return state;
   }
-}
+};
 
+const store = createStore(reducer, middleware);
 
-const store = createStore(reducer, middleware)
-
-
-export default store
+export default store;
