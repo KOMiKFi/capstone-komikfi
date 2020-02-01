@@ -2,6 +2,7 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
+import { getPhotoFromLibrary } from "../store";
 
 class Edit extends React.Component {
   render() {
@@ -9,18 +10,30 @@ class Edit extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.confirm}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate("Confirm")}
+          >
             <Text>confirm</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
-            source={{ uri: this.props.photos[0].image.uri }}
+            source={{
+              uri: this.props.photos[this.props.currentPhotoIdx].image.uri
+            }}
           />
         </View>
         <View style={styles.filterPlaceHolder}></View>
         <View style={styles.nav}>
+          <TouchableOpacity
+            style={styles.textContainer}
+            onPress={() =>
+              this.props.getPhotoFromLibrary(this.props.currentPhotoIdx)
+            }
+          >
+            <Text style={styles.text}>Library</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.textContainer}>
             <Text style={styles.text}>Filter</Text>
           </TouchableOpacity>
@@ -78,15 +91,17 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
-    photos: state.photos
+    photos: state.photos,
+    currentPhotoIdx: state.currentPhotoIdx
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getPhotoFromLibrary: () => {
-      dispatch(getPhotoFromLibrary());
+    getPhotoFromLibrary: idx => {
+      dispatch(getPhotoFromLibrary(idx));
     }
   };
 };

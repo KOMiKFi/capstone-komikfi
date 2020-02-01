@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary } from "../store";
 
-class LayoutOne extends React.Component {
+class Confirm extends React.Component {
   constructor() {
     super();
     // this.openImagePicker = this.openImagePicker.bind(this)
@@ -14,12 +14,12 @@ class LayoutOne extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.pictureFrame1}>
-          <TouchableOpacity onPress={() => this.props.getPhotoFromLibrary(0)}>
+          <TouchableOpacity onPress={this.props.backToEdit}>
             <Text>Pick an image</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.pictureFrame2}>
-          <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
+          <TouchableOpacity onPress={this.props.backToEdit}>
             <Text>Pick an image</Text>
           </TouchableOpacity>
         </View>
@@ -66,11 +66,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getPhotoFromLibrary: async idx => {
-      await dispatch(getPhotoFromLibrary(idx));
-      ownProps.navigation.push("Edit");
+    backToEdit: async () => {
+      ownProps.navigation.navigate("Edit");
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LayoutOne);
+export default connect(mapStateToProps, mapDispatchToProps)(Confirm);

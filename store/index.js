@@ -10,7 +10,8 @@ const middleware = applyMiddleware(
 
 // REDUCER
 const initialState = {
-  photos: []
+  photos: {},
+  currentPhotoIdx: 0
 };
 // state will look like this:
 // const sampleState = {
@@ -23,16 +24,36 @@ const initialState = {
 //   ]
 // }
 
+// const sampleStateInObject = {
+//   photos: {
+//     0: {
+//       image: { uri, cancelled, type, swidth, height },
+//       filter: true,
+//       bubble: [
+//         {
+//           position: { x: 0, y: 0, z: 0 },
+//           uri: "",
+//           text: "",
+//           rotation: "degree",
+//           scale: { x: 0, y: 0 }
+//         }
+//       ]
+//     },
+//     1: {}
+//   }
+// };
+
 const GOT_PHOTO = "GOT_PHOTO";
 
-const gotPhoto = image => {
+const gotPhoto = (image, idx) => {
   return {
     type: GOT_PHOTO,
-    image: image
+    image,
+    idx
   };
 };
 
-export const getPhotoFromLibrary = () => async dispatch => {
+export const getPhotoFromLibrary = idx => async dispatch => {
   try {
     let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
 
@@ -41,7 +62,7 @@ export const getPhotoFromLibrary = () => async dispatch => {
       return;
     }
     let image = await ImagePicker.launchImageLibraryAsync();
-    dispatch(gotPhoto(image));
+    dispatch(gotPhoto(image, idx));
   } catch (error) {
     console.error(error);
   }
@@ -50,7 +71,11 @@ export const getPhotoFromLibrary = () => async dispatch => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_PHOTO:
-      return { ...state, photos: [...state.photos, { image: action.image }] };
+      return {
+        ...state,
+        photos: { ...state.photos, [action.idx]: { image: action.image } },
+        currentPhotoIdx: action.idx
+      };
     default:
       return state;
   }
