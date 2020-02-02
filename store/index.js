@@ -36,6 +36,7 @@ const initialState = {
 
 const GOT_PHOTO = "GOT_PHOTO";
 const UPDATE_CURRENT_PHOTO_IDX = "UPDATE_CURRENT_PHOTO_IDX";
+const ADD_BUBBLE = "ADD_BUBBLE"
 
 const gotPhoto = (image, idx) => {
   return {
@@ -44,12 +45,21 @@ const gotPhoto = (image, idx) => {
     idx
   };
 };
+
 export const updateCurrentPhotoIdx = idx => {
   return {
     type: UPDATE_CURRENT_PHOTO_IDX,
     idx
   };
 };
+
+export const addBubble = idx => {
+  return {
+    type: ADD_BUBBLE,
+    idx,
+    bubble_uri: 'bubble.png'
+  }
+}
 
 export const getPhotoFromLibrary = idx => async dispatch => {
   try {
@@ -66,6 +76,8 @@ export const getPhotoFromLibrary = idx => async dispatch => {
   }
 };
 
+
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_PHOTO:
@@ -76,6 +88,12 @@ const reducer = (state = initialState, action) => {
       };
     case UPDATE_CURRENT_PHOTO_IDX:
       return { ...state, currentPhotoIdx: action.idx };
+    case ADD_BUBBLE:
+      return {
+        ...state,
+        photos: {...state.photos, [action.idx]: { image: state.photos[action.idx].image, bubble: action.bubble_uri }},
+        currentPhotoIdx: action.idx
+      }
     default:
       return state;
   }

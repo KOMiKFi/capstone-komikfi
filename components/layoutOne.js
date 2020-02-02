@@ -11,6 +11,7 @@ class LayoutOne extends React.Component {
   }
 
   render() {
+    console.log("STATE IN LAYOUT-ONE", this.props.state)
     return (
       <View style={styles.container}>
         <View style={styles.pictureFrame1}>

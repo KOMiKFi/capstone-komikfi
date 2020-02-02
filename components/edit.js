@@ -1,11 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity, ImageBackground } from "react-native";
 import { connect } from "react-redux";
-import { getPhotoFromLibrary } from "../store";
+import { getPhotoFromLibrary, addBubble } from "../store";
+import bubble from "../assets/bubble.png"
 
 class Edit extends React.Component {
   render() {
+    console.log("STATE IN EDIT", this.props.state)
     return (
       <View style={styles.container}>
         <View style={styles.confirm}>
@@ -16,12 +18,14 @@ class Edit extends React.Component {
           </TouchableOpacity>
         </View>
         <View style={styles.imageContainer}>
-          <Image
+          <ImageBackground
             style={styles.image}
             source={{
               uri: this.props.photos[this.props.currentPhotoIdx].image.uri
             }}
-          />
+          >
+            <Image source={bubble} />
+          </ImageBackground>
         </View>
         <View style={styles.filterPlaceHolder}></View>
         <View style={styles.nav}>
@@ -36,7 +40,10 @@ class Edit extends React.Component {
           <TouchableOpacity style={styles.textContainer}>
             <Text style={styles.text}>Filter</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.textContainer}>
+          <TouchableOpacity
+          style={styles.textContainer}
+          onPress={() => this.props.addBubble(this.props.currentPhotoIdx)}
+          >
             <Text style={styles.text}>Bubble</Text>
           </TouchableOpacity>
         </View>
@@ -100,6 +107,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getPhotoFromLibrary: idx => {
       dispatch(getPhotoFromLibrary(idx));
+    },
+    addBubble: idx => {
+      dispatch(addBubble(idx))
     }
   };
 };

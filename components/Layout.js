@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
 export default class Layout extends React.Component {
   render() {
+    console.log("STATE IN LAYOUT", this.props.state)
     return (
       <View style={styles.container}>
         <TouchableOpacity

@@ -6,6 +6,7 @@ import { updateCurrentPhotoIdx } from "../store";
 
 class Confirm extends React.Component {
   render() {
+    console.log("STATE IN CONFIRM", this.props.state)
     return (
       <View style={styles.container}>
         {/* <View style={styles.pictureFrame1}>
