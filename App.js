@@ -6,15 +6,17 @@ import Main from "./components/Main";
 import Layout from "./components/Layout";
 import Edit from "./components/edit";
 import LayoutOne from "./components/layoutOne";
+import Confirm from "./components/confirm";
 import { Provider } from "react-redux";
-import store from './store'
+import store from "./store";
 
 const AppNavigator = createStackNavigator(
   {
     Main: Main,
     Layout: Layout,
     LayoutOne: LayoutOne,
-    Edit: Edit
+    Edit: Edit,
+    Confirm: Confirm
   },
   {
     initialRouteName: "Main"
@@ -27,8 +29,8 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-       <AppContainer />
+        <AppContainer />
       </Provider>
-   )
+    );
   }
 }
