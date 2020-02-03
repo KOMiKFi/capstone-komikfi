@@ -11,6 +11,7 @@ class LayoutOne extends React.Component {
   }
 
   render() {
+    console.log("STATE IN LAYOUT-ONE", this.props.state)
     return (
       <View style={styles.container}>
         <View style={styles.pictureFrame1}>
@@ -19,7 +20,7 @@ class LayoutOne extends React.Component {
           </TouchableOpacity>
         </View>
         <View style={styles.pictureFrame2}>
-          <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
+          <TouchableOpacity onPress={ () => this.props.getPhotoFromLibrary(1)}>
             <Text>Pick an image</Text>
           </TouchableOpacity>
         </View>
