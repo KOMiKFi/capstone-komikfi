@@ -1,33 +1,48 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import { settingLayout } from '../store/index'
+import { connect } from 'react-redux'
 
-export default class Layout extends React.Component {
+export class ChooseCase extends React.Component {
   render() {
-    console.log("STATE IN LAYOUT", this.props.state)
+    console.log("LAYOUT", this.props.state)
+  
     return (
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.subLayout}
-          onPress={() => this.props.navigation.navigate("LayoutOne")}
+          onPress={() => {
+            this.props.settingLayout(1)
+            this.props.navigation.navigate("ComicLayout")
+          }}
         >
           <Text>Layout 1</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.subLayout}
-          onPress={() => this.props.navigation.navigate("Format")}
+          onPress={() => {
+            this.props.settingLayout(2)
+            this.props.navigation.navigate("ComicLayout")
+          }}
         >
           <Text>Format 2</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.subLayout}
-          onPress={() => this.props.navigation.navigate("Format")}
+          onPress={() => {
+            this.props.settingLayout(3)
+            this.props.navigation.navigate("ComicLayout")
+          }}
         >
           <Text>Format 3</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.subLayout}
-          onPress={() => this.props.navigation.navigate("Format")}
+          onPress={() => {
+            this.props.settingLayout(4)
+            this.props.navigation.navigate("ComicLayout")
+          }}
         >
           <Text>Format 4</Text>
         </TouchableOpacity>
@@ -57,3 +72,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 10
   }
 });
+
+
+const mapDispatchToProps = (dispatch) => ({
+  settingFormat: (layout) => dispatch(settingFormat(layout))
+})
+
+export default connect(mapStateToProps)(ChooseCase)

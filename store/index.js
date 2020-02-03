@@ -13,14 +13,15 @@ const initialState = {
   photos: {
     0: {
       image: {},
-      bubble: {uri: ''}
+      bubble: { uri: '' }
     },
     1: {
-      image: {uri: ''},
-      bubble: {uri: ''}
+      image: { uri: '' },
+      bubble: { uri: '' }
     }
   },
-  currentPhotoIdx: 0
+  currentPhotoIdx: 0,
+  layout: 0
 };
 // state will look like this:
 
@@ -46,6 +47,7 @@ const initialState = {
 const GOT_PHOTO = "GOT_PHOTO";
 const UPDATE_CURRENT_PHOTO_IDX = "UPDATE_CURRENT_PHOTO_IDX";
 const ADD_BUBBLE = "ADD_BUBBLE"
+const SET_LAYOUT = 'SET_LAYOUT'
 
 const gotPhoto = (image, idx) => {
   return {
@@ -70,6 +72,8 @@ export const addBubble = idx => {
   }
 }
 
+export const setLayout = layout => ({ type: SET_FORMAT, layout })
+
 export const getPhotoFromLibrary = idx => async dispatch => {
   try {
     let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -85,6 +89,16 @@ export const getPhotoFromLibrary = idx => async dispatch => {
   }
 };
 
+export const settingLayout = (format) => {
+  return dispatch => {
+    try {
+      dispatch(setFormat(format))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 
 
 const reducer = (state = initialState, action) => {
@@ -92,7 +106,7 @@ const reducer = (state = initialState, action) => {
     case GOT_PHOTO:
       return {
         ...state,
-        photos: { ...state.photos, [action.idx]: { image: action.image, bubble: state.photos[action.idx].bubble}},
+        photos: { ...state.photos, [action.idx]: { image: action.image, bubble: state.photos[action.idx].bubble } },
         currentPhotoIdx: action.idx
       };
     case UPDATE_CURRENT_PHOTO_IDX:
@@ -100,8 +114,12 @@ const reducer = (state = initialState, action) => {
     case ADD_BUBBLE:
       return {
         ...state,
-        photos: {...state.photos, [action.idx]: { image: state.photos[action.idx].image, bubble: {uri: action.bubble_uri }}},
+        photos: { ...state.photos, [action.idx]: { image: state.photos[action.idx].image, bubble: { uri: action.bubble_uri } } },
         currentPhotoIdx: action.idx
+      };
+    case SET_FORMAT:
+      return {
+        ...state, layout: action.layout
       }
     default:
       return state;
