@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
 
 
 const mapDispatchToProps = (dispatch) => ({
-  settingFormat: (layout) => dispatch(settingFormat(layout))
+  settingLayout: (layout) => dispatch(settingLayout(layout))
 })
 
-export default connect(mapStateToProps)(ChooseCase)
+export default connect(null, mapDispatchToProps)(ChooseCase)

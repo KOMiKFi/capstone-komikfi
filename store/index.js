@@ -72,7 +72,7 @@ export const addBubble = idx => {
   }
 }
 
-export const setLayout = layout => ({ type: SET_FORMAT, layout })
+export const setLayout = layout => ({ type: SET_LAYOUT, layout })
 
 export const getPhotoFromLibrary = idx => async dispatch => {
   try {
@@ -92,7 +92,7 @@ export const getPhotoFromLibrary = idx => async dispatch => {
 export const settingLayout = (format) => {
   return dispatch => {
     try {
-      dispatch(setFormat(format))
+      dispatch(setLayout(format))
     } catch (err) {
       console.error(err)
     }
@@ -117,7 +117,7 @@ const reducer = (state = initialState, action) => {
         photos: { ...state.photos, [action.idx]: { image: state.photos[action.idx].image, bubble: { uri: action.bubble_uri } } },
         currentPhotoIdx: action.idx
       };
-    case SET_FORMAT:
+    case SET_LAYOUT:
       return {
         ...state, layout: action.layout
       }
