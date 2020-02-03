@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary } from "../store";
 
-class LayoutOne extends React.Component {
+class ComicLayout extends React.Component {
   constructor() {
     super();
     // this.openImagePicker = this.openImagePicker.bind(this)
@@ -74,4 +74,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LayoutOne);
+export default connect(mapStateToProps, mapDispatchToProps)(ComicLayout);

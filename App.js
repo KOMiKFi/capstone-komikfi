@@ -3,9 +3,9 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { StyleSheet, Text, View } from "react-native";
 import Main from "./components/Main";
-import Layout from "./components/Layout";
+import ChooseLayout from "./components/chooseLayout";
 import Edit from "./components/edit";
-import LayoutOne from "./components/layoutOne";
+import ComicLayout from "./components/comicLayout";
 import Confirm from "./components/confirm";
 import { Provider } from "react-redux";
 import store from "./store";
@@ -13,8 +13,8 @@ import store from "./store";
 const AppNavigator = createStackNavigator(
   {
     Main: Main,
-    Layout: Layout,
-    LayoutOne: LayoutOne,
+    ChooseLayout: ChooseLayout,
+    ComicLayout: ComicLayout,
     Edit: Edit,
     Confirm: Confirm
   },
