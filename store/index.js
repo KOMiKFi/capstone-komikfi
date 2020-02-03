@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import * as ImagePicker from "expo-image-picker";
@@ -13,11 +13,11 @@ const initialState = {
   photos: {
     0: {
       image: {},
-      bubble: { uri: '' }
+      bubble: { uri: "" }
     },
     1: {
-      image: { uri: '' },
-      bubble: { uri: '' }
+      image: { uri: "" },
+      bubble: { uri: "" }
     }
   },
   currentPhotoIdx: 0,
@@ -46,8 +46,8 @@ const initialState = {
 
 const GOT_PHOTO = "GOT_PHOTO";
 const UPDATE_CURRENT_PHOTO_IDX = "UPDATE_CURRENT_PHOTO_IDX";
-const ADD_BUBBLE = "ADD_BUBBLE"
-const SET_LAYOUT = 'SET_LAYOUT'
+const ADD_BUBBLE = "ADD_BUBBLE";
+const SET_LAYOUT = "SET_LAYOUT";
 
 const gotPhoto = (image, idx) => {
   return {
@@ -68,11 +68,11 @@ export const addBubble = idx => {
   return {
     type: ADD_BUBBLE,
     idx,
-    bubble_uri: 'bubble.png'
-  }
-}
+    bubble_uri: "bubble.png"
+  };
+};
 
-export const setLayout = layout => ({ type: SET_LAYOUT, layout })
+export const setLayout = layout => ({ type: SET_LAYOUT, layout });
 
 export const getPhotoFromLibrary = idx => async dispatch => {
   try {
@@ -89,24 +89,28 @@ export const getPhotoFromLibrary = idx => async dispatch => {
   }
 };
 
-export const settingLayout = (format) => {
+export const settingLayout = format => {
   return dispatch => {
     try {
-      dispatch(setLayout(format))
+      dispatch(setLayout(format));
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
-}
-
-
+  };
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_PHOTO:
       return {
         ...state,
-        photos: { ...state.photos, [action.idx]: { image: action.image, bubble: state.photos[action.idx].bubble } },
+        photos: {
+          ...state.photos,
+          [action.idx]: {
+            image: action.image,
+            bubble: state.photos[action.idx].bubble
+          }
+        },
         currentPhotoIdx: action.idx
       };
     case UPDATE_CURRENT_PHOTO_IDX:
@@ -114,13 +118,20 @@ const reducer = (state = initialState, action) => {
     case ADD_BUBBLE:
       return {
         ...state,
-        photos: { ...state.photos, [action.idx]: { image: state.photos[action.idx].image, bubble: { uri: action.bubble_uri } } },
+        photos: {
+          ...state.photos,
+          [action.idx]: {
+            image: state.photos[action.idx].image,
+            bubble: { uri: action.bubble_uri }
+          }
+        },
         currentPhotoIdx: action.idx
       };
     case SET_LAYOUT:
       return {
-        ...state, layout: action.layout
-      }
+        ...state,
+        layout: action.layout
+      };
     default:
       return state;
   }
