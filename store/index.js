@@ -12,13 +12,13 @@ const middleware = applyMiddleware(
 const initialState = {
   photos: {
     0: {
-      image: {uri: ''},
+      image: {},
       bubble: {uri: ''}
     },
-  //   1: {
-  //     image: {uri: ''},
-  //     bubble: {uri: ''}
-  //   }
+    1: {
+      image: {uri: ''},
+      bubble: {uri: ''}
+    }
   },
   currentPhotoIdx: 0
 };

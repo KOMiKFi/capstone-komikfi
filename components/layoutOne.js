@@ -20,7 +20,7 @@ class LayoutOne extends React.Component {
           </TouchableOpacity>
         </View>
         <View style={styles.pictureFrame2}>
-          <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
+          <TouchableOpacity onPress={ () => this.props.getPhotoFromLibrary(1)}>
             <Text>Pick an image</Text>
           </TouchableOpacity>
         </View>
