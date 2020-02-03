@@ -72,7 +72,7 @@ export const addBubble = idx => {
   };
 };
 
-export const setLayout = layout => ({ type: SET_FORMAT, layout });
+export const setLayout = layout => ({ type: SET_LAYOUT, layout });
 
 export const getPhotoFromLibrary = idx => async dispatch => {
   try {
@@ -92,7 +92,7 @@ export const getPhotoFromLibrary = idx => async dispatch => {
 export const settingLayout = format => {
   return dispatch => {
     try {
-      dispatch(setFormat(format));
+      dispatch(setLayout(format));
     } catch (err) {
       console.error(err);
     }
