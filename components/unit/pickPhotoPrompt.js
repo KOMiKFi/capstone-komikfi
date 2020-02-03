@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    // currentPhotoIndex: state.currentPhotoIndex
+    currentPhotoIndex: state.currentPhotoIndex
   };
 };
 
