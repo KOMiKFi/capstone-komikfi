@@ -3,6 +3,8 @@ import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary } from "../store";
+import PickPhotoPrompt from "./unit/pickPhotoPrompt"
+import SinglePhoto from "./unit/singlePhoto"
 
 class ComicLayout extends React.Component {
   constructor() {
@@ -12,18 +14,23 @@ class ComicLayout extends React.Component {
 
   render() {
     console.log("STATE IN LAYOUT-ONE", this.props.state)
+    const newArr = new Array(this.props.layout).fill(0)
+    console.log(newArr)
+
     return (
       <View style={styles.container}>
-        <View style={styles.pictureFrame1}>
-          <TouchableOpacity onPress={() => this.props.getPhotoFromLibrary(0)}>
-            <Text>Pick an image</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.pictureFrame2}>
-          <TouchableOpacity onPress={ () => this.props.getPhotoFromLibrary(1)}>
-            <Text>Pick an image</Text>
-          </TouchableOpacity>
-        </View>
+        {newArr.map( (element, index) => { return (
+          <View
+            key={index}
+            style={styles.pictureFrame1}>
+            {/* {
+              !!this.props.photos[index].image.uri ? <SinglePhoto photoIdx={index}/> : <PickPhotoPrompt photoIdx={index}/>
+            } */}
+            <PickPhotoPrompt photoIdx={index}/>
+
+          </View>
+        )}
+      )}
       </View>
     );
   }
@@ -61,7 +68,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    state: state
+    state: state,
+    photos: state.photos,
+    layout: state.layout
   };
 };
 

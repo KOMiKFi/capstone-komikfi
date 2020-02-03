@@ -9,6 +9,7 @@ import ComicLayout from "./components/comicLayout";
 import Confirm from "./components/confirm";
 import { Provider } from "react-redux";
 import store from "./store";
+import PickPhotoPrompt from "./components/unit/pickPhotoPrompt"
 
 const AppNavigator = createStackNavigator(
   {
@@ -17,6 +18,8 @@ const AppNavigator = createStackNavigator(
     ComicLayout: ComicLayout,
     Edit: Edit,
     Confirm: Confirm
+    // PickPhotoPrompt: PickPhotoPrompt
+
   },
   {
     initialRouteName: "Main"
