@@ -1,12 +1,14 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity, ImageBackground } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../store";
+import bubble from "../assets/bubble.png"
 
 class Confirm extends React.Component {
   render() {
-    console.log("STATE IN CONFIRM", this.props.state)
+    console.log("STATE IN CONFIRM", this.props.photos)
+
     return (
       <View style={styles.container}>
         {/* <View style={styles.pictureFrame1}>
@@ -24,11 +26,16 @@ class Confirm extends React.Component {
             style={styles[`pictureFrame${key}`]}
             onPress={() => this.props.backToEdit(key)}
           >
-            <Image
+            <ImageBackground
               key={key}
               source={{ uri: this.props.photos[key].image.uri }}
               style={styles.pictureFrame1}
-            ></Image>
+            >
+              <View>
+               {this.props.photos[key].bubble.uri ?
+                (<Image source={bubble} style={styles.bubble} />) : null}
+               </View>
+            </ImageBackground>
           </TouchableOpacity>
         ))}
       </View>
@@ -51,16 +58,22 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     width: 400,
     flex: 5, //in veritcal
-    flexDirection: "row" //defining for the image so it wouldn't go beyond the width
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
+     //defining for the image so it wouldn't go beyond the width
   },
   pictureFrame1: {
+    flexDirection: 'row',
     width: 400,
     height: 300,
     borderColor: "green",
     borderWidth: 5,
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "space-around",
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    position: 'relative',
+
   },
   pictureFrame2: {
     width: 400,
@@ -72,6 +85,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     marginHorizontal: 10
+  },
+  bubble: {
+    height: 200,
+    width: 200,
+    position: "absolute",
+    alignSelf: "center"
+
+
+
   }
 });
 

@@ -7,7 +7,8 @@ import bubble from "../assets/bubble.png"
 
 class Edit extends React.Component {
   render() {
-    console.log("STATE IN EDIT", this.props.state)
+    console.log("STATE PHOTOS IN EDIT", this.props.photos)
+    console.log("CURRENT ID IN EDIT", this.props.currentPhotoIdx)
     return (
       <View style={styles.container}>
         <View style={styles.confirm}>
@@ -24,7 +25,11 @@ class Edit extends React.Component {
               uri: this.props.photos[this.props.currentPhotoIdx].image.uri
             }}
           >
-            <Image source={bubble} />
+              <View>
+               { this.props.photos[this.props.currentPhotoIdx].bubble.uri ?
+                (<Image source={bubble} style={styles.bubble} />) : null }
+              </View>
+
           </ImageBackground>
         </View>
         <View style={styles.filterPlaceHolder}></View>
@@ -93,13 +98,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     justifyContent: "center"
   },
-  text: { fontSize: 20, alignSelf: "center" }
+  text: {
+    fontSize: 20,
+    alignSelf: "center"
+  },
+  bubble: {
+    height: 300,
+    width: 300,
+    position: "absolute",
+  }
 });
 
 const mapStateToProps = state => {
   return {
     photos: state.photos,
-    currentPhotoIdx: state.currentPhotoIdx
+    currentPhotoIdx: state.currentPhotoIdx,
   };
 };
 

@@ -10,7 +10,16 @@ const middleware = applyMiddleware(
 
 // REDUCER
 const initialState = {
-  photos: {},
+  photos: {
+    0: {
+      image: {uri: ''},
+      bubble: {uri: ''}
+    },
+  //   1: {
+  //     image: {uri: ''},
+  //     bubble: {uri: ''}
+  //   }
+  },
   currentPhotoIdx: 0
 };
 // state will look like this:
@@ -83,7 +92,7 @@ const reducer = (state = initialState, action) => {
     case GOT_PHOTO:
       return {
         ...state,
-        photos: { ...state.photos, [action.idx]: { image: action.image } },
+        photos: { ...state.photos, [action.idx]: { image: action.image, bubble: state.photos[action.idx].bubble}},
         currentPhotoIdx: action.idx
       };
     case UPDATE_CURRENT_PHOTO_IDX:
@@ -91,7 +100,7 @@ const reducer = (state = initialState, action) => {
     case ADD_BUBBLE:
       return {
         ...state,
-        photos: {...state.photos, [action.idx]: { image: state.photos[action.idx].image, bubble: action.bubble_uri }},
+        photos: {...state.photos, [action.idx]: { image: state.photos[action.idx].image, bubble: {uri: action.bubble_uri }}},
         currentPhotoIdx: action.idx
       }
     default:
