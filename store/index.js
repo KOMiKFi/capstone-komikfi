@@ -47,7 +47,7 @@ const initialState = {
 const GOT_PHOTO = "GOT_PHOTO";
 const UPDATE_CURRENT_PHOTO_IDX = "UPDATE_CURRENT_PHOTO_IDX";
 const ADD_BUBBLE = "ADD_BUBBLE"
-const SET_FORMAT = 'SET_FORMAT'
+const SET_LAYOUT = 'SET_LAYOUT'
 
 const gotPhoto = (image, idx) => {
   return {
@@ -72,7 +72,7 @@ export const addBubble = idx => {
   }
 }
 
-export const setFormat = format => ({ type: SET_FORMAT, format })
+export const setLayout = layout => ({ type: SET_FORMAT, layout })
 
 export const getPhotoFromLibrary = idx => async dispatch => {
   try {
@@ -89,7 +89,7 @@ export const getPhotoFromLibrary = idx => async dispatch => {
   }
 };
 
-export const settingFormat = (format) => {
+export const settingLayout = (format) => {
   return dispatch => {
     try {
       dispatch(setFormat(format))
@@ -119,7 +119,7 @@ const reducer = (state = initialState, action) => {
       };
     case SET_FORMAT:
       return {
-        ...state, format: action.format
+        ...state, layout: action.layout
       }
     default:
       return state;
