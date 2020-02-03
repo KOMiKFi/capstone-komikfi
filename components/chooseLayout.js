@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import { settingFormat } from '../store/index'
+import { settingLayout } from '../store/index'
 import { connect } from 'react-redux'
 
 export class ChooseCase extends React.Component {
@@ -13,7 +13,7 @@ export class ChooseCase extends React.Component {
         <TouchableOpacity
           style={styles.subLayout}
           onPress={() => {
-            this.props.settingFormat(1)
+            this.props.settingLayout(1)
             this.props.navigation.navigate("ComicLayout")
           }}
         >
@@ -22,7 +22,7 @@ export class ChooseCase extends React.Component {
         <TouchableOpacity
           style={styles.subLayout}
           onPress={() => {
-            this.props.settingFormat(2)
+            this.props.settingLayout(2)
             this.props.navigation.navigate("ComicLayout")
           }}
         >
@@ -31,7 +31,7 @@ export class ChooseCase extends React.Component {
         <TouchableOpacity
           style={styles.subLayout}
           onPress={() => {
-            this.props.settingFormat(3)
+            this.props.settingLayout(3)
             this.props.navigation.navigate("ComicLayout")
           }}
         >
@@ -40,7 +40,7 @@ export class ChooseCase extends React.Component {
         <TouchableOpacity
           style={styles.subLayout}
           onPress={() => {
-            this.props.settingFormat(4)
+            this.props.settingLayout(4)
             this.props.navigation.navigate("ComicLayout")
           }}
         >
@@ -73,12 +73,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => ({
-  format: state.format
-})
 
 const mapDispatchToProps = (dispatch) => ({
-  settingFormat: (format) => dispatch(settingFormat(format))
+  settingFormat: (layout) => dispatch(settingFormat(layout))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChooseCase)
+export default connect(mapStateToProps)(ChooseCase)
