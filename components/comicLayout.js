@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    borderColor: "red",
+    borderColor: "green",
     borderWidth: 5
   },
   container2: {
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    borderColor: "red",
+    borderColor: "green",
     borderWidth: 5
   },
   container3: {
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    borderColor: "red",
+    borderColor: "green",
     borderWidth: 5
   },
   container4: {
@@ -91,22 +91,21 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: 'wrap',
     width: "100%",
-    // alignContent: "stretch",
-    // alignItems: "flex-start",
-    // justifyContent: "flex-start",
+    alignContent: "stretch",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
     borderColor: "green",
     borderWidth: 5
   },
   pictureFrame: {
     flex: 1,
     width: "100%",
-    borderColor: "red",
+    borderColor: "green",
     borderWidth: 5,
     alignItems: "center",
     justifyContent: "space-around",
   },
   pictureFrame4: {
-    flex: 1,
     height: "50%",
     width: "50%",
     borderColor: "green",
@@ -117,7 +116,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     width: "100%",
-    borderColor: "red",
+    borderColor: "green",
     borderWidth: 5,
   },
   nav: {
