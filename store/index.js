@@ -18,6 +18,14 @@ const initialState = {
     1: {
       image: { uri: "" },
       bubble: { uri: "" }
+    },
+    2: {
+      image: { uri: "" },
+      bubble: { uri: "" }
+    },
+    3: {
+      image: { uri: "" },
+      bubble: { uri: "" }
     }
   },
   currentPhotoIdx: 0,

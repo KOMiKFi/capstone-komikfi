@@ -10,6 +10,7 @@ class PickPhotoPrompt extends React.Component {
   }
 
   render() {
+    console.log("In PickPhotoPrompt", this.props);
     return (
       <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
         <Text>Pick an image</Text>
@@ -44,9 +45,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+  console.log("PICKPHOTO OWN PROPS", ownProps);
   return {
     getPhotoFromLibrary: async () => {
-      await dispatch(getPhotoFromLibrary(ownProps.key));
+      await dispatch(getPhotoFromLibrary(ownProps.photoIdx));
       ownProps.navigation.push("Edit");
     }
   };

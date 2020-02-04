@@ -17,18 +17,17 @@ class SinglePhoto extends React.Component {
     super(props);
   }
   render() {
-    console.log("STATE IN SinglePhoto", this.props.currentPhoto);
+    console.log("STATE IN SinglePhoto", this.props.photoIdx);
 
     return (
       // <View style={styles.container}>
       <TouchableOpacity
         style={styles.singlePhoto}
-        onPress={() => this.props.backToEdit(key)}
+        onPress={() => this.props.backToEdit(this.props.photoIdx)}
       >
         <ImageBackground
-          key={key}
           source={{ uri: this.props.currentPhoto.image.uri }}
-          style={styles.pictureFrame1}
+          style={styles.imageBackground}
         >
           <View>
             {this.props.currentPhoto.bubble.uri ? (
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
     //defining for the image so it wouldn't go beyond the width
   },
-  singlePhoto: {
+  imageBackground: {
     flexDirection: "row",
     width: 400,
     height: 300,
@@ -82,15 +81,16 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
+  console.log("OWN PROPS IN SINGLEPHOTO", ownProps);
   return {
-    currentPhoto: state.photos(ownProps.key)
+    currentPhoto: state.photos[ownProps.photoIdx]
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     backToEdit: async () => {
-      await dispatch(updateCurrentPhotoIdx(ownProps.key));
+      await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
       ownProps.navigation.navigate("Edit");
     }
   };

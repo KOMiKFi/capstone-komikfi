@@ -6,7 +6,6 @@ import Main from "./components/Main";
 import ChooseLayout from "./components/chooseLayout";
 import Edit from "./components/edit";
 import ComicLayout from "./components/comicLayout";
-import Confirm from "./components/confirm";
 import { Provider } from "react-redux";
 import store from "./store";
 
@@ -16,7 +15,7 @@ const AppNavigator = createStackNavigator(
     ChooseLayout: ChooseLayout,
     ComicLayout: ComicLayout,
     Edit: Edit,
-    Confirm: Confirm
+    Confirm: ComicLayout
   },
   {
     initialRouteName: "Main"
