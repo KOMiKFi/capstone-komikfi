@@ -2,7 +2,7 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { getPhotoFromLibrary } from "../store";
+import { getPhotoFromLibrary, updateCurrentPhotoIdx } from "../store";
 import PickPhotoPrompt from "./unit/pickPhotoPrompt";
 import SinglePhoto from "./unit/singlePhoto";
 
@@ -12,10 +12,7 @@ class ComicLayout extends React.Component {
   }
 
   render() {
-    console.log("IN COMIC LAYOUT", this.props);
     const newArr = new Array(this.props.layout).fill(0);
-    console.log(newArr);
-
     return (
       <View style={styles.container}>
         <TouchableOpacity position={{ x: 0 }}>
@@ -24,10 +21,10 @@ class ComicLayout extends React.Component {
         <View>
           {newArr.map((element, index) => {
             return (
-              <View
+              <TouchableOpacity
                 key={index}
                 style={styles.pictureFrame}
-                // height={200 / this.props.layout}
+              // height={200 / this.props.layout}
               >
                 {!!this.props.photos[index].image.uri ? (
                   <SinglePhoto
@@ -35,12 +32,12 @@ class ComicLayout extends React.Component {
                     photoIdx={index}
                   />
                 ) : (
-                  <PickPhotoPrompt
-                    navigation={this.props.navigation}
-                    photoIdx={index}
-                  />
-                )}
-              </View>
+                    <PickPhotoPrompt
+                      navigation={this.props.navigation}
+                      photoIdx={index}
+                    />
+                  )}
+              </TouchableOpacity>
             );
           })}
         </View>
@@ -78,12 +75,16 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getPhotoFromLibrary: async idx => {
       await dispatch(getPhotoFromLibrary(idx));
+    },
+    backToEdit: async (index) => {
+      await dispatch(updateCurrentPhotoIdx(index));
+      ownProps.navigation.navigate("Edit");
     }
-  };
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComicLayout);
