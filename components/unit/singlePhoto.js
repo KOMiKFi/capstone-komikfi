@@ -10,14 +10,14 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
-import bubble from "../../assets/bubble.png";
+import Bubble from "./bubble";
 
 class SinglePhoto extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
-    console.log("STATE IN SinglePhoto", this.props.photoIdx);
+    // console.log("STATE IN SinglePhoto", this.props.photoIdx);
 
     return (
       // <View style={styles.container}>
@@ -30,9 +30,11 @@ class SinglePhoto extends React.Component {
           style={styles.imageBackground}
         >
           <View>
-            {this.props.currentPhoto.bubble.uri ? (
-              <Image source={bubble} style={styles.bubble} />
-            ) : null}
+            {bubbleArray[0]
+              ? bubbleArray.map((bubble, idx) => (
+                  <Bubble key={idx} {...bubble} />
+                ))
+              : null}
           </View>
         </ImageBackground>
       </TouchableOpacity>
@@ -40,6 +42,18 @@ class SinglePhoto extends React.Component {
     );
   }
 }
+
+const bubbleArray = [
+  {
+    x: 1,
+    y: 1,
+    rotation: 30,
+    text: "geasf",
+    uri: "../../assets/bubble.png",
+    height: 200,
+    width: 200
+  }
+];
 
 const styles = StyleSheet.create({
   container: {
@@ -81,7 +95,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("OWN PROPS IN SINGLEPHOTO", ownProps);
+  // console.log("OWN PROPS IN SINGLEPHOTO", ownProps);
   return {
     currentPhoto: state.photos[ownProps.photoIdx]
   };
