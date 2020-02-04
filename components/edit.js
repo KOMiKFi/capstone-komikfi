@@ -1,23 +1,22 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity, ImageBackground } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ImageBackground
+} from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../store";
-import bubble from "../assets/bubble.png"
+import bubble from "../assets/bubble.png";
 
 class Edit extends React.Component {
   render() {
-    console.log("STATE PHOTOS IN EDIT", this.props.photos)
-    console.log("CURRENT ID IN EDIT", this.props.currentPhotoIdx)
     return (
       <View style={styles.container}>
-        <View style={styles.confirm}>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("Confirm")}
-          >
-            <Text>confirm</Text>
-          </TouchableOpacity>
-        </View>
+        <View style={styles.confirm}></View>
         <View style={styles.imageContainer}>
           <ImageBackground
             style={styles.image}
@@ -25,11 +24,11 @@ class Edit extends React.Component {
               uri: this.props.photos[this.props.currentPhotoIdx].image.uri
             }}
           >
-              <View>
-               { this.props.photos[this.props.currentPhotoIdx].bubble.uri ?
-                (<Image source={bubble} style={styles.bubble} />) : null }
-              </View>
-
+            <View>
+              {this.props.photos[this.props.currentPhotoIdx].bubble.uri ? (
+                <Image source={bubble} style={styles.bubble} />
+              ) : null}
+            </View>
           </ImageBackground>
         </View>
         <View style={styles.filterPlaceHolder}></View>
@@ -46,8 +45,8 @@ class Edit extends React.Component {
             <Text style={styles.text}>Filter</Text>
           </TouchableOpacity>
           <TouchableOpacity
-          style={styles.textContainer}
-          onPress={() => this.props.addBubble(this.props.currentPhotoIdx)}
+            style={styles.textContainer}
+            onPress={() => this.props.addBubble(this.props.currentPhotoIdx)}
           >
             <Text style={styles.text}>Bubble</Text>
           </TouchableOpacity>
@@ -77,7 +76,8 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    width: 400 //same as the layout component
+    //same as the layout component
+    height: 400
   },
   filterPlaceHolder: {
     flex: 2
@@ -105,14 +105,14 @@ const styles = StyleSheet.create({
   bubble: {
     height: 300,
     width: 300,
-    position: "absolute",
+    position: "absolute"
   }
 });
 
 const mapStateToProps = state => {
   return {
     photos: state.photos,
-    currentPhotoIdx: state.currentPhotoIdx,
+    currentPhotoIdx: state.currentPhotoIdx
   };
 };
 
@@ -122,7 +122,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(getPhotoFromLibrary(idx));
     },
     addBubble: idx => {
-      dispatch(addBubble(idx))
+      dispatch(addBubble(idx));
     }
   };
 };

@@ -3,34 +3,47 @@ import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary } from "../store";
-import PickPhotoPrompt from "./unit/pickPhotoPrompt"
-import SinglePhoto from "./unit/singlePhoto"
+import PickPhotoPrompt from "./unit/pickPhotoPrompt";
+import SinglePhoto from "./unit/singlePhoto";
 
 class ComicLayout extends React.Component {
   constructor() {
     super();
-    // this.openImagePicker = this.openImagePicker.bind(this)
   }
 
   render() {
-    console.log("STATE IN LAYOUT-ONE", this.props.state)
-    const newArr = new Array(this.props.layout).fill(0)
-    console.log(newArr)
+    console.log("IN COMIC LAYOUT", this.props);
+    const newArr = new Array(this.props.layout).fill(0);
+    console.log(newArr);
 
     return (
       <View style={styles.container}>
-        {newArr.map( (element, index) => { return (
-          <View
-            key={index}
-            style={styles.pictureFrame1}>
-            {/* {
-              !!this.props.photos[index].image.uri ? <SinglePhoto photoIdx={index}/> : <PickPhotoPrompt photoIdx={index}/>
-            } */}
-            <PickPhotoPrompt photoIdx={index}/>
-
-          </View>
-        )}
-      )}
+        <TouchableOpacity position={{ x: 0 }}>
+          <Text>confirm</Text>
+        </TouchableOpacity>
+        <View>
+          {newArr.map((element, index) => {
+            return (
+              <View
+                key={index}
+                style={styles.pictureFrame}
+                // height={200 / this.props.layout}
+              >
+                {!!this.props.photos[index].image.uri ? (
+                  <SinglePhoto
+                    navigation={this.props.navigation}
+                    photoIdx={index}
+                  />
+                ) : (
+                  <PickPhotoPrompt
+                    navigation={this.props.navigation}
+                    photoIdx={index}
+                  />
+                )}
+              </View>
+            );
+          })}
+        </View>
       </View>
     );
   }
@@ -42,24 +55,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 40,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    borderColor: "red",
+    borderWidth: 5
   },
-  pictureFrame1: {
+  pictureFrame: {
+    flex: 1,
     width: 400,
-    height: 300,
     borderColor: "black",
     borderWidth: 5,
-    alignItems: "center",
-    justifyContent: "space-around",
-    marginHorizontal: 10
-  },
-  pictureFrame2: {
-    width: 400,
-    height: 300,
-    borderColor: "black",
-    borderBottomWidth: 5,
-    borderLeftWidth: 5,
-    borderRightWidth: 5,
     alignItems: "center",
     justifyContent: "space-around",
     marginHorizontal: 10
@@ -74,11 +78,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
     getPhotoFromLibrary: async idx => {
       await dispatch(getPhotoFromLibrary(idx));
-      ownProps.navigation.push("Edit");
     }
   };
 };

@@ -19,7 +19,6 @@ class SinglePhoto extends React.Component {
   render() {
     console.log("STATE IN SinglePhoto", this.props.photoIdx);
 
-
     return (
       // <View style={styles.container}>
       <TouchableOpacity
@@ -28,6 +27,7 @@ class SinglePhoto extends React.Component {
       >
         <ImageBackground
           source={{ uri: this.props.currentPhoto.image.uri }}
+          style={styles.imageBackground}
         >
           <View>
             {this.props.currentPhoto.bubble.uri ? (
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
     //defining for the image so it wouldn't go beyond the width
   },
-  singlePhoto: {
+  imageBackground: {
     flexDirection: "row",
     width: 400,
     height: 300,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("OWN PROPS IN SINGLEPHOTO", ownProps)
+  console.log("OWN PROPS IN SINGLEPHOTO", ownProps);
   return {
     currentPhoto: state.photos[ownProps.photoIdx]
   };
