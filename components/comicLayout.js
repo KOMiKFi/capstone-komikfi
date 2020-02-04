@@ -17,20 +17,17 @@ class ComicLayout extends React.Component {
     console.log(newArr);
 
     return (
-      <View style={styles.container}>
-        <TouchableOpacity position={{ x: 0 }}>
-          <Text>confirm</Text>
-        </TouchableOpacity>
-        <View>
+      <View style={styles.page}>
+        <View style={styles[`container${this.props.layout}`]}>
           {newArr.map((element, index) => {
             return (
               <View
                 key={index}
-                style={styles.pictureFrame}
-                // height={200 / this.props.layout}
+                style={this.props.layout === 4 ? styles.pictureFrame4 : styles.pictureFrame}
               >
                 {!!this.props.photos[index].image.uri ? (
                   <SinglePhoto
+                    style={styles.image}
                     navigation={this.props.navigation}
                     photoIdx={index}
                   />
@@ -44,29 +41,97 @@ class ComicLayout extends React.Component {
             );
           })}
         </View>
-      </View>
+        <View style={styles.nav}>
+        <TouchableOpacity position={{ x: 0 }}>
+          <Text style={styles.navItem} >Confirm</Text>
+        </TouchableOpacity>
+        </View>
+
+  </View>
+
+
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  page: {
+    display: "flex",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 40,
-    paddingHorizontal: 10,
+  },
+  container1: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     borderColor: "red",
+    borderWidth: 5
+  },
+  container2: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: "red",
+    borderWidth: 5
+  },
+  container3: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: "red",
+    borderWidth: 5
+  },
+  container4: {
+    display: "flex",
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: 'wrap',
+    width: "100%",
+    // alignContent: "stretch",
+    // alignItems: "flex-start",
+    // justifyContent: "flex-start",
+    borderColor: "green",
     borderWidth: 5
   },
   pictureFrame: {
     flex: 1,
-    width: 400,
-    borderColor: "black",
+    width: "100%",
+    borderColor: "red",
     borderWidth: 5,
     alignItems: "center",
     justifyContent: "space-around",
-    marginHorizontal: 10
+  },
+  pictureFrame4: {
+    flex: 1,
+    height: "50%",
+    width: "50%",
+    borderColor: "green",
+    borderWidth: 5,
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  image: {
+    flex: 1,
+    width: "100%",
+    borderColor: "red",
+    borderWidth: 5,
+  },
+  nav: {
+    flex: 0.1,
+    width: "100%",
+    borderColor: "white",
+    backgroundColor: "white",
+    borderWidth: 5,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center"
+  },
+  navItem: {
+    color: "blue"
   }
 });
 
