@@ -17,15 +17,21 @@ class Bubble extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ""
+      text: "",
+      rotationZ: 0,
+      translateX: 0,
+      scaleX: 1,
+      scaleY: 1
     };
+    this.handleMove=this.handleMove.bind(this)
   }
+  handleMove()
   render() {
-    console.log("in bubble", this.props.uri);
+    console.log("in bubble", this.state);
     return (
-      <View style={styles.container}>
+      <View style={styles.container} >
         <ImageBackground
-          source={require("../../assets/bubble.png")}
+          source={require("../../assets/bubble1.png")}
           style={{ ...styles.bubble, height: this.props.height }}
         >
           <TextInput
@@ -33,7 +39,7 @@ class Bubble extends React.Component {
             multiline
             numberOfLines={2}
             editable
-            onChangeText={text => this.setState({ text: text })}
+            onChangeText={text => this.setState({ ...this.state, text: text })}
             value={this.state.text}
           ></TextInput>
         </ImageBackground>
@@ -45,11 +51,15 @@ class Bubble extends React.Component {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    borderColor: "black",
+    borderColor: "purple",
     borderWidth: 5,
-    // alignItems: "center",
-    paddingVertical: 40,
-    paddingHorizontal: 10
+    transform: [
+      { rotateZ: "30deg" },
+      { translateX: -100 },
+      { translateY: 100 },
+      { scaleX: 1.5 },
+      { scaleY: 1.5 }
+    ]
   },
   bubble: {
     height: 200,
@@ -58,12 +68,13 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   text: {
-    zIndex: 1,
+    // zIndex: 1,
     position: "relative",
-    left: 50,
+    left: "15%",
+    bottom: "20%",
     fontSize: 20,
-    width: 100,
-    height: 100
+    width: "60%",
+    height: "40%"
   }
 });
 
