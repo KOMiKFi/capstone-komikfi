@@ -10,7 +10,6 @@ class PickPhotoPrompt extends React.Component {
   }
 
   render() {
-    console.log("In PickPhotoPrompt", this.props);
     return (
       <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
         <Text>Pick an image</Text>
