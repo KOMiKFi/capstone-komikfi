@@ -6,14 +6,15 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  PixelRatio
+  PixelRatio,
+  Alert
 } from "react-native";
 import { connect } from "react-redux";
 import { captureRef } from "react-native-view-shot";
 import * as Permissions from "expo-permissions";
 import * as MediaLibrary from "expo-media-library";
 
-import { getPhotoFromLibrary, updateCurrentPhotoIdx } from "../store";
+import { getPhotoFromLibrary, updateCurrentPhotoIdx, clearPhotos } from "../store";
 import PickPhotoPrompt from "./unit/pickPhotoPrompt";
 import SinglePhoto from "./unit/singlePhoto";
 
@@ -28,12 +29,12 @@ class ComicLayout extends React.Component {
     if (status !== "granted") {
       alert("The app needs permissions to save to camera roll");
     }
-
     try {
       let uri = await captureRef(this.comicView, {
         format: "png"
       });
       const asset = await MediaLibrary.createAssetAsync(uri);
+      alert("Awesome Job! The comic is now saved in your Camera Roll",)
 
     } catch (error) {
       console.error(error);
@@ -84,7 +85,15 @@ class ComicLayout extends React.Component {
               this.savePhoto();
             }}
           >
-            <Text style={styles.navItem}>Save to Camera Roll</Text>
+            <Text style={styles.navItem}>Save</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            position={{ x: 0 }}
+            onPress={() => {
+              this.props.clearPhotos();
+            }}
+          >
+            <Text style={styles.navItem}>Clear</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -188,6 +197,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     backToEdit: async index => {
       await dispatch(updateCurrentPhotoIdx(index));
       ownProps.navigation.navigate("Edit");
+    },
+    clearPhotos: async () => {
+      await dispatch(clearPhotos())
     }
   };
 };
