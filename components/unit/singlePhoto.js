@@ -17,9 +17,7 @@ class SinglePhoto extends React.Component {
     super(props);
   }
   render() {
-
     return (
-      // <View style={styles.container}>
       <TouchableOpacity
         style={styles.singlePhoto}
         onPress={() => this.props.backToEdit(this.props.photoIdx)}
@@ -34,8 +32,7 @@ class SinglePhoto extends React.Component {
             ) : null}
           </View>
         </ImageBackground>
-      </TouchableOpacity>
-      // </View>
+      </TouchableOpacity >
     );
   }
 }
@@ -82,6 +79,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
   return {
     currentPhoto: state.photos[ownProps.photoIdx]
+    // currentPhoto: state.photos[state.currentPhotoIdx]
+
   };
 };
 

@@ -11,26 +11,17 @@ import {
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../store";
 import bubble from "../assets/bubble.png";
+import SinglePhoto from './unit/singlePhoto'
 
 class Edit extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.confirm}></View>
-        <View style={styles.imageContainer}>
-          <ImageBackground
-            style={styles.image}
-            source={{
-              uri: this.props.photos[this.props.currentPhotoIdx].image.uri
-            }}
-          >
-            <View>
-              {this.props.photos[this.props.currentPhotoIdx].bubble.uri ? (
-                <Image source={bubble} style={styles.bubble} />
-              ) : null}
-            </View>
-          </ImageBackground>
-        </View>
+        <SinglePhoto
+          photoIdx={this.props.currentPhotoIdx}
+          navigation={this.props.navigation}
+        />
         <View style={styles.filterPlaceHolder}></View>
         <View style={styles.nav}>
           <TouchableOpacity
@@ -110,10 +101,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    photos: state.photos,
-    currentPhotoIdx: state.currentPhotoIdx
+    currentPhotoIdx: state.currentPhotoIdx,
+    currentPhoto: state.photos[state.currentPhotoIdx]
   };
 };
 

@@ -44,7 +44,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  console.log("PICKPHOTO OWN PROPS", ownProps);
   return {
     getPhotoFromLibrary: async () => {
       await dispatch(getPhotoFromLibrary(ownProps.photoIdx));

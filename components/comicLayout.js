@@ -3,7 +3,7 @@ import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity, PixelRatio } from "react-native";
 import { CameraRoll } from 'react-native-cameraroll'
 import { connect } from "react-redux";
-import { getPhotoFromLibrary } from "../store";
+import { getPhotoFromLibrary, updateCurrentPhotoIdx } from "../store";
 import PickPhotoPrompt from "./unit/pickPhotoPrompt";
 import SinglePhoto from "./unit/singlePhoto";
 import { captureRef } from  "react-native-view-shot"
@@ -63,8 +63,6 @@ class ComicLayout extends React.Component {
 
   render() {
     const newArr = new Array(this.props.layout).fill(0);
-
-
     return (
       <View style={styles.page}>
         <View
@@ -73,7 +71,7 @@ class ComicLayout extends React.Component {
         >
           {newArr.map((element, index) => {
             return (
-              <View
+              <TouchableOpacity
                 key={index}
                 style={this.props.layout === 4 ? styles.pictureFrame4 : styles.pictureFrame}
               >
@@ -84,12 +82,12 @@ class ComicLayout extends React.Component {
                     photoIdx={index}
                   />
                 ) : (
-                  <PickPhotoPrompt
-                    navigation={this.props.navigation}
-                    photoIdx={index}
-                  />
-                )}
-              </View>
+                    <PickPhotoPrompt
+                      navigation={this.props.navigation}
+                      photoIdx={index}
+                    />
+                  )}
+              </TouchableOpacity>
             );
           })}
         </View>
@@ -197,12 +195,16 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getPhotoFromLibrary: async idx => {
       await dispatch(getPhotoFromLibrary(idx));
+    },
+    backToEdit: async (index) => {
+      await dispatch(updateCurrentPhotoIdx(index));
+      ownProps.navigation.navigate("Edit");
     }
-  };
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComicLayout);
