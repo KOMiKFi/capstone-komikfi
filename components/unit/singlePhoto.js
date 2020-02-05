@@ -17,8 +17,6 @@ class SinglePhoto extends React.Component {
     super(props);
   }
   render() {
-    // console.log("STATE IN SinglePhoto", this.props.photoIdx);
-
     return (
       // <View style={styles.container}>
       <TouchableOpacity
@@ -95,7 +93,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("OWN PROPS IN SINGLEPHOTO", ownProps);
   return {
     currentPhoto: state.photos[ownProps.photoIdx]
   };

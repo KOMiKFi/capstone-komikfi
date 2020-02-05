@@ -12,9 +12,7 @@ class ComicLayout extends React.Component {
   }
 
   render() {
-    console.log("IN COMIC LAYOUT", this.props);
     const newArr = new Array(this.props.layout).fill(0);
-    console.log(newArr);
 
     return (
       <View style={styles.container}>
