@@ -16,17 +16,11 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
-<<<<<<< HEAD
-    "react-native-gesture-handler": "^1.5.6",
-    "react-native-safe-area-context": "^0.6.4",
-    "react-native-screens": "^2.0.0-alpha.32",
-=======
     "react-native-cameraroll": "^1.0.0-alpha2",
     "react-native-gesture-handler": "^1.5.3",
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-view-shot": "3.0.2",
->>>>>>> 1a83e8cc8522da7259aa8da1514781d07c6eca13
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.1.0",
     "react-navigation-stack": "^2.0.16",
