@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
-import bubble from "../../assets/bubble.png";
+import Bubble from "./bubble";
 
 class SinglePhoto extends React.Component {
   constructor(props) {
@@ -27,15 +27,29 @@ class SinglePhoto extends React.Component {
           style={styles.imageBackground}
         >
           <View>
-            {this.props.currentPhoto.bubble.uri ? (
-              <Image source={bubble} style={styles.bubble} />
-            ) : null}
+            {bubbleArray[0]
+              ? bubbleArray.map((bubble, idx) => (
+                  <Bubble key={idx} {...bubble} />
+                ))
+              : null}
           </View>
         </ImageBackground>
       </TouchableOpacity >
     );
   }
 }
+
+const bubbleArray = [
+  {
+    x: 1,
+    y: 1,
+    rotation: 30,
+    text: "geasf",
+    uri: "../../assets/bubble.png",
+    height: 200,
+    width: 200
+  }
+];
 
 const styles = StyleSheet.create({
   container: {

@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import { settingLayout } from '../store/index'
-import { connect } from 'react-redux'
+import { settingLayout } from "../store/index";
+import { connect } from "react-redux";
 
 export class ChooseCase extends React.Component {
   render() {
@@ -11,8 +11,8 @@ export class ChooseCase extends React.Component {
         <TouchableOpacity
           style={styles.subLayout}
           onPress={() => {
-            this.props.settingLayout(1)
-            this.props.navigation.navigate("ComicLayout")
+            this.props.settingLayout(1);
+            this.props.navigation.navigate("ComicLayout");
           }}
         >
           <Text>Layout 1</Text>
@@ -20,8 +20,8 @@ export class ChooseCase extends React.Component {
         <TouchableOpacity
           style={styles.subLayout}
           onPress={() => {
-            this.props.settingLayout(2)
-            this.props.navigation.navigate("ComicLayout")
+            this.props.settingLayout(2);
+            this.props.navigation.navigate("ComicLayout");
           }}
         >
           <Text>Format 2</Text>
@@ -29,8 +29,8 @@ export class ChooseCase extends React.Component {
         <TouchableOpacity
           style={styles.subLayout}
           onPress={() => {
-            this.props.settingLayout(3)
-            this.props.navigation.navigate("ComicLayout")
+            this.props.settingLayout(3);
+            this.props.navigation.navigate("ComicLayout");
           }}
         >
           <Text>Format 3</Text>
@@ -38,8 +38,8 @@ export class ChooseCase extends React.Component {
         <TouchableOpacity
           style={styles.subLayout}
           onPress={() => {
-            this.props.settingLayout(4)
-            this.props.navigation.navigate("ComicLayout")
+            this.props.settingLayout(4);
+            this.props.navigation.navigate("ComicLayout");
           }}
         >
           <Text>Format 4</Text>
@@ -71,9 +71,8 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapDispatchToProps = dispatch => ({
+  settingLayout: layout => dispatch(settingLayout(layout))
+});
 
-const mapDispatchToProps = (dispatch) => ({
-  settingLayout: (layout) => dispatch(settingLayout(layout))
-})
-
-export default connect(null, mapDispatchToProps)(ChooseCase)
+export default connect(null, mapDispatchToProps)(ChooseCase);
