@@ -6,7 +6,8 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  Dimensions
 } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
@@ -37,6 +38,14 @@ class SinglePhoto extends React.Component {
   }
 }
 
+const dimensions = Dimensions.get('screen');
+const imageHeight = dimensions.height-190
+const imageHeight2 = dimensions.height-200
+const imageWidth = dimensions.width-20
+console.log('***HEIGHT',imageHeight)
+console.log('***WIDTH',imageWidth)
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -58,19 +67,16 @@ const styles = StyleSheet.create({
     //defining for the image so it wouldn't go beyond the width
   },
   imageBackground1: {
-  //   flexDirection: "row",
-    width: 100,
-    height: 300,
-  //   borderColor: "green",
-  //   borderWidth: 5,
-  //   alignItems: "flex-start",
-  //   justifyContent: "space-around",
-  //   marginHorizontal: 10,
-  //   position: "relative"
+    width: imageWidth,
+    height: imageHeight,
+    alignItems: "center",
+    justifyContent: 'center',
   },
   imageBackground2: {
-    width: 300,
-    height: 200
+    width: imageWidth,
+    height: imageHeight2/2,
+    alignItems: "center",
+    justifyContent: 'center',
   },
   bubble: {
     height: 200,
