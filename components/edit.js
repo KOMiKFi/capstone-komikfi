@@ -21,6 +21,7 @@ class Edit extends React.Component {
         <SinglePhoto
           photoIdx={this.props.currentPhotoIdx}
           navigation={this.props.navigation}
+          componentSize={716.5}
         />
         <View style={styles.filterPlaceHolder}></View>
         <View style={styles.nav}>

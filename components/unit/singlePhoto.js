@@ -7,17 +7,19 @@ import {
   Image,
   TouchableOpacity,
   ImageBackground,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
 import bubble from "../../assets/bubble.png";
+
 
 class SinglePhoto extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
+    let componentSize = this.props.componentSize
     return (
       <TouchableOpacity
         style={styles.singlePhoto}
@@ -25,7 +27,13 @@ class SinglePhoto extends React.Component {
       >
         <ImageBackground
           source={{ uri: this.props.currentPhoto.image.uri }}
-          style={this.props.layout === 1 ? styles.imageBackground1 : styles.imageBackground2}
+          style={this.props.layout !== 4 ? {height: componentSize -10,
+            width: imageWidth,
+            alignItems: "center",
+            justifyContent: 'center'} : {height: componentSize -10,
+              width: imageWidth /2 - 5,
+              alignItems: "center",
+              justifyContent: 'center'}}
         >
           <View>
             {this.props.currentPhoto.bubble.uri ? (
@@ -38,12 +46,8 @@ class SinglePhoto extends React.Component {
   }
 }
 
-const dimensions = Dimensions.get('screen');
-const imageHeight = dimensions.height-190
-const imageHeight2 = dimensions.height-200
-const imageWidth = dimensions.width-20
-console.log('***HEIGHT',imageHeight)
-console.log('***WIDTH',imageWidth)
+const imageWidth = Dimensions.get('screen').width - 20
+
 
 
 const styles = StyleSheet.create({
@@ -67,14 +71,15 @@ const styles = StyleSheet.create({
     //defining for the image so it wouldn't go beyond the width
   },
   imageBackground1: {
+    // flex: 1,
     width: imageWidth,
-    height: imageHeight,
+    // height: 1,
     alignItems: "center",
     justifyContent: 'center',
   },
   imageBackground2: {
     width: imageWidth,
-    height: imageHeight2/2,
+    height: 1,
     alignItems: "center",
     justifyContent: 'center',
   },
@@ -89,7 +94,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
   return {
     currentPhoto: state.photos[ownProps.photoIdx],
-    layout: state.layout
+    layout: state.layout,
+    componentSize: ownProps.componentSize
   };
 };
 

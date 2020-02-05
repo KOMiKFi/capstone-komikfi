@@ -6,9 +6,12 @@ import { connect } from "react-redux";
 import { getPhotoFromLibrary, updateCurrentPhotoIdx } from "../store";
 import PickPhotoPrompt from "./unit/pickPhotoPrompt";
 import SinglePhoto from "./unit/singlePhoto";
-import { captureRef } from  "react-native-view-shot"
+import { captureRef } from "react-native-view-shot"
 import * as Permissions from "expo-permissions";
 import * as MediaLibrary from "expo-media-library"
+
+let componentSize
+
 
 class ComicLayout extends React.Component {
   constructor() {
@@ -17,32 +20,23 @@ class ComicLayout extends React.Component {
 
   async savePhoto() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-    console.log(status)
     if (status !== "granted") {
       alert("The app needs permissions to save to camera roll")
     }
 
     try {
-    console.log("CONTAINER", this.comicView)
 
       let uri = await captureRef(this.comicView, {
-      format: 'png',
+        format: 'png',
       })
 
-      console.log("SHOT", uri)
-
       const asset = await MediaLibrary.createAssetAsync(uri)
-      console.log("COMIC ASSET:", asset)
 
       const { localUri } = await MediaLibrary.getAssetInfoAsync(asset)
-      console.log("ASSET INFO", localUri)
-
 
       let savedComic = await MediaLibrary.saveToLibraryAsync(localUri)
-      console.log("SAVED COMIC", savedComic)
     }
     catch (error) {
-      console.log("ERROR IN SAVE PHOTO:", error)
       console.error(error)
     }
 
@@ -63,20 +57,27 @@ class ComicLayout extends React.Component {
 
   render() {
     const newArr = new Array(this.props.layout).fill(0);
+    const find_dimesions = (layout) => {
+      const { x, y, width, height } = layout;
+      componentSize = height
+    }
     return (
-      <View style={styles.page}>
+      <View 
+      style={styles.page}>
         <View
-          ref = {view => {this.comicView = view}}
+          ref={view => { this.comicView = view }}
           style={styles[`container${this.props.layout}`]}
-        >
+          >
           {newArr.map((element, index) => {
             return (
               <TouchableOpacity
-                key={index}
-                style={this.props.layout === 4 ? styles.pictureFrame4 : styles.pictureFrame}
+              key={index}
+              style={this.props.layout === 4 ? styles.pictureFrame4 : styles.pictureFrame}
+              onLayout={(event) => { console.log(find_dimesions(event.nativeEvent.layout)) }}
               >
                 {!!this.props.photos[index].image.uri ? (
                   <SinglePhoto
+                    componentSize={componentSize}
                     style={styles.image}
                     navigation={this.props.navigation}
                     photoIdx={index}
@@ -92,15 +93,14 @@ class ComicLayout extends React.Component {
           })}
         </View>
         <View style={styles.nav}>
-        <TouchableOpacity
-          position={{ x: 0 }}
-          onPress={()=> {this.savePhoto()}}
-        >
-          <Text style={styles.navItem} >Save to Camera Roll</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            position={{ x: 0 }}
+            onPress={() => { this.savePhoto() }}
+          >
+            <Text style={styles.navItem} >Save to Camera Roll</Text>
+          </TouchableOpacity>
         </View>
-
-  </View>
+      </View>
 
 
     );
