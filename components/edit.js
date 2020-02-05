@@ -11,26 +11,17 @@ import {
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../store";
 import bubble from "../assets/bubble.png";
+import SinglePhoto from './unit/singlePhoto'
 
 class Edit extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.confirm}></View>
-        <View style={styles.imageContainer}>
-          <ImageBackground
-            style={styles.image}
-            source={{
-              uri: this.props.photos[this.props.currentPhotoIdx].image.uri
-            }}
-          >
-            <View>
-              {this.props.photos[this.props.currentPhotoIdx].bubble.uri ? (
-                <Image source={bubble} style={styles.bubble} />
-              ) : null}
-            </View>
-          </ImageBackground>
-        </View>
+        <SinglePhoto
+          photoIdx={this.props.currentPhotoIdx}
+          navigation={this.props.navigation}
+        />
         <View style={styles.filterPlaceHolder}></View>
         <View style={styles.nav}>
           <TouchableOpacity
@@ -50,8 +41,8 @@ class Edit extends React.Component {
           >
             <Text style={styles.text}>Bubble</Text>
           </TouchableOpacity>
-        </View>
       </View>
+    </View>
     );
   }
 }
@@ -68,16 +59,17 @@ const styles = StyleSheet.create({
   },
 
   imageContainer: {
-    borderColor: "black",
+    borderColor: "red",
     borderWidth: 5,
-    width: 400,
+    width: "100%",
+    height: "100%",
     flex: 5, //in veritcal
     flexDirection: "row" //defining for the image so it wouldn't go beyond the width
   },
   image: {
     flex: 1,
     //same as the layout component
-    height: 400
+    height: "100%"
   },
   filterPlaceHolder: {
     flex: 2
@@ -109,10 +101,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    photos: state.photos,
-    currentPhotoIdx: state.currentPhotoIdx
+    currentPhotoIdx: state.currentPhotoIdx,
+    currentPhoto: state.photos[state.currentPhotoIdx]
   };
 };
 
