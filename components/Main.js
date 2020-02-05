@@ -28,16 +28,15 @@ const styles = StyleSheet.create({
   },
   creat_own: {
     width: 300,
-    height: 150,
-    backgroundColor: "blue",
-    borderColor: "black",
+    height: 200,
+    backgroundColor: "#83acc9",
     alignItems: "center",
     justifyContent: "space-around"
   },
   theme: {
     width: 300,
-    height: 150,
-    backgroundColor: "blue",
+    height: 200,
+    backgroundColor: "#83acc9",
     alignItems: "center",
     justifyContent: "space-around"
   }

@@ -24,7 +24,7 @@ class SinglePhoto extends React.Component {
       >
         <ImageBackground
           source={{ uri: this.props.currentPhoto.image.uri }}
-          style={styles.imageBackground}
+          style={this.props.layout === 1 ? styles.imageBackground1 : styles.imageBackground2}
         >
           <View>
             {this.props.currentPhoto.bubble.uri ? (
@@ -57,16 +57,20 @@ const styles = StyleSheet.create({
     justifyContent: "center"
     //defining for the image so it wouldn't go beyond the width
   },
-  imageBackground: {
-    flexDirection: "row",
-    width: 400,
+  imageBackground1: {
+  //   flexDirection: "row",
+    width: 100,
     height: 300,
-    borderColor: "green",
-    borderWidth: 5,
-    alignItems: "flex-start",
-    justifyContent: "space-around",
-    marginHorizontal: 10,
-    position: "relative"
+  //   borderColor: "green",
+  //   borderWidth: 5,
+  //   alignItems: "flex-start",
+  //   justifyContent: "space-around",
+  //   marginHorizontal: 10,
+  //   position: "relative"
+  },
+  imageBackground2: {
+    width: 300,
+    height: 200
   },
   bubble: {
     height: 200,
@@ -78,9 +82,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    currentPhoto: state.photos[ownProps.photoIdx]
-    // currentPhoto: state.photos[state.currentPhotoIdx]
-
+    currentPhoto: state.photos[ownProps.photoIdx],
+    layout: state.layout
   };
 };
 
