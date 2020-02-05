@@ -89,6 +89,14 @@ class ComicLayout extends React.Component {
                     style={styles.image}
                     navigation={this.props.navigation}
                     photoIdx={index}
+                    events={[
+                      {
+                        target: "data",
+                        eventHandlers: {
+                          onPressIn: () => console.log("yo")
+                        }
+                      }
+                    ]}
                   />
                 ) : (
                   <PickPhotoPrompt
@@ -204,13 +212,14 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+  console.log("incomicLayout", ownProps);
   return {
     getPhotoFromLibrary: async idx => {
       await dispatch(getPhotoFromLibrary(idx));
     },
     backToEdit: async index => {
       await dispatch(updateCurrentPhotoIdx(index));
-      ownProps.navigation.navigate("Edit");
+      ownProps.navigation.push("Edit");
     }
   };
 };

@@ -18,10 +18,7 @@ class SinglePhoto extends React.Component {
   }
   render() {
     return (
-      <TouchableOpacity
-        style={styles.singlePhoto}
-        onPress={() => this.props.backToEdit(this.props.photoIdx)}
-      >
+      <TouchableOpacity style={styles.singlePhoto}>
         <ImageBackground
           source={{ uri: this.props.currentPhoto.image.uri }}
           style={styles.imageBackground}
@@ -34,7 +31,7 @@ class SinglePhoto extends React.Component {
               : null}
           </View>
         </ImageBackground>
-      </TouchableOpacity >
+      </TouchableOpacity>
     );
   }
 }
@@ -94,7 +91,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     currentPhoto: state.photos[ownProps.photoIdx]
     // currentPhoto: state.photos[state.currentPhotoIdx]
-
   };
 };
 
@@ -102,7 +98,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     backToEdit: async () => {
       await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
-      ownProps.navigation.navigate("Edit");
+      ownProps.navigation.push("Edit");
     }
   };
 };

@@ -23,22 +23,15 @@ class Bubble extends React.Component {
   pinchRef = React.createRef();
   constructor(props) {
     super(props);
-    //pinch
-    // this._baseScale = new Animated.Value(1);
-    // this._pinchScale = new Animated.Value(1);
-    // this._scale = Animated.multiply(this._baseScale, this._pinchScale);
-    // this._lastScale = 1;
-    // this._onPinchGestureEvent = Animated.event(
-    //   [{ nativeEvent: { scale: this._pinchScale } }],
-    //   { useNativeDriver: true }
-    // );
-    // _onPinchHandlerStateChange = event => {
-    //   if (event.nativeEvent.oldState === State.ACTIVE) {
-    //     this._lastScale *= event.nativeEvent.scale;
-    //     this._baseScale.setValue(this._lastScale);
-    //     this._pinchScale.setValue(1);
-    //   }
-    // };
+
+    this.initialX0;
+    this.initialY0;
+    this.initialX1;
+    this.initialY1;
+    this.currentX0;
+    this.currentY0;
+    this.currentX1;
+    this.currentY1;
 
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -54,16 +47,35 @@ class Bubble extends React.Component {
               gesture.dx * Math.sin(this.state.rotationZ)
           });
         } else if (gesture.numberActiveTouches === 2) {
-          console.log("detect two", event.nativeEvent.changedTouches);
-          // this.setState({
-          //   ...this.state,
-          //   scaleX:
-          //     gesture.dx * Math.cos(this.state.rotationZ) +
-          //     gesture.dy * Math.sin(this.state.rotationZ),
-          //   translateY:
-          //     gesture.dy * Math.cos(this.state.rotationZ) -
-          //     gesture.dx * Math.sin(this.state.rotationZ)
-          // });
+          const touches = event.nativeEvent.touches;
+
+          if (!this.initialX0) {
+            this.initialX0 = touches[0].pageX;
+            this.initialY0 = touches[0].pageY;
+            this.initialX1 = touches[1].pageX;
+            this.initialY1 = touches[1].pageY;
+            console.log("above", this.initialX0, this.initialX1);
+          } else {
+            this.currentX0 = touches[0].pageX;
+            this.currentY0 = touches[0].pageY;
+            this.currentX1 = touches[1].pageX;
+            this.currentY1 = touches[1].pageY;
+            console.log("below");
+          }
+          let initialDistance = Math.sqrt(
+            ((this.initialY1 - this.initialY0) ^ 2) +
+              ((this.initialX1 - this.initialX0) ^ 2)
+          );
+          let currentDistance = Math.sqrt(
+            ((this.currentY1 - this.currentY0) ^ 2) +
+              ((this.currentX1 - this.currentX0) ^ 2)
+          );
+          console.log(initialDistance, currentDistance);
+
+          this.setState({
+            ...this.state,
+            scale: (this.state.scale / initialDistance) * currentDistance
+          });
         }
       }
     });
@@ -72,8 +84,7 @@ class Bubble extends React.Component {
       rotationZ: 0.5,
       translateX: 0,
       translateY: 0,
-      scaleX: 1,
-      scaleY: 1
+      scale: 1
     };
     // this.onPinch(){}
   }
@@ -92,18 +103,15 @@ class Bubble extends React.Component {
             borderWidth: 5,
             transform: [
               { rotateZ: this.state.rotationZ },
-              // { rotateZ: `${this.state.rotationZ}deg` },
               { translateX: this.state.translateX },
               { translateY: this.state.translateY },
-              { scaleX: 1.5 },
-              { scaleY: 1.5 }
-            ]
-            // postition: "relative",
-            // transform: [{ translateX: this.state.translateX }]
+              { scale: this.state.scale }
+            ],
+            postition: "relative"
           }}
         >
           <ImageBackground
-            source={require("../../assets/bubble1.png")}
+            source={require("../../assets/bubble3.png")}
             style={{ ...styles.bubble, height: this.props.height }}
           >
             <TextInput
