@@ -41,8 +41,8 @@ class Edit extends React.Component {
           >
             <Text style={styles.text}>Bubble</Text>
           </TouchableOpacity>
-        </View>
       </View>
+    </View>
     );
   }
 }
@@ -59,16 +59,17 @@ const styles = StyleSheet.create({
   },
 
   imageContainer: {
-    borderColor: "black",
+    borderColor: "red",
     borderWidth: 5,
-    width: 400,
+    width: "100%",
+    height: "100%",
     flex: 5, //in veritcal
     flexDirection: "row" //defining for the image so it wouldn't go beyond the width
   },
   image: {
     flex: 1,
     //same as the layout component
-    height: 400
+    height: "100%"
   },
   filterPlaceHolder: {
     flex: 2

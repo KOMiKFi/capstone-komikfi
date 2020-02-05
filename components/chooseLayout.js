@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 
 export class ChooseCase extends React.Component {
   render() {
-
     return (
       <View style={styles.container}>
         <TouchableOpacity
