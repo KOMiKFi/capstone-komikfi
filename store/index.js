@@ -56,6 +56,7 @@ const GOT_PHOTO = "GOT_PHOTO";
 const UPDATE_CURRENT_PHOTO_IDX = "UPDATE_CURRENT_PHOTO_IDX";
 const ADD_BUBBLE = "ADD_BUBBLE";
 const SET_LAYOUT = "SET_LAYOUT";
+const CLEAR_PHOTOS = "CLEAR_PHOTOS"
 
 const gotPhoto = (image, idx) => {
   return {
@@ -81,6 +82,8 @@ export const addBubble = idx => {
 };
 
 export const setLayout = layout => ({ type: SET_LAYOUT, layout });
+
+export const clearPhotos = () => ({type: CLEAR_PHOTOS})
 
 export const getPhotoFromLibrary = idx => async dispatch => {
   try {
@@ -140,6 +143,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         layout: action.layout
       };
+    case CLEAR_PHOTOS:
+      return {
+        ...state,
+        photos: {...initialState.photos},
+        currentPhotoIdx: 0,
+      }
     default:
       return state;
   }
