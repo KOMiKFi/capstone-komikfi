@@ -6,69 +6,60 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  PixelRatio
+  PixelRatio,
+  Alert
 } from "react-native";
-import { CameraRoll } from "react-native-cameraroll";
 import { connect } from "react-redux";
-import { getPhotoFromLibrary, updateCurrentPhotoIdx } from "../store";
-import PickPhotoPrompt from "./unit/pickPhotoPrompt";
-import SinglePhoto from "./unit/singlePhoto";
 import { captureRef } from "react-native-view-shot";
 import * as Permissions from "expo-permissions";
 import * as MediaLibrary from "expo-media-library";
+import {
+  getPhotoFromLibrary,
+  updateCurrentPhotoIdx,
+  clearPhotos
+} from "../store";
+import PickPhotoPrompt from "./unit/pickPhotoPrompt";
+import SinglePhoto from "./unit/singlePhoto";
 
 class ComicLayout extends React.Component {
   constructor() {
     super();
+    this.state = {
+      width: 0,
+      height: 0
+    };
   }
 
   async savePhoto() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    console.log(status);
     if (status !== "granted") {
       alert("The app needs permissions to save to camera roll");
     }
-
     try {
-      console.log("CONTAINER", this.comicView);
-
       let uri = await captureRef(this.comicView, {
         format: "png"
       });
-
-      console.log("SHOT", uri);
-
       const asset = await MediaLibrary.createAssetAsync(uri);
-      console.log("COMIC ASSET:", asset);
-
-      const { localUri } = await MediaLibrary.getAssetInfoAsync(asset);
-      console.log("ASSET INFO", localUri);
-
-      let savedComic = await MediaLibrary.saveToLibraryAsync(localUri);
-      console.log("SAVED COMIC", savedComic);
+      alert("Awesome Job! The comic is now saved in your Camera Roll");
     } catch (error) {
-      console.log("ERROR IN SAVE PHOTO:", error);
       console.error(error);
     }
-
-    // const targetPixelCount = 1080
-    // const pixelRatio = PixelRatio.get()
-    // const pixels = targetPixelCount / pixelRatio
-
-    // const result = await takeSnapshotAsync(this._container, {
-    //   result: "comic",
-    //   height: pixels,
-    //   width: pixels,
-    //   quality: 1,
-    //   format: "png"
-    // })
   }
 
   render() {
     const newArr = new Array(this.props.layout).fill(0);
+
+    const findDimension = event => {
+      this.setState({
+        width: event.nativeEvent.layout.width,
+        height: event.nativeEvent.layout.height
+      });
+    };
+    console.log("comic state", this.state);
     return (
       <View style={styles.page}>
         <View
+          collapsable={false}
           ref={view => {
             this.comicView = view;
           }}
@@ -83,20 +74,17 @@ class ComicLayout extends React.Component {
                     ? styles.pictureFrame4
                     : styles.pictureFrame
                 }
+                onLayout={event => {
+                  findDimension(event);
+                }}
               >
                 {!!this.props.photos[index].image.uri ? (
                   <SinglePhoto
+                    imageHeight={this.state.height}
+                    imageWidth={this.state.width}
                     style={styles.image}
                     navigation={this.props.navigation}
                     photoIdx={index}
-                    events={[
-                      {
-                        target: "data",
-                        eventHandlers: {
-                          onPressIn: () => console.log("yo")
-                        }
-                      }
-                    ]}
                   />
                 ) : (
                   <PickPhotoPrompt
@@ -115,7 +103,15 @@ class ComicLayout extends React.Component {
               this.savePhoto();
             }}
           >
-            <Text style={styles.navItem}>Save to Camera Roll</Text>
+            <Text style={styles.navItem}>Save</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            position={{ x: 0 }}
+            onPress={() => {
+              this.props.clearPhotos();
+            }}
+          >
+            <Text style={styles.navItem}>Clear</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -219,7 +215,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     backToEdit: async index => {
       await dispatch(updateCurrentPhotoIdx(index));
-      ownProps.navigation.push("Edit");
+      ownProps.navigation.navigate("Edit");
+    },
+    clearPhotos: async () => {
+      await dispatch(clearPhotos());
     }
   };
 };
