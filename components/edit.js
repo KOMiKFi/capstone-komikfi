@@ -10,17 +10,14 @@ import {
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../store";
 import bubble from "../assets/bubble.png";
-import SinglePhoto from "./unit/singlePhoto"
-import EditNav from "./unit/editNav"
-
+import SinglePhoto from "./unit/singlePhoto";
+import EditNav from "./unit/editNav";
 
 class Edit extends React.Component {
   render() {
     return (
-      <View
-        style={styles.container}>
-        <View
-          style={styles.confirm}></View>
+      <View style={styles.container}>
+        <View style={styles.confirm}></View>
         <SinglePhoto
           photoIdx={this.props.currentPhotoIdx}
           navigation={this.props.navigation}
@@ -50,8 +47,6 @@ class Edit extends React.Component {
     );
   }
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -91,7 +86,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     currentPhotoIdx: state.currentPhotoIdx,
     currentPhoto: state.photos[state.currentPhotoIdx]
