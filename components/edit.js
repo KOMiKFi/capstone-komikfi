@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../store";
-import bubble from "../assets/bubble.png";
 import SinglePhoto from "./unit/singlePhoto";
 import EditNav from "./unit/editNav";
 
