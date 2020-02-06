@@ -24,17 +24,12 @@ class Bubble extends React.Component {
   constructor(props) {
     super(props);
 
-    this.initialX0;
-    this.initialY0;
-    this.initialX1;
-    this.initialY1;
-    this.currentX0;
-    this.currentY0;
-    this.currentX1;
-    this.currentY1;
+    this.initialDistance;
+    this.currentDistance;
 
-    this.panResponder = PanResponder.create({
+    this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
+      onPanResponderGrant: event => {},
       onPanResponderMove: (event, gesture) => {
         if (gesture.numberActiveTouches === 1) {
           this.setState({
@@ -49,34 +44,31 @@ class Bubble extends React.Component {
         } else if (gesture.numberActiveTouches === 2) {
           const touches = event.nativeEvent.touches;
 
-          if (!this.initialX0) {
-            this.initialX0 = touches[0].pageX;
-            this.initialY0 = touches[0].pageY;
-            this.initialX1 = touches[1].pageX;
-            this.initialY1 = touches[1].pageY;
-            console.log("above", this.initialX0, this.initialX1);
+          let currentX0 = touches[0].pageX;
+          let currentY0 = touches[0].pageY;
+          let currentX1 = touches[1].pageX;
+          let currentY1 = touches[1].pageY;
+          if (!this.initialDistance) {
+            this.initialDistance = Math.sqrt(
+              ((currentY1 - currentY0) ^ 2) + ((currentX1 - currentX0) ^ 2)
+            );
           } else {
-            this.currentX0 = touches[0].pageX;
-            this.currentY0 = touches[0].pageY;
-            this.currentX1 = touches[1].pageX;
-            this.currentY1 = touches[1].pageY;
-            console.log("below");
+            this.initialDistance = this.currentDistance;
           }
-          let initialDistance = Math.sqrt(
-            ((this.initialY1 - this.initialY0) ^ 2) +
-              ((this.initialX1 - this.initialX0) ^ 2)
+          this.currentDistance = Math.sqrt(
+            ((currentY1 - currentY0) ^ 2) + ((currentX1 - currentX0) ^ 2)
           );
-          let currentDistance = Math.sqrt(
-            ((this.currentY1 - this.currentY0) ^ 2) +
-              ((this.currentX1 - this.currentX0) ^ 2)
-          );
-          console.log(initialDistance, currentDistance);
+          console.log(this.initialDistance, this.currentDistance);
 
           this.setState({
             ...this.state,
-            scale: (this.state.scale / initialDistance) * currentDistance
+            scale:
+              (this.state.scale / this.initialDistance) * this.currentDistance
           });
         }
+      },
+      onPanResponderRelease: (event, gestureState) => {
+        this.initialX0 = null;
       }
     });
     this.state = {
@@ -86,17 +78,10 @@ class Bubble extends React.Component {
       translateY: 0,
       scale: 1
     };
-    // this.onPinch(){}
   }
   render() {
     return (
-      // <PinchGestureHandler
-      //   ref={this.pinchRef}
-      //   simultaneousHandlers={this.rotationRef}
-      //   onGestureEvent={this._onPinchGestureEvent}
-      //   onHandlerStateChange={this._onPinchHandlerStateChange}
-      // >
-      <View {...this.panResponder.panHandlers}>
+      <View {...this._panResponder.panHandlers}>
         <View
           style={{
             borderColor: "purple",
@@ -111,7 +96,7 @@ class Bubble extends React.Component {
           }}
         >
           <ImageBackground
-            source={require("../../assets/bubble3.png")}
+            source={require("../../assets/bubble2.png")}
             style={{ ...styles.bubble, height: this.props.height }}
           >
             <TextInput
@@ -127,7 +112,6 @@ class Bubble extends React.Component {
           </ImageBackground>
         </View>
       </View>
-      // </PinchGestureHandler>
     );
   }
 }
