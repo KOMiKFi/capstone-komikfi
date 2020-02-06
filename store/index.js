@@ -13,19 +13,19 @@ const initialState = {
   photos: {
     0: {
       image: {},
-      bubble: { uri: "" }
+      bubbles: []
     },
     1: {
-      image: { uri: "" },
-      bubble: { uri: "" }
+      image: {},
+      bubbles: []
     },
     2: {
-      image: { uri: "" },
-      bubble: { uri: "" }
+      image: {},
+      bubbles:[]
     },
     3: {
-      image: { uri: "" },
-      bubble: { uri: "" }
+      image: {},
+      bubbles: []
     }
   },
   currentPhotoIdx: 0,
@@ -74,11 +74,11 @@ export const updateCurrentPhotoIdx = idx => {
   };
 };
 
-export const addBubble = idx => {
+export const addBubble = (idx, shape) => {
   return {
     type: ADD_BUBBLE,
-    idx,
-    bubble_uri: "bubble.png"
+    idx: idx,
+    shape: shape
   };
 };
 
@@ -133,7 +133,7 @@ const reducer = (state = initialState, action) => {
           ...state.photos,
           [action.idx]: {
             image: action.image,
-            bubble: state.photos[action.idx].bubble
+            bubbles: state.photos[action.idx].bubbles
           }
         },
         currentPhotoIdx: action.idx
@@ -146,8 +146,7 @@ const reducer = (state = initialState, action) => {
         photos: {
           ...state.photos,
           [action.idx]: {
-            image: state.photos[action.idx].image,
-            bubble: { uri: action.bubble_uri }
+            ...state.photos[action.idx], bubbles: [...state.photos[action.idx].bubbles, {shape: action.shape} ]
           }
         },
         currentPhotoIdx: action.idx
