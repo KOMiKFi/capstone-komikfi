@@ -8,14 +8,9 @@ import {
   TouchableOpacity,
   ImageBackground,
   TextInput,
-  PanResponder,
-  Animated
+  PanResponder
 } from "react-native";
-import {
-  PinchGestureHandler,
-  RotationGestureHandler,
-  State
-} from "react-native-gesture-handler";
+
 import { connect } from "react-redux";
 
 class Bubble extends React.Component {
@@ -23,27 +18,16 @@ class Bubble extends React.Component {
   pinchRef = React.createRef();
   constructor(props) {
     super(props);
-    //pinch
-    this._baseScale = new Animated.Value(1);
-    this._pinchScale = new Animated.Value(1);
-    this._scale = Animated.multiply(this._baseScale, this._pinchScale);
-    this._lastScale = 1;
-    this._onPinchGestureEvent = Animated.event(
-      [{ nativeEvent: { scale: this._pinchScale } }],
-      { useNativeDriver: true }
-    );
-    _onPinchHandlerStateChange = event => {
-      if (event.nativeEvent.oldState === State.ACTIVE) {
-        this._lastScale *= event.nativeEvent.scale;
-        this._baseScale.setValue(this._lastScale);
-        this._pinchScale.setValue(1);
-      }
-    };
 
-    this.panResponder = PanResponder.create({
+    this._initialDistance;
+    this._currentDistance;
+    this._initialAngle;
+    this._currentAngle;
+
+    this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
+      onPanResponderGrant: event => {},
       onPanResponderMove: (event, gesture) => {
-        console.log("inbubble", event, gesture);
         if (gesture.numberActiveTouches === 1) {
           this.setState({
             ...this.state,
@@ -55,63 +39,96 @@ class Bubble extends React.Component {
               gesture.dx * Math.sin(this.state.rotationZ)
           });
         } else if (gesture.numberActiveTouches === 2) {
-          console.log("detect two");
+          const touches = event.nativeEvent.touches;
+
+          let currentX0 = touches[0].pageX;
+          let currentY0 = touches[0].pageY;
+          let currentX1 = touches[1].pageX;
+          let currentY1 = touches[1].pageY;
+          //for zooming
+          if (!this._initialDistance) {
+            this._initialDistance = Math.sqrt(
+              ((currentY1 - currentY0) ^ 2) + ((currentX1 - currentX0) ^ 2)
+            );
+          } else {
+            this._initialDistance = this._currentDistance;
+          }
+          this._currentDistance = Math.sqrt(
+            ((currentY1 - currentY0) ^ 2) + ((currentX1 - currentX0) ^ 2)
+          );
+
+          //for rotating
+          if (!this._initialAngle) {
+            this._initialAngle = Math.atan(
+              (currentX0 - currentX1) / (currentY0 - currentY1)
+            );
+          } else {
+            this._currentAngle = Math.atan(
+              (currentX0 - currentX1) / (currentY0 - currentY1)
+            );
+            console.log(
+              "this.currentAngle",
+              this._initialAngle,
+              this._currentAngle
+            );
+          }
+          if (this._initialDistance !== 0) {
+            this.setState({
+              ...this.state,
+              scale:
+                (this.state.scale / this._initialDistance) *
+                this._currentDistance
+              // rotationZ: this._currentAngle - this._initialAngle
+            });
+          }
         }
+      },
+      onPanResponderRelease: (event, gestureState) => {
+        this._initialDistance = undefined;
+        this._initialAngle = undefined;
       }
     });
     this.state = {
       text: "",
-      rotationZ: 0.5,
+      rotationZ: 0,
       translateX: 0,
       translateY: 0,
-      scaleX: 1,
-      scaleY: 1
+      scale: 1
     };
-    // this.onPinch(){}
   }
   render() {
     return (
-      <PinchGestureHandler
-        ref={this.pinchRef}
-        simultaneousHandlers={this.rotationRef}
-        onGestureEvent={this._onPinchGestureEvent}
-        onHandlerStateChange={this._onPinchHandlerStateChange}
-      >
-        <View {...this.panResponder.panHandlers}>
-          <View
-            style={{
-              borderColor: "purple",
-              borderWidth: 5,
-              transform: [
-                { rotateZ: this.state.rotationZ },
-                // { rotateZ: `${this.state.rotationZ}deg` },
-                { translateX: this.state.translateX },
-                { translateY: this.state.translateY },
-                { scaleX: 1.5 },
-                { scaleY: 1.5 }
-              ]
-              // postition: "relative",
-              // transform: [{ translateX: this.state.translateX }]
-            }}
+      <View {...this._panResponder.panHandlers}>
+        <View
+          style={{
+            borderColor: "purple",
+            borderWidth: 5,
+            transform: [
+              { rotateZ: this.state.rotationZ },
+              { translateX: this.state.translateX },
+              { translateY: this.state.translateY },
+              { scale: this.state.scale }
+            ],
+            postition: "relative"
+          }}
+        >
+          <ImageBackground
+            source={require("../../assets/bubble3.png")}
+            style={{ ...styles.bubble, height: this.props.height }}
           >
-            <ImageBackground
-              source={require("../../assets/bubble1.png")}
-              style={{ ...styles.bubble, height: this.props.height }}
-            >
-              <TextInput
-                style={{ ...styles.text, top: this.props.height / 5 }}
-                multiline
-                numberOfLines={2}
-                editable
-                onChangeText={text =>
-                  this.setState({ ...this.state, text: text })
-                }
-                value={this.state.text}
-              ></TextInput>
-            </ImageBackground>
-          </View>
+            <TextInput
+              style={{ ...styles.text, top: this.props.height / 5 }}
+              multiline
+              numberOfLines={2}
+              editable
+              onChangeText={text =>
+                this.setState({ ...this.state, text: text })
+              }
+              value={this.state.text}
+            ></TextInput>
+          </ImageBackground>
         </View>
-      </PinchGestureHandler>
+      </View>
     );
   }
 }

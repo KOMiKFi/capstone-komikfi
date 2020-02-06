@@ -7,30 +7,28 @@ import {
   Image,
   TouchableOpacity,
   ImageBackground,
-  Dimensions,
+  Dimensions
 } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
 import Bubble from "./bubble";
-
 
 class SinglePhoto extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
+    const setWidth = Dimensions.get("screen").width - 20;
+    const setHeight = Dimensions.get("screen").height * 0.7;
+    let imageHeight;
+    let imageWidth;
+    // this.props.imageHeight === undefined ?
+    //   imageHeight=setHeight :
+    imageHeight = this.props.imageHeight;
 
-const setWidth = Dimensions.get('screen').width - 20
-const setHeight = Dimensions.get('screen').height*.70
-    let imageHeight
-    let imageWidth
-    // this.props.imageHeight === undefined ? 
-    //   imageHeight=setHeight : 
-      imageHeight=this.props.imageHeight
-
-    // this.props.imageWidth === undefined ? 
+    // this.props.imageWidth === undefined ?
     //   imageWidth=setWidth :
-      imageWidth=this.props.imageWidth
+    imageWidth = this.props.imageWidth;
 
     return (
       <TouchableOpacity
@@ -39,13 +37,21 @@ const setHeight = Dimensions.get('screen').height*.70
       >
         <ImageBackground
           source={{ uri: this.props.currentPhoto.image.uri }}
-          style={this.props.layout !== 4 ? {height: imageHeight-10,
-            width: imageWidth-10,
-            alignItems: "center",
-            justifyContent: 'center'} : {height: imageHeight-10,
-              width: imageWidth-10,
-              alignItems: "center",
-              justifyContent: 'center'}}
+          style={
+            this.props.layout !== 4
+              ? {
+                  height: imageHeight - 10,
+                  width: imageWidth - 10,
+                  alignItems: "center",
+                  justifyContent: "center"
+                }
+              : {
+                  height: imageHeight - 10,
+                  width: imageWidth - 10,
+                  alignItems: "center",
+                  justifyContent: "center"
+                }
+          }
         >
           <View>
             {bubbleArray[0]
@@ -55,11 +61,10 @@ const setHeight = Dimensions.get('screen').height*.70
               : null}
           </View>
         </ImageBackground>
-      </TouchableOpacity >
+      </TouchableOpacity>
     );
   }
 }
-
 
 const bubbleArray = [
   {
@@ -127,7 +132,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     backToEdit: async () => {
       await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
-      ownProps.navigation.navigate("Edit");
+      ownProps.navigation.push("Edit");
     }
   };
 };

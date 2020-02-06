@@ -13,14 +13,13 @@ import { connect } from "react-redux";
 import { captureRef } from "react-native-view-shot";
 import * as Permissions from "expo-permissions";
 import * as MediaLibrary from "expo-media-library";
-import { getPhotoFromLibrary, updateCurrentPhotoIdx, clearPhotos } from "../store";
+import {
+  getPhotoFromLibrary,
+  updateCurrentPhotoIdx,
+  clearPhotos
+} from "../store";
 import PickPhotoPrompt from "./unit/pickPhotoPrompt";
 import SinglePhoto from "./unit/singlePhoto";
-import { captureRef } from "react-native-view-shot"
-import * as Permissions from "expo-permissions";
-import * as MediaLibrary from "expo-media-library"
-
-
 
 class ComicLayout extends React.Component {
   constructor() {
@@ -28,7 +27,7 @@ class ComicLayout extends React.Component {
     this.state = {
       width: 0,
       height: 0
-    }
+    };
   }
 
   async savePhoto() {
@@ -41,8 +40,7 @@ class ComicLayout extends React.Component {
         format: "png"
       });
       const asset = await MediaLibrary.createAssetAsync(uri);
-      alert("Awesome Job! The comic is now saved in your Camera Roll",)
-
+      alert("Awesome Job! The comic is now saved in your Camera Roll");
     } catch (error) {
       console.error(error);
     }
@@ -51,32 +49,34 @@ class ComicLayout extends React.Component {
   render() {
     const newArr = new Array(this.props.layout).fill(0);
 
-    const findDimension = (event) => {
+    const findDimension = event => {
       this.setState({
         width: event.nativeEvent.layout.width,
         height: event.nativeEvent.layout.height
-      })
-    }
-    console.log('comic state', this.state)
+      });
+    };
+    console.log("comic state", this.state);
     return (
-
       <View style={styles.page}>
         <View
           collapsable={false}
           ref={view => {
             this.comicView = view;
           }}
-
           style={styles[`container${this.props.layout}`]}
         >
           {newArr.map((element, index) => {
             return (
               <TouchableOpacity
                 key={index}
-
-                style={this.props.layout === 4 ? styles.pictureFrame4 : styles.pictureFrame}
-                onLayout={(event) => { findDimension(event) }}
-
+                style={
+                  this.props.layout === 4
+                    ? styles.pictureFrame4
+                    : styles.pictureFrame
+                }
+                onLayout={event => {
+                  findDimension(event);
+                }}
               >
                 {!!this.props.photos[index].image.uri ? (
                   <SinglePhoto
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     borderColor: "green",
-    borderWidth: 5,
+    borderWidth: 5
   },
   nav: {
     flex: 0.1,
@@ -208,6 +208,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+  console.log("incomicLayout", ownProps);
   return {
     getPhotoFromLibrary: async idx => {
       await dispatch(getPhotoFromLibrary(idx));
@@ -217,7 +218,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       ownProps.navigation.navigate("Edit");
     },
     clearPhotos: async () => {
-      await dispatch(clearPhotos())
+      await dispatch(clearPhotos());
     }
   };
 };

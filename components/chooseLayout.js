@@ -75,10 +75,4 @@ const mapDispatchToProps = dispatch => ({
   settingLayout: layout => dispatch(settingLayout(layout))
 });
 
-
-const mapDispatchToProps = (dispatch) => ({
-  settingLayout: (layout) => dispatch(settingLayout(layout))
-})
-
-export default connect(null, mapDispatchToProps)(ChooseCase)
-
+export default connect(null, mapDispatchToProps)(ChooseCase);
