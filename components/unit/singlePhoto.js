@@ -31,9 +31,9 @@ class SinglePhoto extends React.Component {
     imageWidth = this.props.imageWidth;
 
     return (
-      <TouchableOpacity
+      <View
         style={styles.singlePhoto}
-        onPress={() => this.props.backToEdit(this.props.photoIdx)}
+        // onPress={() => this.props.backToEdit(this.props.photoIdx)}
       >
         <ImageBackground
           source={{ uri: this.props.currentPhoto.image.uri }}
@@ -61,7 +61,7 @@ class SinglePhoto extends React.Component {
               : null}
           </View>
         </ImageBackground>
-      </TouchableOpacity>
+      </View>
     );
   }
 }
