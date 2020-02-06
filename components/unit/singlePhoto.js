@@ -4,11 +4,21 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  ImageBackground,
+  ImageBackground
 } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
 import Bubble from "./bubble";
+
+const bubbleArray = [
+  {
+    translateX: 1,
+    translateY: 1,
+    rotationZ: 30,
+    text: "geasf",
+    shape: 1
+  }
+];
 
 class SinglePhoto extends React.Component {
   constructor(props) {
@@ -16,52 +26,32 @@ class SinglePhoto extends React.Component {
   }
   render() {
     return (
-      <TouchableOpacity
+      <View
         style={styles.singlePhoto}
-        onPress={() => this.props.backToEdit(this.props.photoIdx)}
+        // onPress={() => this.props.backToEdit(this.props.photoIdx)}
       >
         <ImageBackground
           source={{ uri: this.props.currentPhoto.image.uri }}
-          style={
-            this.props.layout !== 4
-              ? {
-                height: this.props.height - 10,
-                width: this.props.width - 10,
-                alignItems: "center",
-                justifyContent: "center"
-              }
-              : {
-                height: this.props.height - 10,
-                width: this.props.width - 10,
-                alignItems: "center",
-                justifyContent: "center"
-              }
-          }
+          style={{
+            height: this.props.height - 10,
+            width: this.props.width - 10,
+            alignItems: "center",
+            justifyContent: "center"
+          }}
         >
           <View>
             {bubbleArray[0]
-              ? bubbleArray.map((bubble, idx) => (
-                <Bubble key={idx} {...bubble} />
-              ))
+              ? bubbleArray.map((bubble, idx) => {
+                  console.log(bubble);
+                  return <Bubble key={idx} {...bubble} />;
+                })
               : null}
           </View>
         </ImageBackground>
-      </TouchableOpacity>
+      </View>
     );
   }
 }
-
-const bubbleArray = [
-  {
-    x: 1,
-    y: 1,
-    rotation: 30,
-    text: "geasf",
-    uri: "../../assets/bubble.png",
-    height: 200,
-    width: 200
-  }
-];
 
 const styles = StyleSheet.create({
   container: {
