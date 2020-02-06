@@ -10,8 +10,6 @@ import { captureRef } from "react-native-view-shot"
 import * as Permissions from "expo-permissions";
 import * as MediaLibrary from "expo-media-library"
 
-let imageWidth;
-let imageHeight;
 
 class ComicLayout extends React.Component {
   constructor() {
@@ -68,6 +66,7 @@ class ComicLayout extends React.Component {
         height: event.nativeEvent.layout.height
       })
     }
+    console.log('comic state', this.state)
     return (
       <View
         style={styles.page}>

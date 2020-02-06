@@ -24,12 +24,12 @@ const setWidth = Dimensions.get('screen').width - 20
 const setHeight = Dimensions.get('screen').height*.70
     let imageHeight
     let imageWidth
-    this.props.imageHeight === undefined ? 
-      imageHeight=setHeight : 
+    // this.props.imageHeight === undefined ? 
+    //   imageHeight=setHeight : 
       imageHeight=this.props.imageHeight
 
-    this.props.imageWidth === undefined ? 
-      imageWidth=setWidth :
+    // this.props.imageWidth === undefined ? 
+    //   imageWidth=setWidth :
       imageWidth=this.props.imageWidth
 
     return (

@@ -16,15 +16,32 @@ import SinglePhoto from './unit/singlePhoto'
 
 
 class Edit extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      width: 0,
+      height: 0
+    }
+  }
   render() {
+    const findDimension = (event) => {
+      this.setState({
+        width: 100,
+        height: 100
+      })
+    }
+
+    console.log(this.state)
     return (
+
       <View
-        style={styles.container}
-        
-      >
-        <View 
-        style={styles.confirm}></View>
+        onLayout={(event) => { findDimension(event) }}
+        style={styles.container}>
+        <View
+          style={styles.confirm}></View>
         <SinglePhoto
+          imageHeight={this.state.height}
+          imageWidth={this.state.width}
           photoIdx={this.props.currentPhotoIdx}
           navigation={this.props.navigation}
         />

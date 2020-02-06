@@ -9,13 +9,13 @@ export default class Main extends React.Component {
       <View 
       style={styles.container}>
         <TouchableOpacity
-          style={styles.creat_own}
+          style={styles.box}
           onPress={() => this.props.navigation.navigate("ChooseLayout")}
         >
-          <Text>Create Own</Text>
+          <Text style={styles.text}>Create Own</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.theme}>
-          <Text>Theme</Text>
+        <TouchableOpacity style={styles.box}>
+          <Text style={styles.text}>Theme</Text>
         </TouchableOpacity>
       </View>
     );
@@ -28,18 +28,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around"
   },
-  creat_own: {
-    width: 300,
-    height: 200,
+  box: {
+    width: 300, 
+    height: 200, 
     backgroundColor: "#83acc9",
-    alignItems: "center",
-    justifyContent: "space-around"
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  theme: {
-    width: 300,
-    height: 200,
-    backgroundColor: "#83acc9",
-    alignItems: "center",
-    justifyContent: "space-around"
+  text: {
+    fontSize: 25,
+    fontFamily: 'Avenir-LightOblique'
   }
 });
