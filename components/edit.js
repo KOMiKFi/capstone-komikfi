@@ -9,7 +9,9 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../store";
+import bubble from "../assets/bubble.png";
 import SinglePhoto from "./unit/singlePhoto";
+import EditNav from "./unit/editNav";
 
 class Edit extends React.Component {
   render() {
@@ -21,7 +23,8 @@ class Edit extends React.Component {
           navigation={this.props.navigation}
         />
         <View style={styles.filterPlaceHolder}></View>
-        <View style={styles.nav}>
+        <EditNav />
+        {/* <View style={styles.nav}>
           <TouchableOpacity
             style={styles.textContainer}
             onPress={() =>
@@ -39,7 +42,7 @@ class Edit extends React.Component {
           >
             <Text style={styles.text}>Bubble</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     );
   }
