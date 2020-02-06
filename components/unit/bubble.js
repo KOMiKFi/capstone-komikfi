@@ -114,7 +114,7 @@ class Bubble extends React.Component {
         }
       },
       onPanResponderRelease: (event, gestureState) => {
-        this.props.updateBubble(this.state);
+        // this.props.updateBubble(this.state);
         this._initialX = 0;
         this._initialY = 0;
         this._currentX = 0;
@@ -155,10 +155,10 @@ class Bubble extends React.Component {
           <ImageBackground
             // source={require(`../../assets/bubble${this.props.type}.png`)}
             source={require("../../assets/bubble1.png")}
-            style={{ ...styles.bubble, height: this.props.height }}
+            style={styles.bubble}
           >
             <TextInput
-              style={{ ...styles.text, top: this.props.height / 5 }}
+              style={{ ...styles.text }}
               multiline
               numberOfLines={2}
               editable
@@ -190,8 +190,8 @@ const styles = StyleSheet.create({
   text: {
     // zIndex: 1,
     position: "relative",
+    top: "10%",
     left: "15%",
-    bottom: "20%",
     fontSize: 20,
     width: "60%",
     height: "40%"
@@ -210,7 +210,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     //   await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
     //   ownProps.navigation.navigate("Edit");
     // }
-    updateBubble: bubble => dispatch(updateBubble(bubble))
+    // updateBubble: bubble => dispatch(updateBubble(bubble))
   };
 };
 
