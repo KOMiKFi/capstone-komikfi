@@ -10,12 +10,16 @@ import { captureRef } from "react-native-view-shot"
 import * as Permissions from "expo-permissions";
 import * as MediaLibrary from "expo-media-library"
 
-let componentSize
-
+let imageWidth;
+let imageHeight;
 
 class ComicLayout extends React.Component {
   constructor() {
     super();
+    this.state = {
+      width: 0,
+      height: 0
+    }
   }
 
   async savePhoto() {
@@ -57,27 +61,31 @@ class ComicLayout extends React.Component {
 
   render() {
     const newArr = new Array(this.props.layout).fill(0);
-    const find_dimesions = (layout) => {
-      const { x, y, width, height } = layout;
-      componentSize = height
+
+    const findDimension = (event) => {
+      this.setState({
+        width: event.nativeEvent.layout.width,
+        height: event.nativeEvent.layout.height
+      })
     }
     return (
-      <View 
-      style={styles.page}>
+      <View
+        style={styles.page}>
         <View
           ref={view => { this.comicView = view }}
           style={styles[`container${this.props.layout}`]}
-          >
+        >
           {newArr.map((element, index) => {
             return (
               <TouchableOpacity
-              key={index}
-              style={this.props.layout === 4 ? styles.pictureFrame4 : styles.pictureFrame}
-              onLayout={(event) => { console.log(find_dimesions(event.nativeEvent.layout)) }}
+                key={index}
+                style={this.props.layout === 4 ? styles.pictureFrame4 : styles.pictureFrame}
+                onLayout={(event) => { findDimension(event) }}
               >
                 {!!this.props.photos[index].image.uri ? (
                   <SinglePhoto
-                    componentSize={componentSize}
+                    imageHeight={this.state.height}
+                    imageWidth={this.state.width}
                     style={styles.image}
                     navigation={this.props.navigation}
                     photoIdx={index}

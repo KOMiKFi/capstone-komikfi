@@ -13,15 +13,20 @@ import { getPhotoFromLibrary, addBubble } from "../store";
 import bubble from "../assets/bubble.png";
 import SinglePhoto from './unit/singlePhoto'
 
+
+
 class Edit extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.confirm}></View>
+      <View
+        style={styles.container}
+        
+      >
+        <View 
+        style={styles.confirm}></View>
         <SinglePhoto
           photoIdx={this.props.currentPhotoIdx}
           navigation={this.props.navigation}
-          componentSize={716.5}
         />
         <View style={styles.filterPlaceHolder}></View>
         <View style={styles.nav}>
@@ -42,11 +47,13 @@ class Edit extends React.Component {
           >
             <Text style={styles.text}>Bubble</Text>
           </TouchableOpacity>
+        </View>
       </View>
-    </View>
     );
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

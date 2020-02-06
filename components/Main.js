@@ -2,10 +2,12 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
+
 export default class Main extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View 
+      style={styles.container}>
         <TouchableOpacity
           style={styles.creat_own}
           onPress={() => this.props.navigation.navigate("ChooseLayout")}
