@@ -8,14 +8,9 @@ import {
   TouchableOpacity,
   ImageBackground,
   TextInput,
-  PanResponder,
-  Animated
+  PanResponder
 } from "react-native";
-import {
-  PinchGestureHandler,
-  RotationGestureHandler,
-  State
-} from "react-native-gesture-handler";
+
 import { connect } from "react-redux";
 
 class Bubble extends React.Component {
@@ -58,7 +53,6 @@ class Bubble extends React.Component {
           this.currentDistance = Math.sqrt(
             ((currentY1 - currentY0) ^ 2) + ((currentX1 - currentX0) ^ 2)
           );
-          console.log(this.initialDistance, this.currentDistance);
 
           this.setState({
             ...this.state,
@@ -68,7 +62,7 @@ class Bubble extends React.Component {
         }
       },
       onPanResponderRelease: (event, gestureState) => {
-        this.initialX0 = null;
+        this.initialDistance = undefined;
       }
     });
     this.state = {
@@ -96,7 +90,7 @@ class Bubble extends React.Component {
           }}
         >
           <ImageBackground
-            source={require("../../assets/bubble2.png")}
+            source={require("../../assets/bubble3.png")}
             style={{ ...styles.bubble, height: this.props.height }}
           >
             <TextInput
