@@ -64,8 +64,8 @@ class Edit extends React.Component {
           >
             <Text style={styles.text}>Bubble</Text>
           </TouchableOpacity>
-        </View>
       </View>
+    </View>
     );
   }
 }

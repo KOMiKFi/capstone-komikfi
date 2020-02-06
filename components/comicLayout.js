@@ -1,14 +1,25 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity, PixelRatio } from "react-native";
-import { CameraRoll } from 'react-native-cameraroll'
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  PixelRatio,
+  Alert
+} from "react-native";
 import { connect } from "react-redux";
-import { getPhotoFromLibrary, updateCurrentPhotoIdx } from "../store";
+import { captureRef } from "react-native-view-shot";
+import * as Permissions from "expo-permissions";
+import * as MediaLibrary from "expo-media-library";
+import { getPhotoFromLibrary, updateCurrentPhotoIdx, clearPhotos } from "../store";
 import PickPhotoPrompt from "./unit/pickPhotoPrompt";
 import SinglePhoto from "./unit/singlePhoto";
 import { captureRef } from "react-native-view-shot"
 import * as Permissions from "expo-permissions";
 import * as MediaLibrary from "expo-media-library"
+
 
 
 class ComicLayout extends React.Component {
@@ -21,41 +32,21 @@ class ComicLayout extends React.Component {
   }
 
   async savePhoto() {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     if (status !== "granted") {
-      alert("The app needs permissions to save to camera roll")
+      alert("The app needs permissions to save to camera roll");
     }
-
     try {
-
       let uri = await captureRef(this.comicView, {
-        format: 'png',
-      })
+        format: "png"
+      });
+      const asset = await MediaLibrary.createAssetAsync(uri);
+      alert("Awesome Job! The comic is now saved in your Camera Roll",)
 
-      const asset = await MediaLibrary.createAssetAsync(uri)
-
-      const { localUri } = await MediaLibrary.getAssetInfoAsync(asset)
-
-      let savedComic = await MediaLibrary.saveToLibraryAsync(localUri)
+    } catch (error) {
+      console.error(error);
     }
-    catch (error) {
-      console.error(error)
-    }
-
-
-    // const targetPixelCount = 1080
-    // const pixelRatio = PixelRatio.get()
-    // const pixels = targetPixelCount / pixelRatio
-
-    // const result = await takeSnapshotAsync(this._container, {
-    //   result: "comic",
-    //   height: pixels,
-    //   width: pixels,
-    //   quality: 1,
-    //   format: "png"
-    // })
   }
-
 
   render() {
     const newArr = new Array(this.props.layout).fill(0);
@@ -68,18 +59,24 @@ class ComicLayout extends React.Component {
     }
     console.log('comic state', this.state)
     return (
-      <View
-        style={styles.page}>
+
+      <View style={styles.page}>
         <View
-          ref={view => { this.comicView = view }}
+          collapsable={false}
+          ref={view => {
+            this.comicView = view;
+          }}
+
           style={styles[`container${this.props.layout}`]}
         >
           {newArr.map((element, index) => {
             return (
               <TouchableOpacity
                 key={index}
+
                 style={this.props.layout === 4 ? styles.pictureFrame4 : styles.pictureFrame}
                 onLayout={(event) => { findDimension(event) }}
+
               >
                 {!!this.props.photos[index].image.uri ? (
                   <SinglePhoto
@@ -90,11 +87,11 @@ class ComicLayout extends React.Component {
                     photoIdx={index}
                   />
                 ) : (
-                    <PickPhotoPrompt
-                      navigation={this.props.navigation}
-                      photoIdx={index}
-                    />
-                  )}
+                  <PickPhotoPrompt
+                    navigation={this.props.navigation}
+                    photoIdx={index}
+                  />
+                )}
               </TouchableOpacity>
             );
           })}
@@ -102,14 +99,22 @@ class ComicLayout extends React.Component {
         <View style={styles.nav}>
           <TouchableOpacity
             position={{ x: 0 }}
-            onPress={() => { this.savePhoto() }}
+            onPress={() => {
+              this.savePhoto();
+            }}
           >
-            <Text style={styles.navItem} >Save to Camera Roll</Text>
+            <Text style={styles.navItem}>Save</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            position={{ x: 0 }}
+            onPress={() => {
+              this.props.clearPhotos();
+            }}
+          >
+            <Text style={styles.navItem}>Clear</Text>
           </TouchableOpacity>
         </View>
       </View>
-
-
     );
   }
 }
@@ -119,7 +124,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   container1: {
     flex: 1,
@@ -149,7 +154,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     flexDirection: "row",
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
     width: "100%",
     alignContent: "stretch",
     alignItems: "flex-start",
@@ -163,7 +168,7 @@ const styles = StyleSheet.create({
     borderColor: "green",
     borderWidth: 5,
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-around"
   },
   pictureFrame4: {
     height: "50%",
@@ -171,7 +176,7 @@ const styles = StyleSheet.create({
     borderColor: "green",
     borderWidth: 5,
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-around"
   },
   image: {
     flex: 1,
@@ -207,11 +212,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     getPhotoFromLibrary: async idx => {
       await dispatch(getPhotoFromLibrary(idx));
     },
-    backToEdit: async (index) => {
+    backToEdit: async index => {
       await dispatch(updateCurrentPhotoIdx(index));
       ownProps.navigation.navigate("Edit");
+    },
+    clearPhotos: async () => {
+      await dispatch(clearPhotos())
     }
-  }
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComicLayout);
