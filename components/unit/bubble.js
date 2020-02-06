@@ -12,6 +12,7 @@ import {
 } from "react-native";
 
 import { connect } from "react-redux";
+import { updateBubble } from "../../store";
 
 class Bubble extends React.Component {
   rotationRef = React.createRef();
@@ -113,6 +114,7 @@ class Bubble extends React.Component {
         }
       },
       onPanResponderRelease: (event, gestureState) => {
+        this.props.updateBubble(this.state);
         this._initialX = 0;
         this._initialY = 0;
         this._currentX = 0;
@@ -125,6 +127,7 @@ class Bubble extends React.Component {
       }
     });
     this.state = {
+      shape: this.props.shape,
       text: "",
       rotationZ: 0,
       translateX: 0,
@@ -133,6 +136,7 @@ class Bubble extends React.Component {
     };
   }
   render() {
+    console.log("in bubble", this.type);
     return (
       <View {...this._panResponder.panHandlers}>
         <View
@@ -149,7 +153,8 @@ class Bubble extends React.Component {
           }}
         >
           <ImageBackground
-            source={require("../../assets/bubble3.png")}
+            // source={require(`../../assets/bubble${this.props.type}.png`)}
+            source={require("../../assets/bubble1.png")}
             style={{ ...styles.bubble, height: this.props.height }}
           >
             <TextInput
@@ -205,6 +210,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     //   await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
     //   ownProps.navigation.navigate("Edit");
     // }
+    updateBubble: bubble => dispatch(updateBubble(bubble))
   };
 };
 
