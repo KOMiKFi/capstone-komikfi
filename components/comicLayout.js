@@ -13,15 +13,22 @@ import { connect } from "react-redux";
 import { captureRef } from "react-native-view-shot";
 import * as Permissions from "expo-permissions";
 import * as MediaLibrary from "expo-media-library";
-
 import { getPhotoFromLibrary, updateCurrentPhotoIdx, clearPhotos } from "../store";
 import PickPhotoPrompt from "./unit/pickPhotoPrompt";
 import SinglePhoto from "./unit/singlePhoto";
+import { captureRef } from "react-native-view-shot"
+import * as Permissions from "expo-permissions";
+import * as MediaLibrary from "expo-media-library"
+
 
 
 class ComicLayout extends React.Component {
   constructor() {
     super();
+    this.state = {
+      width: 0,
+      height: 0
+    }
   }
 
   async savePhoto() {
@@ -43,27 +50,38 @@ class ComicLayout extends React.Component {
 
   render() {
     const newArr = new Array(this.props.layout).fill(0);
+
+    const findDimension = (event) => {
+      this.setState({
+        width: event.nativeEvent.layout.width,
+        height: event.nativeEvent.layout.height
+      })
+    }
+    console.log('comic state', this.state)
     return (
+
       <View style={styles.page}>
         <View
           collapsable={false}
           ref={view => {
             this.comicView = view;
           }}
+
           style={styles[`container${this.props.layout}`]}
         >
           {newArr.map((element, index) => {
             return (
               <TouchableOpacity
                 key={index}
-                style={
-                  this.props.layout === 4
-                    ? styles.pictureFrame4
-                    : styles.pictureFrame
-                }
+
+                style={this.props.layout === 4 ? styles.pictureFrame4 : styles.pictureFrame}
+                onLayout={(event) => { findDimension(event) }}
+
               >
                 {!!this.props.photos[index].image.uri ? (
                   <SinglePhoto
+                    imageHeight={this.state.height}
+                    imageWidth={this.state.width}
                     style={styles.image}
                     navigation={this.props.navigation}
                     photoIdx={index}
@@ -164,7 +182,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     borderColor: "green",
-    borderWidth: 5
+    borderWidth: 5,
   },
   nav: {
     flex: 0.1,

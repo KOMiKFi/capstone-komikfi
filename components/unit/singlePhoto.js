@@ -6,17 +6,32 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  Dimensions,
 } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
 import Bubble from "./bubble";
+
 
 class SinglePhoto extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
+
+const setWidth = Dimensions.get('screen').width - 20
+const setHeight = Dimensions.get('screen').height*.70
+    let imageHeight
+    let imageWidth
+    // this.props.imageHeight === undefined ? 
+    //   imageHeight=setHeight : 
+      imageHeight=this.props.imageHeight
+
+    // this.props.imageWidth === undefined ? 
+    //   imageWidth=setWidth :
+      imageWidth=this.props.imageWidth
+
     return (
       <TouchableOpacity
         style={styles.singlePhoto}
@@ -24,7 +39,13 @@ class SinglePhoto extends React.Component {
       >
         <ImageBackground
           source={{ uri: this.props.currentPhoto.image.uri }}
-          style={styles.imageBackground}
+          style={this.props.layout !== 4 ? {height: imageHeight-10,
+            width: imageWidth-10,
+            alignItems: "center",
+            justifyContent: 'center'} : {height: imageHeight-10,
+              width: imageWidth-10,
+              alignItems: "center",
+              justifyContent: 'center'}}
         >
           <View>
             {bubbleArray[0]
@@ -38,6 +59,7 @@ class SinglePhoto extends React.Component {
     );
   }
 }
+
 
 const bubbleArray = [
   {
@@ -71,17 +93,19 @@ const styles = StyleSheet.create({
     justifyContent: "center"
     //defining for the image so it wouldn't go beyond the width
   },
-  imageBackground: {
-    flexDirection: "row",
-    width: 400,
-    height: 300,
-    borderColor: "green",
-    borderWidth: 5,
-    alignItems: "flex-start",
-    justifyContent: "space-around",
-    marginHorizontal: 10,
-    position: "relative"
-  },
+  // imageBackground1: {
+  //   // flex: 1,
+  //   width: imageWidth,
+  //   // height: 1,
+  //   alignItems: "center",
+  //   justifyContent: 'center',
+  // },
+  // imageBackground2: {
+  //   width: imageWidth,
+  //   height: 1,
+  //   alignItems: "center",
+  //   justifyContent: 'center',
+  // },
   bubble: {
     height: 200,
     width: 200,
@@ -92,9 +116,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    currentPhoto: state.photos[ownProps.photoIdx]
-    // currentPhoto: state.photos[state.currentPhotoIdx]
-
+    currentPhoto: state.photos[ownProps.photoIdx],
+    layout: state.layout,
+    imageHeight: ownProps.imageHeight,
+    imageWidth: ownProps.imageWidth
   };
 };
 
