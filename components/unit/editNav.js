@@ -28,11 +28,12 @@ class EditNav extends React.Component {
 
 
   render() {
-    console.log("IN EDIT SCREEN CURRENT PHOTO", this.props.currentPhoto)
+
     return (
       <View >
 
-        <View style={styles.navBubble}>
+      { this.state.bubbleMenuOn &&
+        (<View style={styles.navBubble}>
           <TouchableOpacity
             onPress={() =>
               this.props.addBubble(this.props.currentPhotoIdx, 1)
@@ -40,7 +41,7 @@ class EditNav extends React.Component {
           >
             <Image
               source={bubble1}
-              style={{width: 50, height: 50}} />
+              style={styles.navIcon} />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -50,7 +51,7 @@ class EditNav extends React.Component {
           >
             <Image
                 source={bubble2}
-                style={{width: 50, height: 50}}
+                style={styles.navIcon}
             />
 
           </TouchableOpacity>
@@ -62,14 +63,14 @@ class EditNav extends React.Component {
           >
               <Image
                 source={bubble3}
-                style={{width: 50, height: 50}}
+                style={styles.navIcon}
               />
 
           </TouchableOpacity>
 
         </View>
-
-
+      )
+    }
         <View style={styles.navMain}>
           <TouchableOpacity
             style={styles.textContainer}
@@ -89,7 +90,7 @@ class EditNav extends React.Component {
 
           <TouchableOpacity
             style={styles.textContainer}
-            // onPress={() => this.props.addBubble(this.props.currentPhotoIdx)}
+            onPress={() => this.toggleBubbleMenu()}
           >
             <Text style={styles.text}>Bubble</Text>
           </TouchableOpacity>
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     flexDirection: "row",
     justifyContent: "space-evenly",
-    alignItems: "flex-end"
+    alignItems: "center"
   },
   navBubble: {
     flex: 0,
@@ -128,8 +129,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-end"
   },
   navIcon: {
-    flex: 0.3,
-    width: "30%"
+    width: 50,
+    height: 50
 
   },
   icomContainer: {

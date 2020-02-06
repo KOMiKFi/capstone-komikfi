@@ -13,10 +13,13 @@ import {
 
 import { connect } from "react-redux";
 import { updateBubble } from "../../store";
+import bubble1 from "../../assets/bubble1.png";
+import bubble2 from "../../assets/bubble2.png"
+import bubble3 from "../../assets/bubble3.png"
+
+const bubbleImages = [bubble1, bubble2, bubble3]
 
 class Bubble extends React.Component {
-  rotationRef = React.createRef();
-  pinchRef = React.createRef();
   constructor(props) {
     super(props);
     this._initialX = 0;
@@ -31,7 +34,7 @@ class Bubble extends React.Component {
 
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
-      onPanResponderGrant: event => {},
+
       onPanResponderMove: (event, gesture) => {
         if (gesture.numberActiveTouches === 1) {
           if (!this._initialX || !this._initialY) {
@@ -114,7 +117,7 @@ class Bubble extends React.Component {
         }
       },
       onPanResponderRelease: (event, gestureState) => {
-        // this.props.updateBubble(this.state);
+        this.props.updateBubble(this.state);
         this._initialX = 0;
         this._initialY = 0;
         this._currentX = 0;
@@ -127,7 +130,6 @@ class Bubble extends React.Component {
       }
     });
     this.state = {
-      shape: this.props.shape,
       text: "",
       rotationZ: 0,
       translateX: 0,
@@ -136,7 +138,8 @@ class Bubble extends React.Component {
     };
   }
   render() {
-    console.log("in bubble", this.type);
+    console.log("in bubble", this.props);
+
     return (
       <View {...this._panResponder.panHandlers}>
         <View
@@ -153,8 +156,7 @@ class Bubble extends React.Component {
           }}
         >
           <ImageBackground
-            // source={require(`../../assets/bubble${this.props.type}.png`)}
-            source={require("../../assets/bubble1.png")}
+            source={bubbleImages[this.props.shape-1]}
             style={styles.bubble}
           >
             <TextInput
@@ -200,7 +202,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    currentPhoto: state.photos[ownProps.photoIdx]
+    // currentPhoto: state.photos[ownProps.photoIdx]
   };
 };
 
@@ -210,7 +212,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     //   await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
     //   ownProps.navigation.navigate("Edit");
     // }
-    // updateBubble: bubble => dispatch(updateBubble(bubble))
+    updateBubble: bubble => dispatch(updateBubble(bubble, ownProps.bubbleIdx,ownProps.photoIdx))
   };
 };
 

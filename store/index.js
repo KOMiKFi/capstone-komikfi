@@ -84,10 +84,12 @@ export const addBubble = (idx, shape) => {
   };
 };
 
-export const updateBubble = bubbleObject => {
+export const updateBubble = (bubble, bubbleIdx, photoIdx) => {
   return {
     type: UPDATE_BUBBLE,
-    bubble: bubbleObject
+    bubble,
+    bubbleIdx,
+    photoIdx,
   };
 };
 
@@ -167,6 +169,26 @@ const reducer = (state = initialState, action) => {
         },
         currentPhotoIdx: action.idx
       };
+    case UPDATE_BUBBLE:
+      return {
+        ...state,
+        photos: {
+          ...state.photos,
+          [action.photoIdx]: {
+            ... state.photos[action.photoIdx], bubbles: [
+              ...state.photos[action.photoIdx].bubbles].map(
+                (bubble, index) => {
+                  if (action.bubbleIdx === index) {
+                    return {...bubble, ...action.bubble}
+                  }
+                  else {
+                    return bubble
+                  }
+                }
+              )
+          }
+        }
+      }
     case SET_LAYOUT:
       return {
         ...state,
