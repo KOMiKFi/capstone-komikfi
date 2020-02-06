@@ -19,8 +19,10 @@ class Bubble extends React.Component {
   constructor(props) {
     super(props);
 
-    this.initialDistance;
-    this.currentDistance;
+    this._initialDistance;
+    this._currentDistance;
+    this._initialAngle;
+    this._currentAngle;
 
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -43,31 +45,52 @@ class Bubble extends React.Component {
           let currentY0 = touches[0].pageY;
           let currentX1 = touches[1].pageX;
           let currentY1 = touches[1].pageY;
-          if (!this.initialDistance) {
-            this.initialDistance = Math.sqrt(
+          //for zooming
+          if (!this._initialDistance) {
+            this._initialDistance = Math.sqrt(
               ((currentY1 - currentY0) ^ 2) + ((currentX1 - currentX0) ^ 2)
             );
           } else {
-            this.initialDistance = this.currentDistance;
+            this._initialDistance = this._currentDistance;
           }
-          this.currentDistance = Math.sqrt(
+          this._currentDistance = Math.sqrt(
             ((currentY1 - currentY0) ^ 2) + ((currentX1 - currentX0) ^ 2)
           );
 
-          this.setState({
-            ...this.state,
-            scale:
-              (this.state.scale / this.initialDistance) * this.currentDistance
-          });
+          //for rotating
+          if (!this._initialAngle) {
+            this._initialAngle = Math.atan(
+              (currentX0 - currentX1) / (currentY0 - currentY1)
+            );
+          } else {
+            this._currentAngle = Math.atan(
+              (currentX0 - currentX1) / (currentY0 - currentY1)
+            );
+            console.log(
+              "this.currentAngle",
+              this._initialAngle,
+              this._currentAngle
+            );
+          }
+          if (this._initialDistance !== 0) {
+            this.setState({
+              ...this.state,
+              scale:
+                (this.state.scale / this._initialDistance) *
+                this._currentDistance
+              // rotationZ: this._currentAngle - this._initialAngle
+            });
+          }
         }
       },
       onPanResponderRelease: (event, gestureState) => {
-        this.initialDistance = undefined;
+        this._initialDistance = undefined;
+        this._initialAngle = undefined;
       }
     });
     this.state = {
       text: "",
-      rotationZ: 0.5,
+      rotationZ: 0,
       translateX: 0,
       translateY: 0,
       scale: 1
