@@ -29,7 +29,7 @@ const initialState = {
     }
   },
   currentPhotoIdx: 0,
-  layout: 0
+  layout: {size: 0, height: 0, width: 0}
 };
 // state will look like this:
 
@@ -57,6 +57,7 @@ const UPDATE_CURRENT_PHOTO_IDX = "UPDATE_CURRENT_PHOTO_IDX";
 const ADD_BUBBLE = "ADD_BUBBLE";
 const SET_LAYOUT = "SET_LAYOUT";
 const CLEAR_PHOTOS = "CLEAR_PHOTOS"
+const IMAGE_HEIGHT = 'IMAGE_HEIGHT'
 
 const gotPhoto = (image, idx) => {
   return {
@@ -82,8 +83,9 @@ export const addBubble = idx => {
 };
 
 export const setLayout = layout => ({ type: SET_LAYOUT, layout });
+export const clearPhotos = () => ({ type: CLEAR_PHOTOS })
+export const imageHeight = (height, width) => ({ type: IMAGE_HEIGHT, height, width })
 
-export const clearPhotos = () => ({type: CLEAR_PHOTOS})
 
 export const getPhotoFromLibrary = idx => async dispatch => {
   try {
@@ -109,6 +111,18 @@ export const settingLayout = format => {
     }
   };
 };
+
+export const gettingHeight = (height, width) => {
+  console.log('height',height)
+  console.log('width', width)
+  return dispatch => {
+    try {
+      dispatch(imageHeight(height, width))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -140,14 +154,17 @@ const reducer = (state = initialState, action) => {
       };
     case SET_LAYOUT:
       return {
-        ...state,
-        layout: action.layout
+        ...state, layout: {...state.layout, size: action.layout}
       };
     case CLEAR_PHOTOS:
       return {
         ...state,
-        photos: {...initialState.photos},
+        photos: { ...initialState.photos },
         currentPhotoIdx: 0,
+      };
+    case IMAGE_HEIGHT:
+      return {
+        ...state, layout: {...state.layout, height: action.height, width: action.width}
       }
     default:
       return state;

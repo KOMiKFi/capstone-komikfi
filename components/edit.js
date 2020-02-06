@@ -4,7 +4,6 @@ import {
   StyleSheet,
   View,
   Text,
-  Image,
   TouchableOpacity,
   ImageBackground
 } from "react-native";
@@ -14,34 +13,14 @@ import bubble from "../assets/bubble.png";
 import SinglePhoto from './unit/singlePhoto'
 
 
-
 class Edit extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      width: 0,
-      height: 0
-    }
-  }
   render() {
-    const findDimension = (event) => {
-      this.setState({
-        width: 100,
-        height: 100
-      })
-    }
-
-    console.log(this.state)
     return (
-
       <View
-        onLayout={(event) => { findDimension(event) }}
         style={styles.container}>
         <View
           style={styles.confirm}></View>
         <SinglePhoto
-          imageHeight={this.state.height}
-          imageWidth={this.state.width}
           photoIdx={this.props.currentPhotoIdx}
           navigation={this.props.navigation}
         />
@@ -64,8 +43,8 @@ class Edit extends React.Component {
           >
             <Text style={styles.text}>Bubble</Text>
           </TouchableOpacity>
+        </View>
       </View>
-    </View>
     );
   }
 }
@@ -82,20 +61,6 @@ const styles = StyleSheet.create({
   confirm: {
     flex: 0.8
   },
-
-  imageContainer: {
-    borderColor: "red",
-    borderWidth: 5,
-    width: "100%",
-    height: "100%",
-    flex: 5, //in veritcal
-    flexDirection: "row" //defining for the image so it wouldn't go beyond the width
-  },
-  image: {
-    flex: 1,
-    //same as the layout component
-    height: "100%"
-  },
   filterPlaceHolder: {
     flex: 2
   },
@@ -110,8 +75,6 @@ const styles = StyleSheet.create({
   textContainer: {
     margin: 5,
     flex: 1,
-    // borderColor: "green",
-    // borderWidth: 5,
     fontSize: 20,
     justifyContent: "center"
   },

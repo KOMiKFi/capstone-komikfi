@@ -16,7 +16,8 @@ import * as MediaLibrary from "expo-media-library";
 import {
   getPhotoFromLibrary,
   updateCurrentPhotoIdx,
-  clearPhotos
+  clearPhotos,
+  gettingHeight
 } from "../store";
 import PickPhotoPrompt from "./unit/pickPhotoPrompt";
 import SinglePhoto from "./unit/singlePhoto";
@@ -50,12 +51,8 @@ class ComicLayout extends React.Component {
     const newArr = new Array(this.props.layout).fill(0);
 
     const findDimension = event => {
-      this.setState({
-        width: event.nativeEvent.layout.width,
-        height: event.nativeEvent.layout.height
-      });
+      this.props.gettingHeight(event.nativeEvent.layout.height, event.nativeEvent.layout.width)
     };
-    console.log("comic state", this.state);
     return (
       <View style={styles.page}>
         <View
@@ -80,8 +77,6 @@ class ComicLayout extends React.Component {
               >
                 {!!this.props.photos[index].image.uri ? (
                   <SinglePhoto
-                    imageHeight={this.state.height}
-                    imageWidth={this.state.width}
                     style={styles.image}
                     navigation={this.props.navigation}
                     photoIdx={index}
@@ -203,12 +198,11 @@ const mapStateToProps = state => {
   return {
     state: state,
     photos: state.photos,
-    layout: state.layout
+    layout: state.layout.size,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  console.log("incomicLayout", ownProps);
   return {
     getPhotoFromLibrary: async idx => {
       await dispatch(getPhotoFromLibrary(idx));
@@ -219,7 +213,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     clearPhotos: async () => {
       await dispatch(clearPhotos());
-    }
+    },
+    gettingHeight: (height, width) => dispatch(gettingHeight(height, width))
+
   };
 };
 
