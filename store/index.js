@@ -16,22 +16,15 @@ const initialState = {
       bubbles: []
     },
     1: {
-      image: { uri: "" },
-      bubbles: [{
-        type: "",
-        text: "",
-        rotationZ: 0,
-        translateX: 0,
-        translateY: 0,
-        scale: 1
-      }]
+      image: {},
+      bubbles: []
     },
     2: {
-      image: { uri: "" },
+      image: {},
       bubbles:[]
     },
     3: {
-      image: { uri: "" },
+      image: {},
       bubbles: []
     }
   },
@@ -153,8 +146,7 @@ const reducer = (state = initialState, action) => {
         photos: {
           ...state.photos,
           [action.idx]: {
-            image: state.photos[action.idx].image,
-            bubbles: [...state.photos[action.idx].bubbles, {shape: action.shape} ]
+            ...state.photos[action.idx], bubbles: [...state.photos[action.idx].bubbles, {shape: action.shape} ]
           }
         },
         currentPhotoIdx: action.idx
