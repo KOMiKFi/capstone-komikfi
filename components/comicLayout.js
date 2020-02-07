@@ -77,16 +77,16 @@ class ComicLayout extends React.Component {
               >
                 {!!this.props.photos[index].image.uri ? (
                   <SinglePhoto
-                    style={styles.image}
+                    // style={styles.image}
                     navigation={this.props.navigation}
                     photoIdx={index}
                   />
                 ) : (
-                  <PickPhotoPrompt
-                    navigation={this.props.navigation}
-                    photoIdx={index}
-                  />
-                )}
+                    <PickPhotoPrompt
+                      navigation={this.props.navigation}
+                      photoIdx={index}
+                    />
+                  )}
               </TouchableOpacity>
             );
           })}
@@ -119,22 +119,23 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: '#dfe3e6'
   },
   container1: {
     flex: 1,
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    borderColor: "green",
-    borderWidth: 5
+    borderColor: "#658d9e",
+    borderWidth: 5,
   },
   container2: {
     flex: 1,
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    borderColor: "green",
+    borderColor: "#658d9e",
     borderWidth: 5
   },
   container3: {
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    borderColor: "green",
+    borderColor: "#658d9e",
     borderWidth: 5
   },
   container4: {
@@ -154,13 +155,13 @@ const styles = StyleSheet.create({
     alignContent: "stretch",
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    borderColor: "green",
+    borderColor: "#658d9e",
     borderWidth: 5
   },
   pictureFrame: {
     flex: 1,
     width: "100%",
-    borderColor: "green",
+    borderColor: "#658d9e",
     borderWidth: 5,
     alignItems: "center",
     justifyContent: "space-around"
@@ -168,29 +169,31 @@ const styles = StyleSheet.create({
   pictureFrame4: {
     height: "50%",
     width: "50%",
-    borderColor: "green",
+    borderColor: "#658d9e",
     borderWidth: 5,
     alignItems: "center",
     justifyContent: "space-around"
   },
-  image: {
-    flex: 1,
-    width: "100%",
-    borderColor: "green",
-    borderWidth: 5
-  },
+  // image: {
+  //   flex: 1,
+  //   width: "100%",
+  //   borderColor: "green",
+  //   borderWidth: 5
+  // },
   nav: {
     flex: 0.1,
     width: "100%",
-    borderColor: "white",
-    backgroundColor: "white",
+    borderColor: "#dfe3e6",
     borderWidth: 5,
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
     alignItems: "center"
   },
   navItem: {
-    color: "blue"
+    color: '#e88010',
+    fontFamily: 'Noteworthy-Light',
+    fontSize: 20,
+    paddingBottom: 10
   }
 });
 

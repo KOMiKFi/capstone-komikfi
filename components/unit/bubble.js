@@ -107,7 +107,7 @@ class Bubble extends React.Component {
         }
       },
       onPanResponderRelease: (event, gestureState) => {
-        this.props.updateBubble(this.state);
+        // this.props.updateBubble(this.state);
         this._initialX = 0;
         this._initialY = 0;
         this._currentX = 0;
