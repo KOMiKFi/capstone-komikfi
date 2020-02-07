@@ -39,21 +39,21 @@ class Bubble extends React.Component {
         if (gesture.numberActiveTouches === 1) {
           if (!this._initialX || !this._initialY) {
             this._initialX =
-              gesture.dx * Math.cos(this.state.rotationZ) +
-              gesture.dy * Math.sin(this.state.rotationZ);
+              gesture.dx * Math.cos(this.state.rotateZ) +
+              gesture.dy * Math.sin(this.state.rotateZ);
             this._initialY =
-              gesture.dy * Math.cos(this.state.rotationZ) -
-              gesture.dx * Math.sin(this.state.rotationZ);
+              gesture.dy * Math.cos(this.state.rotateZ) -
+              gesture.dx * Math.sin(this.state.rotateZ);
           } else {
             this._initialX = this._currentX;
             this._initialY = this._currentY;
           }
           this._currentX =
-            gesture.dx * Math.cos(this.state.rotationZ) +
-            gesture.dy * Math.sin(this.state.rotationZ);
+            gesture.dx * Math.cos(this.state.rotateZ) +
+            gesture.dy * Math.sin(this.state.rotateZ);
           this._currentY =
-            gesture.dy * Math.cos(this.state.rotationZ) -
-            gesture.dx * Math.sin(this.state.rotationZ);
+            gesture.dy * Math.cos(this.state.rotateZ) -
+            gesture.dx * Math.sin(this.state.rotateZ);
 
           this.setState({
             ...this.state,
@@ -101,13 +101,13 @@ class Bubble extends React.Component {
               scale:
                 (this.state.scale / this._initialDistance) *
                 this._currentDistance,
-              rotationZ: this.state.rotationZ + this._diffAngle
+              rotateZ: this.state.rotateZ + this._diffAngle
             });
           }
         }
       },
       onPanResponderRelease: (event, gestureState) => {
-        // this.props.updateBubble(this.state);
+        this.props.updateBubble(this.state);
         this._initialX = 0;
         this._initialY = 0;
         this._currentX = 0;
@@ -121,21 +121,22 @@ class Bubble extends React.Component {
     });
     this.state = {
       text: "",
-      rotationZ: 0,
+      rotateZ: 0,
       translateX: 0,
       translateY: 0,
       scale: 1
     };
   }
+  componentWillUnmount() {
+    this.props.updateBubble(this.state);
+  }
   render() {
-    // console.log("in bubble", this.props);
-
     return (
       <View {...this._panResponder.panHandlers}>
         <View
           style={{
             transform: [
-              { rotateZ: this.state.rotationZ },
+              { rotateZ: this.state.rotateZ },
               { translateX: this.state.translateX },
               { translateY: this.state.translateY },
               { scale: this.state.scale }

@@ -20,7 +20,7 @@ import {
   gettingHeight
 } from "../store";
 import PickPhotoPrompt from "./unit/pickPhotoPrompt";
-import SinglePhoto from "./unit/singlePhoto";
+import SinglePhoto from "./unit/singlePhotoForLayout";
 
 class ComicLayout extends React.Component {
   constructor() {
@@ -51,7 +51,10 @@ class ComicLayout extends React.Component {
     const newArr = new Array(this.props.layout).fill(0);
 
     const findDimension = event => {
-      this.props.gettingHeight(event.nativeEvent.layout.height, event.nativeEvent.layout.width)
+      this.props.gettingHeight(
+        event.nativeEvent.layout.height,
+        event.nativeEvent.layout.width
+      );
     };
     return (
       <View style={styles.page}>
@@ -82,11 +85,11 @@ class ComicLayout extends React.Component {
                     photoIdx={index}
                   />
                 ) : (
-                    <PickPhotoPrompt
-                      navigation={this.props.navigation}
-                      photoIdx={index}
-                    />
-                  )}
+                  <PickPhotoPrompt
+                    navigation={this.props.navigation}
+                    photoIdx={index}
+                  />
+                )}
               </TouchableOpacity>
             );
           })}
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: '#dfe3e6'
+    backgroundColor: "#dfe3e6"
   },
   container1: {
     flex: 1,
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderColor: "#658d9e",
-    borderWidth: 5,
+    borderWidth: 5
   },
   container2: {
     flex: 1,
@@ -190,8 +193,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   navItem: {
-    color: '#e88010',
-    fontFamily: 'Noteworthy-Light',
+    color: "#e88010",
+    fontFamily: "Noteworthy-Light",
     fontSize: 20,
     paddingBottom: 10
   }
@@ -201,7 +204,7 @@ const mapStateToProps = state => {
   return {
     state: state,
     photos: state.photos,
-    layout: state.layout.size,
+    layout: state.layout.size
   };
 };
 
@@ -218,7 +221,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       await dispatch(clearPhotos());
     },
     gettingHeight: (height, width) => dispatch(gettingHeight(height, width))
-
   };
 };
 
