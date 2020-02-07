@@ -120,14 +120,14 @@ class Bubble extends React.Component {
       }
     });
     this.state = {
-      text: "",
-      rotateZ: 0,
-      translateX: 0,
-      translateY: 0,
-      scale: 1
+      text: this.props.text || "",
+      rotateZ: this.props.rotateZ || 0,
+      translateX: this.props.translateX || 0,
+      translateY: this.props.translateY || 0,
+      scale: this.props.scale || 1
     };
   }
-  componentWillUnmount() {
+  componentWillUpdate() {
     this.props.updateBubble(this.state);
   }
   render() {

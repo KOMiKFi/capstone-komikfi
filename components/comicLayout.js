@@ -80,7 +80,6 @@ class ComicLayout extends React.Component {
               >
                 {!!this.props.photos[index].image.uri ? (
                   <SinglePhoto
-                    // style={styles.image}
                     navigation={this.props.navigation}
                     photoIdx={index}
                   />
@@ -177,12 +176,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around"
   },
-  // image: {
-  //   flex: 1,
-  //   width: "100%",
-  //   borderColor: "green",
-  //   borderWidth: 5
-  // },
   nav: {
     flex: 0.1,
     width: "100%",

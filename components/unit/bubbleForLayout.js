@@ -43,7 +43,9 @@ class Bubble extends React.Component {
             source={bubbleImages[this.props.shape - 1]}
             style={styles.bubble}
           >
-            <Text value={this.props.text || ""}></Text>
+            <Text style={styles[`text${this.props.shape}`]}>
+              {this.props.text || ""}
+            </Text>
           </ImageBackground>
         </View>
       </View>
@@ -82,21 +84,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    // currentPhoto: state.photos[ownProps.photoIdx]
-  };
-};
-
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    // backToEdit: async () => {
-    //   await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
-    //   ownProps.navigation.navigate("Edit");
-    // }
     updateBubble: bubble =>
       dispatch(updateBubble(bubble, ownProps.bubbleIdx, ownProps.photoIdx))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Bubble);
+export default connect(null, mapDispatchToProps)(Bubble);

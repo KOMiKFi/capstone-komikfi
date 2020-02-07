@@ -15,8 +15,9 @@ class SinglePhoto extends React.Component {
     super(props);
   }
   render() {
+    console.log("insingelphoto", this.props);
     return (
-      <View
+      <TouchableOpacity
         style={styles.singlePhoto}
         onPress={() => this.props.backToEdit(this.props.photoIdx)}
       >
@@ -45,7 +46,7 @@ class SinglePhoto extends React.Component {
               : null}
           </View>
         </ImageBackground>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -75,7 +76,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     backToEdit: async () => {
       await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
-      ownProps.navigation.push("Edit");
+      ownProps.navigation.navigate("Edit");
     }
   };
 };
