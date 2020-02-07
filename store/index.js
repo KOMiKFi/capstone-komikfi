@@ -89,7 +89,7 @@ export const updateBubble = (bubble, bubbleIdx, photoIdx) => {
     type: UPDATE_BUBBLE,
     bubble,
     bubbleIdx,
-    photoIdx,
+    photoIdx
   };
 };
 
@@ -127,8 +127,6 @@ export const settingLayout = format => {
 };
 
 export const gettingHeight = (height, width) => {
-  console.log("height", height);
-  console.log("width", width);
   return dispatch => {
     try {
       dispatch(imageHeight(height, width));
@@ -175,20 +173,19 @@ const reducer = (state = initialState, action) => {
         photos: {
           ...state.photos,
           [action.photoIdx]: {
-            ... state.photos[action.photoIdx], bubbles: [
-              ...state.photos[action.photoIdx].bubbles].map(
-                (bubble, index) => {
-                  if (action.bubbleIdx === index) {
-                    return {...bubble, ...action.bubble}
-                  }
-                  else {
-                    return bubble
-                  }
+            ...state.photos[action.photoIdx],
+            bubbles: [...state.photos[action.photoIdx].bubbles].map(
+              (bubble, index) => {
+                if (action.bubbleIdx === index) {
+                  return { ...bubble, ...action.bubble };
+                } else {
+                  return bubble;
                 }
-              )
+              }
+            )
           }
         }
-      }
+      };
     case SET_LAYOUT:
       return {
         ...state,

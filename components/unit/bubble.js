@@ -14,10 +14,10 @@ import {
 import { connect } from "react-redux";
 import { updateBubble } from "../../store";
 import bubble1 from "../../assets/bubble1.png";
-import bubble2 from "../../assets/bubble2.png"
-import bubble3 from "../../assets/bubble3.png"
+import bubble2 from "../../assets/bubble2.png";
+import bubble3 from "../../assets/bubble3.png";
 
-const bubbleImages = [bubble1, bubble2, bubble3]
+const bubbleImages = [bubble1, bubble2, bubble3];
 
 class Bubble extends React.Component {
   constructor(props) {
@@ -67,12 +67,14 @@ class Bubble extends React.Component {
           let currentY0 = touches[0].pageY;
           let currentX1 = touches[1].pageX;
           let currentY1 = touches[1].pageY;
-          //for zooming
+
+          // for zooming
           if (!this._initialDistance) {
             this._initialDistance =
               Math.round(
                 Math.sqrt(
-                  ((currentY1 - currentY0) ^ 2) + ((currentX1 - currentX0) ^ 2)
+                  Math.pow(currentY1 - currentY0, 2) +
+                    Math.pow(currentX1 - currentX0, 2)
                 ) * 100
               ) / 100;
           } else {
@@ -81,7 +83,8 @@ class Bubble extends React.Component {
           this._currentDistance =
             Math.round(
               Math.sqrt(
-                ((currentY1 - currentY0) ^ 2) + ((currentX1 - currentX0) ^ 2)
+                Math.pow(currentY1 - currentY0, 2) +
+                  Math.pow(currentX1 - currentX0, 2)
               ) * 100
             ) / 100;
 
@@ -102,7 +105,7 @@ class Bubble extends React.Component {
             ) / 1000;
           this._diffAngle = this._currentAngle - this._initialAngle;
 
-          if (this._initialDistance !== 0 && this._initialDistance !== NaN) {
+          if (this._initialDistance !== 0) {
             this.setState({
               ...this.state,
               scale:
@@ -138,7 +141,7 @@ class Bubble extends React.Component {
     };
   }
   render() {
-    console.log("in bubble", this.props);
+    // console.log("in bubble", this.props);
 
     return (
       <View {...this._panResponder.panHandlers}>
@@ -156,7 +159,7 @@ class Bubble extends React.Component {
           }}
         >
           <ImageBackground
-            source={bubbleImages[this.props.shape-1]}
+            source={bubbleImages[this.props.shape - 1]}
             style={styles.bubble}
           >
             <TextInput
@@ -212,7 +215,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     //   await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
     //   ownProps.navigation.navigate("Edit");
     // }
-    updateBubble: bubble => dispatch(updateBubble(bubble, ownProps.bubbleIdx,ownProps.photoIdx))
+    updateBubble: bubble =>
+      dispatch(updateBubble(bubble, ownProps.bubbleIdx, ownProps.photoIdx))
   };
 };
 
