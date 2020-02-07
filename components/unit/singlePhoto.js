@@ -10,16 +10,6 @@ import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
 import Bubble from "./bubble";
 
-const bubbleArray = [
-  {
-    translateX: 1,
-    translateY: 1,
-    rotationZ: 30,
-    text: "geasf",
-    shape: 1
-  }
-];
-
 class SinglePhoto extends React.Component {
   constructor(props) {
     super(props);
@@ -39,7 +29,7 @@ class SinglePhoto extends React.Component {
             justifyContent: "center"
           }}
         >
-          <View>
+          <View style={styles.bubbleWrapper}>
             {this.props.currentPhoto.bubbles[0]
               ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
                   // console.log(bubble);
@@ -61,20 +51,14 @@ class SinglePhoto extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  singlePhoto: {
     borderColor: "black",
-    borderWidth: 5,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 40,
-    paddingHorizontal: 10
+    borderWidth: 5
   },
-  bubble: {
-    height: 200,
-    width: 200,
+  bubbleWrapper: {
     position: "absolute",
-    alignSelf: "center"
+    height: "100%",
+    width: "100%"
   }
 });
 

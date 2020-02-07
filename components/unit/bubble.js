@@ -134,15 +134,15 @@ class Bubble extends React.Component {
       <View {...this._panResponder.panHandlers}>
         <View
           style={{
-            borderColor: "purple",
-            borderWidth: 5,
             transform: [
               { rotateZ: this.state.rotationZ },
               { translateX: this.state.translateX },
               { translateY: this.state.translateY },
               { scale: this.state.scale }
             ],
-            postition: "relative"
+            position: "absolute",
+            top: "25%",
+            left: "25%"
           }}
         >
           <ImageBackground
@@ -167,16 +167,9 @@ class Bubble extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    borderColor: "purple",
-    borderWidth: 5,
-    transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }]
-  },
   bubble: {
     height: 150,
-    width: 150,
-    position: "relative",
-    alignSelf: "center"
+    width: 170
   },
   text1: {
     position: "relative",
