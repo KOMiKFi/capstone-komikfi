@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   ImageBackground,
   TextInput,
-  PanResponder
+  PanResponder,
+  Keyboard
 } from "react-native";
 
 import { connect } from "react-redux";
@@ -35,8 +36,8 @@ class Bubble extends React.Component {
               { scale: this.props.scale || 1 }
             ],
             position: "absolute",
-            top: "25%",
-            left: "25%"
+            top: "35%",
+            left: "20%"
           }}
         >
           <ImageBackground
