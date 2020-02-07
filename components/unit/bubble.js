@@ -134,15 +134,15 @@ class Bubble extends React.Component {
       <View {...this._panResponder.panHandlers}>
         <View
           style={{
-            borderColor: "purple",
-            borderWidth: 5,
             transform: [
               { rotateZ: this.state.rotationZ },
               { translateX: this.state.translateX },
               { translateY: this.state.translateY },
               { scale: this.state.scale }
             ],
-            postition: "relative"
+            position: "absolute",
+            top: "25%",
+            left: "25%"
           }}
         >
           <ImageBackground
@@ -150,7 +150,7 @@ class Bubble extends React.Component {
             style={styles.bubble}
           >
             <TextInput
-              style={{ ...styles.text }}
+              style={styles[`text${this.props.shape}`]}
               multiline
               numberOfLines={2}
               editable
@@ -167,25 +167,32 @@ class Bubble extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    borderColor: "purple",
-    borderWidth: 5,
-    transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }]
-  },
   bubble: {
-    height: 200,
-    width: 200,
-    position: "relative",
-    alignSelf: "center"
+    height: 150,
+    width: 170
   },
-  text: {
-    // zIndex: 1,
+  text1: {
     position: "relative",
-    top: "10%",
+    top: "19%",
     left: "15%",
-    fontSize: 20,
+    fontSize: 15,
     width: "60%",
+    height: "40%"
+  },
+  text2: {
+    position: "relative",
+    top: "22%",
+    left: "11%",
+    fontSize: 15,
+    width: "80%",
+    height: "40%"
+  },
+  text3: {
+    position: "relative",
+    top: "34%",
+    left: "25%",
+    fontSize: 20,
+    width: "50%",
     height: "40%"
   }
 });
