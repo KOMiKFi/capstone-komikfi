@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
-import Bubble from "./bubble";
+import Bubble from "./bubbleForEdit";
 
 class SinglePhoto extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class SinglePhoto extends React.Component {
     return (
       <View
         style={styles.singlePhoto}
-        // onPress={() => this.props.backToEdit(this.props.photoIdx)}
+        onPress={() => this.props.backToEdit(this.props.photoIdx)}
       >
         <ImageBackground
           source={{ uri: this.props.currentPhoto.image.uri }}
