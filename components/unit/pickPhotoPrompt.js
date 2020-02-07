@@ -11,9 +11,13 @@ class PickPhotoPrompt extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
-        <Text>Pick an image</Text>
-      </TouchableOpacity>
+      <View style={styles.main}>
+        <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
+          <Image source={{ uri: 'https://cdn1.iconfinder.com/data/icons/social-17/48/photos2-512.png'}} 
+          style={{height: 50, width: 50, margin: 100}}
+          />
+        </TouchableOpacity>
+      </View>
     );
   }
 }
@@ -34,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     marginHorizontal: 10
-  }
+  },
 });
 
 const mapStateToProps = state => {
