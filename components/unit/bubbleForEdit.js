@@ -35,6 +35,7 @@ class Bubble extends React.Component {
 
       onPanResponderMove: (event, gesture) => {
         if (gesture.numberActiveTouches === 1) {
+          console.log(gesture)
           if (!this._initialX || !this._initialY) {
             this._initialX =
               gesture.dx * Math.cos(this.state.rotateZ) +
