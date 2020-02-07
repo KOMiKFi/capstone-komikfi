@@ -182,6 +182,7 @@ class Bubble extends React.Component {
               }
               onSubmitEditing={() => {
                 this.props.updateBubble(this.state);
+                Keyboard.dismiss();
               }}
               value={this.state.text}
             ></TextInput>

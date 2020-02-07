@@ -14,20 +14,20 @@ import Bubble from "./bubbleForEdit";
 class SinglePhoto extends React.Component {
   constructor(props) {
     super(props);
-    this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
+    // this._panResponder = PanResponder.create({
+    //   onStartShouldSetPanResponder: () => true,
 
-      onPanResponderRelease: (event, gesture) => {
-        Keyboard.dismiss();
-      }
-    });
+    //   onPanResponderRelease: (event, gesture) => {
+    //     Keyboard.dismiss();
+    //   }
+    // });
   }
   render() {
     return (
       <View
         style={styles.singlePhoto}
         onPress={() => this.props.backToEdit(this.props.photoIdx)}
-        {...this._panResponder.panHandlers}
+        // {...this._panResponder.panHandlers}
       >
         <ImageBackground
           source={{ uri: this.props.currentPhoto.image.uri }}
