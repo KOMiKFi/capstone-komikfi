@@ -70,50 +70,37 @@ class Bubble extends React.Component {
 
           // for zooming
           if (!this._initialDistance) {
-            this._initialDistance =
-              Math.round(
-                Math.sqrt(
-                  Math.pow(currentY1 - currentY0, 2) +
-                    Math.pow(currentX1 - currentX0, 2)
-                ) * 100
-              ) / 100;
+            this._initialDistance = Math.sqrt(
+              Math.pow(currentY1 - currentY0, 2) +
+                Math.pow(currentX1 - currentX0, 2)
+            );
           } else {
             this._initialDistance = this._currentDistance;
           }
-          this._currentDistance =
-            Math.round(
-              Math.sqrt(
-                Math.pow(currentY1 - currentY0, 2) +
-                  Math.pow(currentX1 - currentX0, 2)
-              ) * 100
-            ) / 100;
+          this._currentDistance = Math.sqrt(
+            Math.pow(currentY1 - currentY0, 2) +
+              Math.pow(currentX1 - currentX0, 2)
+          );
 
           //for rotating
           if (!this._initialAngle) {
-            this._initialAngle =
-              Math.round(
-                Math.atan((currentX0 - currentX1) / (currentY1 - currentY0)) *
-                  1000
-              ) / 1000;
+            this._initialAngle = Math.atan(
+              (currentX0 - currentX1) / (currentY1 - currentY0)
+            );
           } else {
             this._initialAngle = this._currentAngle;
           }
-          this._currentAngle =
-            Math.round(
-              Math.atan((currentX0 - currentX1) / (currentY1 - currentY0)) *
-                1000
-            ) / 1000;
+          this._currentAngle = Math.atan(
+            (currentX0 - currentX1) / (currentY1 - currentY0)
+          );
           this._diffAngle = this._currentAngle - this._initialAngle;
 
           if (this._initialDistance !== 0) {
             this.setState({
               ...this.state,
               scale:
-                Math.round(
-                  (this.state.scale / this._initialDistance) *
-                    this._currentDistance *
-                    1000
-                ) / 1000,
+                (this.state.scale / this._initialDistance) *
+                this._currentDistance,
               rotationZ: this.state.rotationZ + this._diffAngle
             });
           }
