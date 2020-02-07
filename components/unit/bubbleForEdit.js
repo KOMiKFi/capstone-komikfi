@@ -127,7 +127,7 @@ class Bubble extends React.Component {
       scale: this.props.scale || 1
     };
   }
-  componentWillUpdate() {
+  componentWillUnmount() {
     this.props.updateBubble(this.state);
   }
   render() {
@@ -142,8 +142,8 @@ class Bubble extends React.Component {
               { scale: this.state.scale }
             ],
             position: "absolute",
-            top: "25%",
-            left: "25%"
+            top: "35%",
+            left: "20%"
           }}
         >
           <ImageBackground
@@ -198,21 +198,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    // currentPhoto: state.photos[ownProps.photoIdx]
-  };
-};
-
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    // backToEdit: async () => {
-    //   await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
-    //   ownProps.navigation.navigate("Edit");
-    // }
     updateBubble: bubble =>
       dispatch(updateBubble(bubble, ownProps.bubbleIdx, ownProps.photoIdx))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Bubble);
+export default connect(null, mapDispatchToProps)(Bubble);
