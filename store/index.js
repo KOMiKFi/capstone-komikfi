@@ -42,7 +42,7 @@ const initialState = {
 //         {
 //           shape:1,
 //           text: "",
-//           rotationZ: radiant,
+//           rotateZ: radiant,
 //           scale: 1,
 //           translateX:0,
 //           translateX:Y,

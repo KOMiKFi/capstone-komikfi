@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../store";
-import SinglePhoto from "./unit/singlePhoto";
+import SinglePhoto from "./unit/singlePhotoForEdit";
 import EditNav from "./unit/editNav";
 
 class Edit extends React.Component {
