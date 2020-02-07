@@ -60,7 +60,7 @@ class SinglePhoto extends React.Component {
 
 const styles = StyleSheet.create({
   singlePhoto: {
-    borderColor: "black",
+    borderColor: "#658d9e",
     borderWidth: 5
   },
   bubbleWrapper: {

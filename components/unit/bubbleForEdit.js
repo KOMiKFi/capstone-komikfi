@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 import { connect } from "react-redux";
-import { updateBubble } from "../../store";
+import { updateBubble, deleteBubble } from "../../store";
 import bubble1 from "../../assets/bubble1.png";
 import bubble2 from "../../assets/bubble2.png";
 import bubble3 from "../../assets/bubble3.png";
@@ -35,7 +35,29 @@ class Bubble extends React.Component {
 
       onPanResponderMove: (event, gesture) => {
         if (gesture.numberActiveTouches === 1) {
-          console.log(gesture)
+          const layout = this.props.layout;
+          const topBorder = (layout.height * (layout.size - 1)) / 2;
+          const bottomBorder = topBorder + layout.height;
+          const rightBorder = layout.width;
+          if (layout.size !== 4) {
+            if (
+              gesture.moveX < 20 ||
+              gesture.moveX > rightBorder - 20 ||
+              gesture.moveY < topBorder ||
+              gesture.moveY > bottomBorder
+            ) {
+              this.props.deleteBubble();
+            }
+          } else if (layout.size === 4) {
+            if (
+              gesture.moveX < 0.5 * layout.width + 20 ||
+              gesture.moveX > 2 * layout.width - 20 ||
+              gesture.moveY < 0.5 * layout.height + 20 ||
+              gesture.moveY > 2 * layout.height - 40
+            ) {
+              this.props.deleteBubble();
+            }
+          }
           if (!this._initialX || !this._initialY) {
             this._initialX =
               gesture.dx * Math.cos(this.state.rotateZ) +
@@ -130,6 +152,7 @@ class Bubble extends React.Component {
     this.props.updateBubble(this.state);
   }
   render() {
+    console.log(this.props.layout);
     return (
       <View {...this._panResponder.panHandlers}>
         <View
@@ -199,13 +222,20 @@ const styles = StyleSheet.create({
     height: "40%"
   }
 });
-
+const mapStatetoProps = state => {
+  return {
+    layout: state.layout
+  };
+};
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     updateBubble: bubble => {
       dispatch(updateBubble(bubble, ownProps.bubbleIdx, ownProps.photoIdx));
+    },
+    deleteBubble: () => {
+      dispatch(deleteBubble(ownProps.photoIdx, ownProps.bubbleIdx));
     }
   };
 };
 
-export default connect(null, mapDispatchToProps)(Bubble);
+export default connect(mapStatetoProps, mapDispatchToProps)(Bubble);
