@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
   layout: {
     fontSize: 40,
     fontFamily: 'Noteworthy-Light',
-    // color: '#244654',
     color: '#e88010',
     textDecorationLine: 'underline'
   }

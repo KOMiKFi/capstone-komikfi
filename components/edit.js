@@ -14,12 +14,10 @@ import EditNav from "./unit/editNav";
 
 class Edit extends React.Component {
   render() {
+    let imageStyle = this.props.layout === 1 ? styles.editContainerOne : styles.editContainer
     return (
       <View style={styles.container}>
-        <View style={styles.textContainer}> 
-        <Text>Edit</Text>
-        </View>
-        <View style={styles.editContainer}>
+        <View style={imageStyle}>
           <SinglePhoto
             photoIdx={this.props.currentPhotoIdx}
             navigation={this.props.navigation}
@@ -38,33 +36,27 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 10
+    backgroundColor: '#dfe3e6',
   },
   editContainer: {
+    marginTop: 50, 
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center'
   },
+  editContainerOne: {
+    flex: 1
+  },
   nav: {
-    justifyContent: "flex-end",
-    flex: 0.3
-  },
-  textContainer: {
-    flex: 0.1,
-    fontSize: 20,
-    justifyContent: "center"
-  },
-  text: {
-    fontSize: 20,
-    alignSelf: "center"
-  },
-
+  justifyContent: "flex-end",
+  flex: 0.3
+}
 });
 
 const mapStateToProps = state => {
   return {
     currentPhotoIdx: state.currentPhotoIdx,
-    currentPhoto: state.photos[state.currentPhotoIdx]
+    currentPhoto: state.photos[state.currentPhotoIdx],
+    layout: state.layout.size
   };
 };
 

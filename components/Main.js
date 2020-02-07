@@ -26,17 +26,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "space-around"
+    justifyContent: "space-evenly",
+    backgroundColor: '#dfe3e6',
+    borderRadius: 4,
   },
   box: {
     width: 300, 
     height: 200, 
-    backgroundColor: "#83acc9",
+    backgroundColor: "#658d9e",
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowColor: "#000",
+    shadowOffset: { height: 3 },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+    borderWidth: 5,
+    borderColor: '#244654',
+    borderRadius: 4,
   },
   text: {
     fontSize: 25,
-    fontFamily: 'Avenir-LightOblique'
+    fontFamily: 'Noteworthy-Light',
   }
 });

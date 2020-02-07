@@ -29,33 +29,35 @@ class EditNav extends React.Component {
   render() {
     return (
       <View>
-        {this.state.bubbleMenuOn && (
-          <View style={styles.navBubble}>
-            <TouchableOpacity
-              onPress={() =>
-                this.props.addBubble(this.props.currentPhotoIdx, 1)
-              }
-            >
-              <Image source={bubble1} style={styles.navIcon} />
-            </TouchableOpacity>
+        <View style={styles.navBubble}>
+          {this.state.bubbleMenuOn && (
+            <View style={styles.iconContainer}> 
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.addBubble(this.props.currentPhotoIdx, 1)
+                }
+              >
+                <Image source={bubble1} style={styles.navIcon} />
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() =>
-                this.props.addBubble(this.props.currentPhotoIdx, 2)
-              }
-            >
-              <Image source={bubble2} style={styles.navIcon} />
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.addBubble(this.props.currentPhotoIdx, 2)
+                }
+              >
+                <Image source={bubble2} style={styles.navIcon} />
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() =>
-                this.props.addBubble(this.props.currentPhotoIdx, 3)
-              }
-            >
-              <Image source={bubble3} style={styles.navIcon} />
-            </TouchableOpacity>
-          </View>
-        )}
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.addBubble(this.props.currentPhotoIdx, 3)
+                }
+              >
+                <Image source={bubble3} style={styles.navIcon} />
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
         <View style={styles.navMain}>
           <TouchableOpacity
             style={styles.textContainer}
@@ -92,25 +94,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
+  iconContainer:{
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: 'center',
+    // borderColor: "#658d9e",
+    // borderWidth: 5,
+  },
   navMain: {
-    // flex: 0,
     width: "100%",
-    height: '40%',
-    borderColor: "black",
-    borderWidth: 2,
+    height: '50%',
+    borderColor: "#658d9e",
+    borderTopWidth: 5,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center"
   },
   navBubble: {
-    // flex: 0,
     width: "100%",
-    height: "40%",
-    borderColor: "black",
-    borderWidth: 2,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "flex-end"
+    height: "50%",
   },
   navIcon: {
     width: 50,
@@ -118,7 +121,9 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    alignSelf: "center"
+    alignSelf: "center",
+    fontFamily: "Noteworthy-Light",
+    color: "#e88010",
   }
 });
 
