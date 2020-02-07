@@ -93,20 +93,21 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   navMain: {
-    flex: 0,
+    // flex: 0,
     width: "100%",
+    height: '40%',
     borderColor: "black",
-    borderWidth: 5,
+    borderWidth: 2,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center"
   },
   navBubble: {
-    flex: 0,
+    // flex: 0,
     width: "100%",
-    height: "30%",
+    height: "40%",
     borderColor: "black",
-    borderWidth: 5,
+    borderWidth: 2,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "flex-end"
@@ -114,15 +115,6 @@ const styles = StyleSheet.create({
   navIcon: {
     width: 50,
     height: 50
-  },
-  icomContainer: {
-    margin: 5,
-    flex: 1,
-    width: "30%",
-    // borderColor: "green",
-    // borderWidth: 5,
-    // fontSize: 20,
-    justifyContent: "center"
   },
   text: {
     fontSize: 20,
