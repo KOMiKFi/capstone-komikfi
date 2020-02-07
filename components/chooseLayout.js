@@ -7,67 +7,116 @@ import { connect } from "react-redux";
 export class ChooseCase extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.subLayout}
-          onPress={() => {
-            this.props.settingLayout(1);
-            this.props.navigation.navigate("ComicLayout");
-          }}
-        >
-          <Text>Layout 1</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.subLayout}
-          onPress={() => {
-            this.props.settingLayout(2);
-            this.props.navigation.navigate("ComicLayout");
-          }}
-        >
-          <Text>Format 2</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.subLayout}
-          onPress={() => {
-            this.props.settingLayout(3);
-            this.props.navigation.navigate("ComicLayout");
-          }}
-        >
-          <Text>Format 3</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.subLayout}
-          onPress={() => {
-            this.props.settingLayout(4);
-            this.props.navigation.navigate("ComicLayout");
-          }}
-        >
-          <Text>Format 4</Text>
-        </TouchableOpacity>
+      <View style={styles.main}>
+        <View style={styles.message}>
+          <Text style={styles.layout}>Select a layout</Text>
+        </View>
+        <View style={styles.container}>
+          <TouchableOpacity
+            style={styles.subLayout}
+            onPress={() => {
+              this.props.settingLayout(1);
+              this.props.navigation.navigate("ComicLayout");
+            }}
+          >
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.subLayout}
+            onPress={() => {
+              this.props.settingLayout(2);
+              this.props.navigation.navigate("ComicLayout");
+            }}
+          >
+            <View style={styles.two} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.subLayout}
+            onPress={() => {
+              this.props.settingLayout(3);
+              this.props.navigation.navigate("ComicLayout");
+            }}
+          >
+            <View style={styles.three} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.subLayout}
+            onPress={() => {
+              this.props.settingLayout(4);
+              this.props.navigation.navigate("ComicLayout");
+            }}
+          >
+            <View style={styles.four} />
+            <View style={styles.four2} />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    paddingVertical: 40,
-    paddingHorizontal: 10
+  main: {
+    height: '100%',
+    alignItems: 'center',
+    backgroundColor: '#dfe3e6'
   },
-
+  message: {
+    flex: 2,
+    justifyContent: 'center'
+  },
+  container: {
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    flex: 9,
+    shadowColor: "#000",
+    shadowOffset: { height: 3 },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
   subLayout: {
-    width: 150,
-    height: 250,
-    backgroundColor: "green",
-    alignItems: "center",
-    justifyContent: "space-around",
-    marginVertical: 30,
-    marginHorizontal: 10
+    width: '40%',
+    height: '38%',
+    backgroundColor: "#658d9e",
+    justifyContent: "center",
+    marginVertical: 10,
+    borderWidth: 4,
+    borderColor: '#244654',
+    borderRadius: 4,
+  },
+  two: {
+    borderColor: '#244654',
+    borderTopWidth: 2,
+    borderBottomWidth: 2
+  },
+  three: {
+    height: '38%',
+    borderTopWidth: 4,
+    borderBottomWidth: 4,
+    borderColor: '#244654',
+  },
+  four: {
+    height: '100%',
+    marginLeft: '50%',
+    marginRight: '50%',
+    borderWidth: 2,
+    position: 'absolute',
+    borderColor: '#244654',
+  },
+  four2: {
+    width: '100%',
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    position: 'absolute',
+    borderColor: '#244654',
+  },
+  layout: {
+    fontSize: 40,
+    fontFamily: 'Noteworthy-Light',
+    // color: '#244654',
+    color: '#e88010',
+    textDecorationLine: 'underline'
   }
 });
 
