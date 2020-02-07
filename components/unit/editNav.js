@@ -10,67 +10,52 @@ import {
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../../store";
 import bubble1 from "../../assets/bubble1.png";
-import bubble2 from "../../assets/bubble2.png"
-import bubble3 from "../../assets/bubble3.png"
+import bubble2 from "../../assets/bubble2.png";
+import bubble3 from "../../assets/bubble3.png";
 
 class EditNav extends React.Component {
   constructor() {
-    super()
+    super();
     this.state = {
       bubbleMenuOn: false
-    }
-    this.toggleBubbleMenu = this.toggleBubbleMenu.bind(this)
+    };
+    this.toggleBubbleMenu = this.toggleBubbleMenu.bind(this);
   }
 
   toggleBubbleMenu() {
-    this.setState({bubbleMenuOn: !this.state.bubbleMenuOn})
+    this.setState({ bubbleMenuOn: !this.state.bubbleMenuOn });
   }
 
-
   render() {
-
     return (
-      <View >
+      <View>
+        {this.state.bubbleMenuOn && (
+          <View style={styles.navBubble}>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.addBubble(this.props.currentPhotoIdx, 1)
+              }
+            >
+              <Image source={bubble1} style={styles.navIcon} />
+            </TouchableOpacity>
 
-      { this.state.bubbleMenuOn &&
-        (<View style={styles.navBubble}>
-          <TouchableOpacity
-            onPress={() =>
-              this.props.addBubble(this.props.currentPhotoIdx, 1)
-            }
-          >
-            <Image
-              source={bubble1}
-              style={styles.navIcon} />
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.addBubble(this.props.currentPhotoIdx, 2)
+              }
+            >
+              <Image source={bubble2} style={styles.navIcon} />
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() =>
-            this.props.addBubble(this.props.currentPhotoIdx, 2)
-            }
-          >
-            <Image
-                source={bubble2}
-                style={styles.navIcon}
-            />
-
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() =>
-            this.props.addBubble(this.props.currentPhotoIdx, 3)
-            }
-          >
-              <Image
-                source={bubble3}
-                style={styles.navIcon}
-              />
-
-          </TouchableOpacity>
-
-        </View>
-      )
-    }
+            <TouchableOpacity
+              onPress={() =>
+                this.props.addBubble(this.props.currentPhotoIdx, 3)
+              }
+            >
+              <Image source={bubble3} style={styles.navIcon} />
+            </TouchableOpacity>
+          </View>
+        )}
         <View style={styles.navMain}>
           <TouchableOpacity
             style={styles.textContainer}
@@ -95,19 +80,17 @@ class EditNav extends React.Component {
             <Text style={styles.text}>Bubble</Text>
           </TouchableOpacity>
         </View>
-
       </View>
-    )
+    );
   }
 }
-
 
 const styles = StyleSheet.create({
   navContainer: {
     flex: 1,
     width: "100%",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   navMain: {
     flex: 0,
@@ -131,7 +114,6 @@ const styles = StyleSheet.create({
   navIcon: {
     width: 50,
     height: 50
-
   },
   icomContainer: {
     margin: 5,
@@ -145,10 +127,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     alignSelf: "center"
-  },
+  }
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     currentPhotoIdx: state.currentPhotoIdx,
     currentPhoto: state.photos[state.currentPhotoIdx]
@@ -162,11 +144,9 @@ const mapDispatchToProps = dispatch => {
     },
     addBubble: (idx, shape) => {
       dispatch(addBubble(idx, shape));
-      console.log("Dispatched addBubble", shape)
+      // console.log("Dispatched addBubble", shape)
     }
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNav);
-
-
