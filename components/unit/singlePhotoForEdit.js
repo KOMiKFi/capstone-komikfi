@@ -3,8 +3,9 @@ import React from "react";
 import {
   StyleSheet,
   View,
-  TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  Keyboard,
+  PanResponder
 } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
@@ -13,12 +14,20 @@ import Bubble from "./bubbleForEdit";
 class SinglePhoto extends React.Component {
   constructor(props) {
     super(props);
+    this._panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+
+      onPanResponderRelease: (event, gesture) => {
+        Keyboard.dismiss();
+      }
+    });
   }
   render() {
     return (
       <View
         style={styles.singlePhoto}
         onPress={() => this.props.backToEdit(this.props.photoIdx)}
+        {...this._panResponder.panHandlers}
       >
         <ImageBackground
           source={{ uri: this.props.currentPhoto.image.uri }}
@@ -32,7 +41,6 @@ class SinglePhoto extends React.Component {
           <View style={styles.bubbleWrapper}>
             {this.props.currentPhoto.bubbles[0]
               ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
-                  // console.log(bubble);
                   return (
                     <Bubble
                       key={idx}

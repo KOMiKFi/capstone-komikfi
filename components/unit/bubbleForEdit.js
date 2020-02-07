@@ -3,12 +3,10 @@ import React from "react";
 import {
   StyleSheet,
   View,
-  Text,
-  Image,
-  TouchableOpacity,
   ImageBackground,
   TextInput,
-  PanResponder
+  PanResponder,
+  Keyboard
 } from "react-native";
 
 import { connect } from "react-redux";
@@ -158,6 +156,9 @@ class Bubble extends React.Component {
               onChangeText={text =>
                 this.setState({ ...this.state, text: text })
               }
+              onSubmitEditing={() => {
+                this.props.updateBubble(this.state);
+              }}
               value={this.state.text}
             ></TextInput>
           </ImageBackground>
@@ -200,8 +201,9 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    updateBubble: bubble =>
-      dispatch(updateBubble(bubble, ownProps.bubbleIdx, ownProps.photoIdx))
+    updateBubble: bubble => {
+      dispatch(updateBubble(bubble, ownProps.bubbleIdx, ownProps.photoIdx));
+    }
   };
 };
 
