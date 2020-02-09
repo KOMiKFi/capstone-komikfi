@@ -21,6 +21,8 @@ import {
 } from "../store";
 import PickPhotoPrompt from "./unit/pickPhotoPrompt";
 import SinglePhoto from "./unit/singlePhotoForLayout";
+import { Camera } from "expo-camera";
+import CameraPrompt from "./unit/cameraPrompt";
 
 class ComicLayout extends React.Component {
   constructor() {
@@ -88,6 +90,12 @@ class ComicLayout extends React.Component {
                     navigation={this.props.navigation}
                     photoIdx={index}
                   />
+                  // <CameraPrompt/>
+                  // <TouchableOpacity
+                  // onPress={this.props.navigation.navigate('CameraPrompt')}
+                  // >
+                  //   <Text>Camera</Text>
+                  // </TouchableOpacity>
                 )}
               </TouchableOpacity>
             );

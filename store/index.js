@@ -2,6 +2,7 @@ import { createStore, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import * as ImagePicker from "expo-image-picker";
+import { Camera } from 'expo-camera';
 
 const middleware = applyMiddleware(
   thunkMiddleware,
@@ -60,6 +61,7 @@ const SET_LAYOUT = "SET_LAYOUT";
 const CLEAR_PHOTOS = "CLEAR_PHOTOS";
 const IMAGE_HEIGHT = "IMAGE_HEIGHT";
 const UPDATE_BUBBLE = "UPDATE_BUBBLE";
+const TAKE_PHOTO = 'TAKE_PHOTO'
 
 const gotPhoto = (image, idx) => {
   return {
@@ -68,6 +70,7 @@ const gotPhoto = (image, idx) => {
     idx
   };
 };
+
 
 export const updateCurrentPhotoIdx = idx => {
   return {
@@ -95,11 +98,8 @@ export const updateBubble = (bubble, bubbleIdx, photoIdx) => {
 
 export const setLayout = layout => ({ type: SET_LAYOUT, layout });
 export const clearPhotos = () => ({ type: CLEAR_PHOTOS });
-export const imageHeight = (height, width) => ({
-  type: IMAGE_HEIGHT,
-  height,
-  width
-});
+export const imageHeight = (height, width) => ({ type: IMAGE_HEIGHT, height, width });
+export const takePhoto = (image, idx) => ({ type: TAKE_PHOTO, image, idx });
 
 export const getPhotoFromLibrary = idx => async dispatch => {
   try {
@@ -111,6 +111,20 @@ export const getPhotoFromLibrary = idx => async dispatch => {
     }
     let image = await ImagePicker.launchImageLibraryAsync();
     dispatch(gotPhoto(image, idx));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const accessingCamera = idx => async dispatch => {
+  try {
+    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera is required");
+      return;
+    }
+    let camera = await ImagePicker.launchCameraAsync();
+    dispatch(takePhoto(camera, idx));
   } catch (error) {
     console.error(error);
   }
@@ -139,6 +153,18 @@ export const gettingHeight = (height, width) => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_PHOTO:
+      return {
+        ...state,
+        photos: {
+          ...state.photos,
+          [action.idx]: {
+            image: action.image,
+            bubbles: state.photos[action.idx].bubbles
+          }
+        },
+        currentPhotoIdx: action.idx
+      };
+    case TAKE_PHOTO:
       return {
         ...state,
         photos: {

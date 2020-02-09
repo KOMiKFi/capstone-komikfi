@@ -2,7 +2,7 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { getPhotoFromLibrary } from "../../store";
+import { getPhotoFromLibrary, accessingCamera} from "../../store";
 
 class PickPhotoPrompt extends React.Component {
   constructor(props) {
@@ -11,9 +11,14 @@ class PickPhotoPrompt extends React.Component {
 
   render() {
     return (
-      <View style={styles.main}>
+      <View style={styles.container}>
         <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
           <Image source={{ uri: 'https://cdn1.iconfinder.com/data/icons/social-17/48/photos2-512.png'}} 
+          style={{height: 50, width: 50, margin: 100}}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.props.accessingCamera}>
+        <Image source={{ uri: 'https://pngimage.net/wp-content/uploads/2018/05/camera-icon-png-transparent-background-3.png'}} 
           style={{height: 50, width: 50, margin: 100}}
           />
         </TouchableOpacity>
@@ -24,21 +29,10 @@ class PickPhotoPrompt extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 40,
-    paddingHorizontal: 10
-  },
-  pictureFrame1: {
-    width: 400,
-    height: 300,
-    borderColor: "black",
-    borderWidth: 5,
-    alignItems: "center",
-    justifyContent: "space-around",
-    marginHorizontal: 10
-  },
+    paddingHorizontal: 70,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  }
 });
 
 const mapStateToProps = state => {
@@ -51,6 +45,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getPhotoFromLibrary: async () => {
       await dispatch(getPhotoFromLibrary(ownProps.photoIdx));
+      ownProps.navigation.push("Edit");
+    },
+    accessingCamera: async () => {
+      await dispatch(accessingCamera(ownProps.photoIdx));
       ownProps.navigation.push("Edit");
     }
   };

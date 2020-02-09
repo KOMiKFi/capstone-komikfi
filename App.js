@@ -9,13 +9,16 @@ import ComicLayout from "./components/comicLayout";
 import { Provider } from "react-redux";
 import store from "./store";
 
+import CameraPrompt from './components/unit/cameraPrompt'
+
 const AppNavigator = createStackNavigator(
   {
     Main: Main,
     ChooseLayout: ChooseLayout,
     ComicLayout: ComicLayout,
     Edit: Edit,
-    Confirm: ComicLayout
+    Confirm: ComicLayout,
+    CameraPrompt: CameraPrompt
   },
   {
     initialRouteName: "Main"
