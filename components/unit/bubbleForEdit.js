@@ -9,7 +9,6 @@ import {
   Keyboard,
   Dimensions
 } from "react-native";
-import { Header } from "react-navigation-stack";
 import { connect } from "react-redux";
 import { updateBubble, deleteBubble } from "../../store";
 import bubble1 from "../../assets/bubble1.png";
@@ -30,7 +29,7 @@ class Bubble extends React.Component {
     this._initialAngle = 0;
     this._currentAngle = 0;
     this._diffAngle = 0;
-    this._headerHeight = Header.HEIGHT;
+    this._headerHeight = 90;
 
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
