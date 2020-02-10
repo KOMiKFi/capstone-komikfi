@@ -30,11 +30,11 @@ class Bubble extends React.Component {
     this._initialAngle = 0;
     this._currentAngle = 0;
     this._diffAngle = 0;
+    this._headerHeight = Header.HEIGHT;
 
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderGrant: (event, gesture) => {
-        console.log("in grant", gesture);
         if (gesture.numberActiveTouches === 1) {
           this.setState({ ...this.state, isOnDrag: true });
         }
@@ -48,18 +48,12 @@ class Bubble extends React.Component {
           const range = 15;
           let trashCanY;
           if (layout.size !== 4) {
-            trashCanY = Header.HEIGHT + (layout.height * (layout.size - 1)) / 2;
+            trashCanY =
+              this._headerHeight + (layout.height * (layout.size - 1)) / 2;
           } else {
-            trashCanY = Header.HEIGHT + 0.5 * layout.height;
+            trashCanY = this._headerHeight + 0.5 * layout.height;
           }
-          console.log(
-            "asdf",
-            trashCanX,
-            trashCanY,
-            gesture.moveX,
-            gesture.moveY,
-            layout.height
-          );
+
           if (
             gesture.moveX < trashCanX + range &&
             gesture.moveX > trashCanX - range &&
