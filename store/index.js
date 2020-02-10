@@ -61,6 +61,7 @@ const CLEAR_PHOTOS = "CLEAR_PHOTOS";
 const IMAGE_HEIGHT = "IMAGE_HEIGHT";
 const UPDATE_BUBBLE = "UPDATE_BUBBLE";
 const TAKE_PHOTO = 'TAKE_PHOTO'
+const DELETE_BUBBLE = "DELETE_BUBBLE";
 
 const gotPhoto = (image, idx) => {
   return {
@@ -94,6 +95,14 @@ export const updateBubble = (bubble, bubbleIdx, photoIdx) => {
     photoIdx
   };
 };
+
+export const deleteBubble = (photoIdx, bubbleIdx) => {
+  return {
+    type: DELETE_BUBBLE,
+    photoIdx,
+    bubbleIdx
+  }
+}
 
 export const setLayout = layout => ({ type: SET_LAYOUT, layout });
 export const clearPhotos = () => ({ type: CLEAR_PHOTOS });
@@ -208,6 +217,21 @@ const reducer = (state = initialState, action) => {
                 } else {
                   return bubble;
                 }
+              }
+            )
+          }
+        }
+      };
+    case DELETE_BUBBLE:
+      return {
+        ...state,
+        photos: {
+          ...state.photos,
+          [action.photoIdx]: {
+            ...state.photos[action.photoIdx],
+            bubbles: [...state.photos[action.photoIdx].bubbles].filter(
+              (bubble, index) => {
+                return action.bubbleIdx !== index
               }
             )
           }
