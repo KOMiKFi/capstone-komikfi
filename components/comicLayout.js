@@ -22,6 +22,7 @@ import {
 import PickPhotoPrompt from "./unit/pickPhotoPrompt";
 import SinglePhoto from "./unit/singlePhotoForLayout";
 
+
 class ComicLayout extends React.Component {
   constructor() {
     super();
@@ -41,7 +42,7 @@ class ComicLayout extends React.Component {
         format: "png"
       });
       const asset = await MediaLibrary.createAssetAsync(uri);
-      alert("Awesome Job! The comic is now saved in your Camera Roll");
+      Alert.alert('Hi there', "Awesome Job! The comic is now saved in your Camera Roll");
     } catch (error) {
       console.error(error);
     }
@@ -84,11 +85,11 @@ class ComicLayout extends React.Component {
                     photoIdx={index}
                   />
                 ) : (
-                  <PickPhotoPrompt
-                    navigation={this.props.navigation}
-                    photoIdx={index}
-                  />
-                )}
+                    <PickPhotoPrompt
+                      navigation={this.props.navigation}
+                      photoIdx={index}
+                    />
+                  )}
               </TouchableOpacity>
             );
           })}

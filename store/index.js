@@ -60,6 +60,7 @@ const SET_LAYOUT = "SET_LAYOUT";
 const CLEAR_PHOTOS = "CLEAR_PHOTOS";
 const IMAGE_HEIGHT = "IMAGE_HEIGHT";
 const UPDATE_BUBBLE = "UPDATE_BUBBLE";
+const TAKE_PHOTO = 'TAKE_PHOTO'
 const DELETE_BUBBLE = "DELETE_BUBBLE";
 
 const gotPhoto = (image, idx) => {
@@ -69,6 +70,7 @@ const gotPhoto = (image, idx) => {
     idx
   };
 };
+
 
 export const updateCurrentPhotoIdx = idx => {
   return {
@@ -104,13 +106,11 @@ export const deleteBubble = (photoIdx, bubbleIdx) => {
 
 export const setLayout = layout => ({ type: SET_LAYOUT, layout });
 export const clearPhotos = () => ({ type: CLEAR_PHOTOS });
-export const imageHeight = (height, width) => ({
-  type: IMAGE_HEIGHT,
-  height,
-  width
-});
+export const imageHeight = (height, width) => ({ type: IMAGE_HEIGHT, height, width });
+export const takePhoto = (image, idx) => ({ type: TAKE_PHOTO, image, idx });
 
-export const getPhotoFromLibrary = idx => async dispatch => {
+
+export const getPhotoFromLibrary = (idx) => async dispatch => {
   try {
     let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
 
@@ -119,7 +119,22 @@ export const getPhotoFromLibrary = idx => async dispatch => {
       return;
     }
     let image = await ImagePicker.launchImageLibraryAsync();
+
     dispatch(gotPhoto(image, idx));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const accessingCamera = idx => async dispatch => {
+  try {
+    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera is required");
+      return;
+    }
+    let camera = await ImagePicker.launchCameraAsync();
+    dispatch(takePhoto(camera, idx));
   } catch (error) {
     console.error(error);
   }
@@ -148,6 +163,18 @@ export const gettingHeight = (height, width) => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_PHOTO:
+      return {
+        ...state,
+        photos: {
+          ...state.photos,
+          [action.idx]: {
+            image: action.image,
+            bubbles: state.photos[action.idx].bubbles
+          }
+        },
+        currentPhotoIdx: action.idx
+      };
+    case TAKE_PHOTO:
       return {
         ...state,
         photos: {

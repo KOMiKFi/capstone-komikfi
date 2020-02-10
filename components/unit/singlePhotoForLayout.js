@@ -15,7 +15,6 @@ class SinglePhoto extends React.Component {
     super(props);
   }
   render() {
-    console.log("insingelphoto", this.props);
     return (
       <TouchableOpacity
         style={styles.singlePhoto}
@@ -33,16 +32,15 @@ class SinglePhoto extends React.Component {
           <View style={styles.bubbleWrapper}>
             {this.props.currentPhoto.bubbles[0]
               ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
-                  // console.log(bubble);
-                  return (
-                    <Bubble
-                      key={idx}
-                      photoIdx={this.props.photoIdx}
-                      {...bubble}
-                      bubbleIdx={idx}
-                    />
-                  );
-                })
+                return (
+                  <Bubble
+                    key={idx}
+                    photoIdx={this.props.photoIdx}
+                    {...bubble}
+                    bubbleIdx={idx}
+                  />
+                );
+              })
               : null}
           </View>
         </ImageBackground>
@@ -76,7 +74,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     backToEdit: async () => {
       await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
-      ownProps.navigation.navigate("Edit");
+      // ownProps.navigation.navigate("Edit");
     }
   };
 };

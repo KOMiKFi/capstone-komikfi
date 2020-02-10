@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#dfe3e6',
   },
   editContainer: {
-    marginTop: 50, 
+    marginTop: 50,
     flex: 1,
     justifyContent: 'center'
   },
@@ -41,9 +41,9 @@ const styles = StyleSheet.create({
     flex: 1
   },
   nav: {
-  justifyContent: "flex-end",
-  flex: 0.3
-}
+    justifyContent: "flex-end",
+    flex: 0.3
+  }
 });
 
 const mapStateToProps = state => {

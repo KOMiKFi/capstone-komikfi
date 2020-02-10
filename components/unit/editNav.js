@@ -31,7 +31,7 @@ class EditNav extends React.Component {
       <View>
         <View style={styles.navBubble}>
           {this.state.bubbleMenuOn && (
-            <View style={styles.iconContainer}> 
+            <View style={styles.iconContainer}>
               <TouchableOpacity
                 onPress={() =>
                   this.props.addBubble(this.props.currentPhotoIdx, 1)
@@ -94,13 +94,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  iconContainer:{
+  iconContainer: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: 'center',
-    // borderColor: "#658d9e",
-    // borderWidth: 5,
   },
   navMain: {
     width: "100%",
@@ -141,7 +139,6 @@ const mapDispatchToProps = dispatch => {
     },
     addBubble: (idx, shape) => {
       dispatch(addBubble(idx, shape));
-      // console.log("Dispatched addBubble", shape)
     }
   };
 };
