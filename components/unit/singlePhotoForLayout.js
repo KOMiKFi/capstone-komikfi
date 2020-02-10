@@ -28,12 +28,12 @@ class SinglePhoto extends React.Component {
               width: this.props.width - 10,
               alignItems: "center",
               justifyContent: "center",
-              tintColor: 'gray'
             }}
           >
             <View style={styles.bubbleWrapper}>
               {this.props.currentPhoto.bubbles[0]
                 ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
+
                   return (
                     <Bubble
                       key={idx}
@@ -43,9 +43,11 @@ class SinglePhoto extends React.Component {
                     />
                   );
                 })
+
                 : null}
             </View>
           </ImageBackground>
+
       </TouchableOpacity>
     );
   }
@@ -78,6 +80,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     backToEdit: async () => {
       await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
       ownProps.navigation.push("Edit");
+
     }
   };
 };

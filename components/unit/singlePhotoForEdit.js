@@ -5,7 +5,8 @@ import {
   View,
   ImageBackground,
   Keyboard,
-  PanResponder
+  PanResponder,
+  ScrollView
 } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
@@ -23,36 +24,41 @@ class SinglePhoto extends React.Component {
     // });
   }
   render() {
+    console.log("insingleforedit", this.props.currentPhoto.image.uri);
     return (
-      <View
-        style={styles.singlePhoto}
-        onPress={() => this.props.backToEdit(this.props.photoIdx)}
-        // {...this._panResponder.panHandlers}
-      >
-        <ImageBackground
-          source={{ uri: this.props.currentPhoto.image.uri }}
-          style={{
-            height: this.props.height - 10,
-            width: this.props.width - 10,
-            alignItems: "center",
-            justifyContent: "center"
-          }}
+      <View style={{ height: this.props.height - 10 }}>
+        <ScrollView
+          style={styles.singlePhoto}
+          scrollEnabled={false}
+          onPress={() => this.props.backToEdit(this.props.photoIdx)}
+          // {...this._panResponder.panHandlers}
         >
-          <View style={styles.bubbleWrapper}>
-            {this.props.currentPhoto.bubbles[0]
-              ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
-                return (
-                  <Bubble
-                    key={idx}
-                    photoIdx={this.props.photoIdx}
-                    {...bubble}
-                    bubbleIdx={idx}
-                  />
-                );
-              })
-              : null}
-          </View>
-        </ImageBackground>
+          <ImageBackground
+            source={{ uri: this.props.currentPhoto.image.uri }}
+            style={{
+              // flex:1,
+              height: this.props.height - 10,
+              width: this.props.width - 10,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <View style={styles.bubbleWrapper}>
+              {this.props.currentPhoto.bubbles[0]
+                ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
+                    return (
+                      <Bubble
+                        key={idx}
+                        photoIdx={this.props.photoIdx}
+                        {...bubble}
+                        bubbleIdx={idx}
+                      />
+                    );
+                  })
+                : null}
+            </View>
+          </ImageBackground>
+        </ScrollView>
       </View>
     );
   }

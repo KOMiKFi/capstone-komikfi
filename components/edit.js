@@ -35,10 +35,10 @@ const styles = StyleSheet.create({
   editContainer: {
     marginTop: 50,
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   editContainerOne: {
-    flex: 1
+    flex: 1,
   },
   nav: {
     justifyContent: "flex-end",

@@ -65,7 +65,7 @@ class EditNav extends React.Component {
               this.props.getPhotoFromLibrary(this.props.currentPhotoIdx)
             }
           >
-            <Text style={styles.text}>Image</Text>
+            <Text style={styles.text}>Library</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -98,11 +98,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-evenly",
-    alignItems: 'center',
+    alignItems: "center"
   },
   navMain: {
     width: "100%",
-    height: '50%',
+    height: "50%",
     borderColor: "#658d9e",
     borderTopWidth: 5,
     flexDirection: "row",
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   navBubble: {
     width: "100%",
-    height: "50%",
+    height: "50%"
   },
   navIcon: {
     width: 50,
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignSelf: "center",
     fontFamily: "Noteworthy-Light",
-    color: "#e88010",
+    color: "#e88010"
   }
 });
 
