@@ -8,6 +8,7 @@ export class ChooseCase extends React.Component {
   render() {
     return (
       <View style={styles.main}>
+
         <View style={styles.message}>
           <Text style={styles.layout}>Select a layout</Text>
         </View>
@@ -16,7 +17,7 @@ export class ChooseCase extends React.Component {
             style={styles.subLayout}
             onPress={() => {
               this.props.settingLayout(1);
-              this.props.navigation.navigate("ComicLayout");
+              this.props.navigation.push("ComicLayout");
             }}
           >
           </TouchableOpacity>
@@ -24,7 +25,7 @@ export class ChooseCase extends React.Component {
             style={styles.subLayout}
             onPress={() => {
               this.props.settingLayout(2);
-              this.props.navigation.navigate("ComicLayout");
+              this.props.navigation.push("ComicLayout");
             }}
           >
             <View style={styles.two} />
@@ -33,7 +34,7 @@ export class ChooseCase extends React.Component {
             style={styles.subLayout}
             onPress={() => {
               this.props.settingLayout(3);
-              this.props.navigation.navigate("ComicLayout");
+              this.props.navigation.push("ComicLayout");
             }}
           >
             <View style={styles.three} />
@@ -42,7 +43,7 @@ export class ChooseCase extends React.Component {
             style={styles.subLayout}
             onPress={() => {
               this.props.settingLayout(4);
-              this.props.navigation.navigate("ComicLayout");
+              this.props.navigation.push("ComicLayout");
             }}
           >
             <View style={styles.four} />
@@ -57,12 +58,13 @@ export class ChooseCase extends React.Component {
 const styles = StyleSheet.create({
   main: {
     height: '100%',
-    alignItems: 'center',
     backgroundColor: '#dfe3e6'
   },
   message: {
     flex: 2,
-    justifyContent: 'center'
+    justifyContent: 'center',
+        alignItems: 'center',
+
   },
   container: {
     justifyContent: 'space-evenly',
@@ -74,6 +76,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
     elevation: 7,
+  },
+  back: {
+    flex: 1.5,
+    justifyContent: 'flex-end',
+    paddingLeft: 30,
+    // borderBottomColor: 'red',
+    // borderBottomWidth: 5,
   },
   subLayout: {
     width: '40%',

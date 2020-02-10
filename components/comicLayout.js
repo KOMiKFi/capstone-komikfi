@@ -209,7 +209,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     backToEdit: async index => {
       await dispatch(updateCurrentPhotoIdx(index));
-      ownProps.navigation.navigate("Edit");
+      ownProps.navigation.push("Edit");
     },
     clearPhotos: async () => {
       await dispatch(clearPhotos());

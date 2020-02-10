@@ -10,7 +10,7 @@ export default class Main extends React.Component {
       style={styles.container}>
         <TouchableOpacity
           style={styles.box}
-          onPress={() => this.props.navigation.navigate("ChooseLayout")}
+          onPress={() => this.props.navigation.push("ChooseLayout")}
         >
           <Text style={styles.text}>Create Own</Text>
         </TouchableOpacity>
