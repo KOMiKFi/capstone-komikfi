@@ -10,6 +10,7 @@ import {
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
 import Bubble from "./bubbleForEdit";
+import { ScrollView } from "react-native-gesture-handler";
 
 class SinglePhoto extends React.Component {
   constructor(props) {

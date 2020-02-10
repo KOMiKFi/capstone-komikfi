@@ -14,6 +14,7 @@ import { updateBubble, deleteBubble } from "../../store";
 import bubble1 from "../../assets/bubble1.png";
 import bubble2 from "../../assets/bubble2.png";
 import bubble3 from "../../assets/bubble3.png";
+import { ScrollView } from "react-native-gesture-handler";
 
 const bubbleImages = [bubble1, bubble2, bubble3];
 
@@ -168,25 +169,27 @@ class Bubble extends React.Component {
             left: "20%"
           }}
         >
+         <ScrollView scrollEnabled={false}>
           <ImageBackground
             source={bubbleImages[this.props.shape - 1]}
             style={styles.bubble}
           >
-            <TextInput
-              style={styles[`text${this.props.shape}`]}
-              multiline
-              numberOfLines={2}
-              editable
-              onChangeText={text =>
-                this.setState({ ...this.state, text: text })
-              }
-              onSubmitEditing={() => {
-                this.props.updateBubble(this.state);
-                Keyboard.dismiss();
-              }}
-              value={this.state.text}
-            ></TextInput>
+              <TextInput
+                style={styles[`text${this.props.shape}`]}
+                multiline
+                numberOfLines={2}
+                editable
+                onChangeText={text =>
+                  this.setState({ ...this.state, text: text })
+                }
+                onSubmitEditing={() => {
+                  this.props.updateBubble(this.state);
+                  // Keyboard.dismiss();
+                }}
+                value={this.state.text}
+              ></TextInput>
           </ImageBackground>
+          </ScrollView>
         </View>
       </View>
     );
