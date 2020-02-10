@@ -17,8 +17,21 @@ const AppNavigator = createStackNavigator(
     Edit: Edit,
     Confirm: ComicLayout,
   },
+  // {
+  //   initialRouteName: 'Main'
+  // },
   {
-    initialRouteName: "Main"
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#dfe3e6',
+        elevation: 0,
+        shadowOpacity: 0
+      },
+      headerTintColor: '#e88010',
+      headerTitleStyle: {
+        color: '#dfe3e6'
+      }
+    }
   }
 );
 
