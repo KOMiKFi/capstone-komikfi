@@ -48,7 +48,7 @@ class Bubble extends React.Component {
           const range = 10;
           let trashCanY;
           if (layout.size !== 4) {
-            trashCanY = Header.HEIGHT + layout.height * (layout.size - 1);
+            trashCanY = Header.HEIGHT + (layout.height * (layout.size - 1)) / 2;
           } else {
             trashCanY = Header.HEIGHT + 0.5 * layout.height;
           }
@@ -57,7 +57,8 @@ class Bubble extends React.Component {
             trashCanX,
             trashCanY,
             gesture.moveX,
-            gesture.moveY
+            gesture.moveY,
+            layout.height
           );
           if (
             gesture.moveX < trashCanX + range &&
@@ -177,15 +178,7 @@ class Bubble extends React.Component {
     console.log(this.state);
     return (
       <View {...this._panResponder.panHandlers}>
-        {this.state.isOnDrag ? (
-          <View
-            style={styles.trash}
-            onLayout={event => {
-              const layout = event.nativeEvent.layout;
-              console.log("layoutnative", event.nativeEvent);
-            }}
-          ></View>
-        ) : null}
+        {this.state.isOnDrag ? <View style={styles.trash}></View> : null}
 
         <View
           style={{
