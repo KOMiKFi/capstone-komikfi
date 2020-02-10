@@ -128,7 +128,7 @@ export const getPhotoFromLibrary = (idx) => async dispatch => {
 
 export const accessingCamera = idx => async dispatch => {
   try {
-    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+    let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
     if (permissionResult.granted === false) {
       alert("Permission to access camera is required");
       return;
