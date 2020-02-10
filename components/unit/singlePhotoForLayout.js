@@ -32,15 +32,15 @@ class SinglePhoto extends React.Component {
           <View style={styles.bubbleWrapper}>
             {this.props.currentPhoto.bubbles[0]
               ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
-                return (
-                  <Bubble
-                    key={idx}
-                    photoIdx={this.props.photoIdx}
-                    {...bubble}
-                    bubbleIdx={idx}
-                  />
-                );
-              })
+                  return (
+                    <Bubble
+                      key={idx}
+                      photoIdx={this.props.photoIdx}
+                      {...bubble}
+                      bubbleIdx={idx}
+                    />
+                  );
+                })
               : null}
           </View>
         </ImageBackground>

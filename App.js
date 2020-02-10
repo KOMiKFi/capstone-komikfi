@@ -8,18 +8,17 @@ import ComicLayout from "./components/comicLayout";
 import { Provider } from "react-redux";
 import store from "./store";
 
-
 const AppNavigator = createStackNavigator(
   {
     Main: Main,
     ChooseLayout: ChooseLayout,
     ComicLayout: ComicLayout,
     Edit: Edit,
-    Confirm: ComicLayout,
-  },
-  {
-    initialRouteName: "Main"
+    Confirm: ComicLayout
   }
+  // {
+  //   headerMode: "none"
+  // }
 );
 
 const AppContainer = createAppContainer(AppNavigator);

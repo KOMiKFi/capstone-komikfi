@@ -6,9 +6,10 @@ import {
   ImageBackground,
   TextInput,
   PanResponder,
-  Keyboard
+  Keyboard,
+  Dimensions
 } from "react-native";
-
+import { Header } from "react-navigation-stack";
 import { connect } from "react-redux";
 import { updateBubble, deleteBubble } from "../../store";
 import bubble1 from "../../assets/bubble1.png";
@@ -29,57 +30,66 @@ class Bubble extends React.Component {
     this._initialAngle = 0;
     this._currentAngle = 0;
     this._diffAngle = 0;
+    this._headerHeight = Header.HEIGHT;
 
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
+      onPanResponderGrant: (event, gesture) => {
+        if (gesture.numberActiveTouches === 1) {
+          this.setState({ ...this.state, isOnDrag: true });
+        }
+      },
 
       onPanResponderMove: (event, gesture) => {
         if (gesture.numberActiveTouches === 1) {
           const layout = this.props.layout;
-          const topBorder = (layout.height * (layout.size - 1)) / 2;
-          const bottomBorder = topBorder + layout.height;
-          const rightBorder = layout.width;
+          const windowWidth = Dimensions.get("window").width;
+          const trashCanX = windowWidth / 2;
+          const range = 15;
+          let trashCanY;
           if (layout.size !== 4) {
-            if (
-              gesture.moveX < 20 ||
-              gesture.moveX > rightBorder - 20 ||
-              gesture.moveY < topBorder ||
-              gesture.moveY > bottomBorder
-            ) {
-              this.props.deleteBubble();
-            }
-          } else if (layout.size === 4) {
-            if (
-              gesture.moveX < 0.5 * layout.width + 20 ||
-              gesture.moveX > 2 * layout.width - 20 ||
-              gesture.moveY < 0.5 * layout.height + 20 ||
-              gesture.moveY > 2 * layout.height - 40
-            ) {
-              this.props.deleteBubble();
-            }
+            trashCanY =
+              this._headerHeight + (layout.height * (layout.size - 1)) / 2;
+          } else {
+            trashCanY = this._headerHeight + 0.5 * layout.height;
           }
+
+          if (
+            gesture.moveX < trashCanX + range &&
+            gesture.moveX > trashCanX - range &&
+            gesture.moveY < trashCanY + 4 * range &&
+            gesture.moveY > trashCanY
+          ) {
+            this.props.deleteBubble();
+          }
+
           if (!this._initialX || !this._initialY) {
             this._initialX =
-              gesture.dx * Math.cos(this.state.rotateZ) +
-              gesture.dy * Math.sin(this.state.rotateZ);
+              gesture.dx * Math.cos(this.state.bubble.rotateZ) +
+              gesture.dy * Math.sin(this.state.bubble.rotateZ);
             this._initialY =
-              gesture.dy * Math.cos(this.state.rotateZ) -
-              gesture.dx * Math.sin(this.state.rotateZ);
+              gesture.dy * Math.cos(this.state.bubble.rotateZ) -
+              gesture.dx * Math.sin(this.state.bubble.rotateZ);
           } else {
             this._initialX = this._currentX;
             this._initialY = this._currentY;
           }
           this._currentX =
-            gesture.dx * Math.cos(this.state.rotateZ) +
-            gesture.dy * Math.sin(this.state.rotateZ);
+            gesture.dx * Math.cos(this.state.bubble.rotateZ) +
+            gesture.dy * Math.sin(this.state.bubble.rotateZ);
           this._currentY =
-            gesture.dy * Math.cos(this.state.rotateZ) -
-            gesture.dx * Math.sin(this.state.rotateZ);
+            gesture.dy * Math.cos(this.state.bubble.rotateZ) -
+            gesture.dx * Math.sin(this.state.bubble.rotateZ);
 
           this.setState({
             ...this.state,
-            translateX: this.state.translateX + this._currentX - this._initialX,
-            translateY: this.state.translateY + this._currentY - this._initialY
+            bubble: {
+              ...this.state.bubble,
+              translateX:
+                this.state.bubble.translateX + this._currentX - this._initialX,
+              translateY:
+                this.state.bubble.translateY + this._currentY - this._initialY
+            }
           });
         } else if (gesture.numberActiveTouches === 2) {
           const touches = event.nativeEvent.touches;
@@ -119,16 +129,20 @@ class Bubble extends React.Component {
           if (this._initialDistance !== 0) {
             this.setState({
               ...this.state,
-              scale:
-                (this.state.scale / this._initialDistance) *
-                this._currentDistance,
-              rotateZ: this.state.rotateZ + this._diffAngle
+              bubble: {
+                ...this.state.bubble,
+                scale:
+                  (this.state.bubble.scale / this._initialDistance) *
+                  this._currentDistance,
+                rotateZ: this.state.bubble.rotateZ + this._diffAngle
+              }
             });
           }
         }
       },
       onPanResponderRelease: (event, gestureState) => {
-        this.props.updateBubble(this.state);
+        this.props.updateBubble(this.state.bubble);
+        this.setState({ ...this.state, isOnDrag: false });
         this._initialX = 0;
         this._initialY = 0;
         this._currentX = 0;
@@ -141,27 +155,32 @@ class Bubble extends React.Component {
       }
     });
     this.state = {
-      text: this.props.text || "",
-      rotateZ: this.props.rotateZ || 0,
-      translateX: this.props.translateX || 0,
-      translateY: this.props.translateY || 0,
-      scale: this.props.scale || 1
+      bubble: {
+        text: this.props.text || "",
+        rotateZ: this.props.rotateZ || 0,
+        translateX: this.props.translateX || 0,
+        translateY: this.props.translateY || 0,
+        scale: this.props.scale || 1
+      },
+      isOnDrag: false
     };
   }
   componentWillUnmount() {
-    this.props.updateBubble(this.state);
+    this.props.updateBubble(this.state.bubble);
   }
   render() {
-    console.log(this.props.layout);
+    console.log(this.state);
     return (
       <View {...this._panResponder.panHandlers}>
+        {this.state.isOnDrag ? <View style={styles.trash}></View> : null}
+
         <View
           style={{
             transform: [
-              { rotateZ: this.state.rotateZ },
-              { translateX: this.state.translateX },
-              { translateY: this.state.translateY },
-              { scale: this.state.scale }
+              { rotateZ: this.state.bubble.rotateZ },
+              { translateX: this.state.bubble.translateX },
+              { translateY: this.state.bubble.translateY },
+              { scale: this.state.bubble.scale }
             ],
             position: "absolute",
             top: "35%",
@@ -172,20 +191,24 @@ class Bubble extends React.Component {
             source={bubbleImages[this.props.shape - 1]}
             style={styles.bubble}
           >
-              <TextInput
-                style={styles[`text${this.props.shape}`]}
-                multiline
-                numberOfLines={2}
-                editable
-                onChangeText={text =>
-                  this.setState({ ...this.state, text: text })
-                }
-                onSubmitEditing={() => {
-                  this.props.updateBubble(this.state);
-                  // Keyboard.dismiss();
-                }}
-                value={this.state.text}
-              ></TextInput>
+            <TextInput
+              style={styles[`text${this.props.shape}`]}
+              multiline
+              numberOfLines={2}
+              editable
+              placeholder={"TYPE HERE!!!"}
+              onChangeText={text =>
+                this.setState({
+                  ...this.state,
+                  bubble: { ...this.state.bubble, text: text }
+                })
+              }
+              onSubmitEditing={() => {
+                this.props.updateBubble(this.state.bubble);
+                Keyboard.dismiss();
+              }}
+              value={this.state.bubble.text}
+            ></TextInput>
           </ImageBackground>
         </View>
       </View>
@@ -200,27 +223,36 @@ const styles = StyleSheet.create({
   },
   text1: {
     position: "relative",
-    top: "19%",
-    left: "15%",
+    top: "23%",
+    left: "18%",
     fontSize: 15,
-    width: "60%",
-    height: "40%"
+    width: "58%",
+    height: "25%"
   },
   text2: {
     position: "relative",
-    top: "22%",
-    left: "11%",
+    top: "30%",
+    left: "14%",
     fontSize: 15,
-    width: "80%",
-    height: "40%"
+    width: "70%",
+    height: "25%"
   },
   text3: {
     position: "relative",
-    top: "34%",
-    left: "25%",
-    fontSize: 20,
-    width: "50%",
-    height: "40%"
+    top: "37%",
+    left: "28%",
+    fontSize: 18,
+    width: "40%",
+    height: "30%"
+  },
+  trash: {
+    position: "absolute",
+    borderWidth: 5,
+    borderColor: "white",
+    width: 20,
+    height: 30,
+    zIndex: 2,
+    alignSelf: "center"
   }
 });
 const mapStatetoProps = state => {
