@@ -45,7 +45,7 @@ class Bubble extends React.Component {
           const layout = this.props.layout;
           const windowWidth = Dimensions.get("window").width;
           const trashCanX = windowWidth / 2;
-          const range = 10;
+          const range = 15;
           let trashCanY;
           if (layout.size !== 4) {
             trashCanY = Header.HEIGHT + (layout.height * (layout.size - 1)) / 2;
