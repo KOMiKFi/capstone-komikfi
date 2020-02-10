@@ -21,8 +21,7 @@ import {
 } from "../store";
 import PickPhotoPrompt from "./unit/pickPhotoPrompt";
 import SinglePhoto from "./unit/singlePhotoForLayout";
-import { Camera } from "expo-camera";
-import CameraPrompt from "./unit/cameraPrompt";
+
 
 class ComicLayout extends React.Component {
   constructor() {
@@ -43,7 +42,7 @@ class ComicLayout extends React.Component {
         format: "png"
       });
       const asset = await MediaLibrary.createAssetAsync(uri);
-      alert("Awesome Job! The comic is now saved in your Camera Roll");
+      Alert.alert('Hi there', "Awesome Job! The comic is now saved in your Camera Roll");
     } catch (error) {
       console.error(error);
     }
@@ -86,17 +85,11 @@ class ComicLayout extends React.Component {
                     photoIdx={index}
                   />
                 ) : (
-                  <PickPhotoPrompt
-                    navigation={this.props.navigation}
-                    photoIdx={index}
-                  />
-                  // <CameraPrompt/>
-                  // <TouchableOpacity
-                  // onPress={this.props.navigation.navigate('CameraPrompt')}
-                  // >
-                  //   <Text>Camera</Text>
-                  // </TouchableOpacity>
-                )}
+                    <PickPhotoPrompt
+                      navigation={this.props.navigation}
+                      photoIdx={index}
+                    />
+                  )}
               </TouchableOpacity>
             );
           })}

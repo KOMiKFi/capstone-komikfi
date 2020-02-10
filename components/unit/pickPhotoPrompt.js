@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { getPhotoFromLibrary, accessingCamera} from "../../store";
+import { getPhotoFromLibrary, accessingCamera } from "../../store";
 
 class PickPhotoPrompt extends React.Component {
   constructor(props) {
@@ -13,13 +13,13 @@ class PickPhotoPrompt extends React.Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
-          <Image source={{ uri: 'https://cdn1.iconfinder.com/data/icons/social-17/48/photos2-512.png'}} 
-          style={{height: 50, width: 50, margin: 100}}
+          <Image source={{ uri: 'https://cdn1.iconfinder.com/data/icons/social-17/48/photos2-512.png' }}
+            style={{ height: 50, width: 50, margin: 100 }}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={this.props.accessingCamera}>
-        <Image source={{ uri: 'https://pngimage.net/wp-content/uploads/2018/05/camera-icon-png-transparent-background-3.png'}} 
-          style={{height: 50, width: 50, margin: 100}}
+          <Image source={{ uri: 'https://pngimage.net/wp-content/uploads/2018/05/camera-icon-png-transparent-background-3.png' }}
+            style={{ height: 50, width: 50, margin: 100 }}
           />
         </TouchableOpacity>
       </View>

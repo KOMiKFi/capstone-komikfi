@@ -2,7 +2,6 @@ import { createStore, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import * as ImagePicker from "expo-image-picker";
-import { Camera } from 'expo-camera';
 
 const middleware = applyMiddleware(
   thunkMiddleware,
@@ -101,7 +100,8 @@ export const clearPhotos = () => ({ type: CLEAR_PHOTOS });
 export const imageHeight = (height, width) => ({ type: IMAGE_HEIGHT, height, width });
 export const takePhoto = (image, idx) => ({ type: TAKE_PHOTO, image, idx });
 
-export const getPhotoFromLibrary = idx => async dispatch => {
+
+export const getPhotoFromLibrary = (idx) => async dispatch => {
   try {
     let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
 
@@ -110,6 +110,7 @@ export const getPhotoFromLibrary = idx => async dispatch => {
       return;
     }
     let image = await ImagePicker.launchImageLibraryAsync();
+
     dispatch(gotPhoto(image, idx));
   } catch (error) {
     console.error(error);
