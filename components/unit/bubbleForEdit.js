@@ -6,9 +6,10 @@ import {
   ImageBackground,
   TextInput,
   PanResponder,
-  Keyboard
+  Keyboard,
+  Dimensions
 } from "react-native";
-
+import { Header } from "react-navigation-stack";
 import { connect } from "react-redux";
 import { updateBubble, deleteBubble } from "../../store";
 import bubble1 from "../../assets/bubble1.png";
@@ -32,58 +33,67 @@ class Bubble extends React.Component {
 
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
+      onPanResponderGrant: (event, gesture) => {
+        console.log("in grant", gesture);
+        if (gesture.numberActiveTouches === 1) {
+          this.setState({ ...this.state, isOnDrag: true });
+        }
+      },
 
       onPanResponderMove: (event, gesture) => {
         if (gesture.numberActiveTouches === 1) {
           const layout = this.props.layout;
-          const topBorder = (layout.height * (layout.size - 1)) / 2;
-          const bottomBorder = topBorder + layout.height;
-          const rightBorder = layout.width;
+          const windowWidth = Dimensions.get("window").width;
+          const trashCanX = windowWidth / 2;
+          const range = 10;
+          let trashCanY;
           if (layout.size !== 4) {
-            if (
-              gesture.moveX < 20 ||
-              gesture.moveX > rightBorder - 20 ||
-              gesture.moveY < topBorder ||
-              gesture.moveY > bottomBorder
-            ) {
-              this.props.deleteBubble();
-            }
-          } else if (layout.size === 4) {
-            if (
-              gesture.moveX < 0.5 * layout.width + 20 ||
-              gesture.moveX > 2 * layout.width - 20 ||
-              gesture.moveY < 0.5 * layout.height + 20 ||
-              gesture.moveY > 2 * layout.height - 40
-            ) {
-              this.props.deleteBubble();
-            }
+            trashCanY = Header.HEIGHT + layout.height * (layout.size - 1);
+          } else {
+            trashCanY = Header.HEIGHT + 0.5 * layout.height;
           }
+          console.log(
+            "asdf",
+            trashCanX,
+            trashCanY,
+            gesture.moveX,
+            gesture.moveY
+          );
+          if (
+            gesture.moveX < trashCanX + range &&
+            gesture.moveX > trashCanX - range &&
+            gesture.moveY < trashCanY + 4 * range &&
+            gesture.moveY > trashCanY
+          ) {
+            this.props.deleteBubble();
+          }
+
           if (!this._initialX || !this._initialY) {
             this._initialX =
-              gesture.dx * Math.cos(this.state.rotateZ) +
-              gesture.dy * Math.sin(this.state.rotateZ);
+              gesture.dx * Math.cos(this.state.bubble.rotateZ) +
+              gesture.dy * Math.sin(this.state.bubble.rotateZ);
             this._initialY =
-              gesture.dy * Math.cos(this.state.rotateZ) -
-              gesture.dx * Math.sin(this.state.rotateZ);
+              gesture.dy * Math.cos(this.state.bubble.rotateZ) -
+              gesture.dx * Math.sin(this.state.bubble.rotateZ);
           } else {
             this._initialX = this._currentX;
             this._initialY = this._currentY;
           }
           this._currentX =
-            gesture.dx * Math.cos(this.state.rotateZ) +
-            gesture.dy * Math.sin(this.state.rotateZ);
+            gesture.dx * Math.cos(this.state.bubble.rotateZ) +
+            gesture.dy * Math.sin(this.state.bubble.rotateZ);
           this._currentY =
-            gesture.dy * Math.cos(this.state.rotateZ) -
-            gesture.dx * Math.sin(this.state.rotateZ);
+            gesture.dy * Math.cos(this.state.bubble.rotateZ) -
+            gesture.dx * Math.sin(this.state.bubble.rotateZ);
 
           this.setState({
             ...this.state,
             bubble: {
               ...this.state.bubble,
               translateX:
-                this.state.translateX + this._currentX - this._initialX,
+                this.state.bubble.translateX + this._currentX - this._initialX,
               translateY:
-                this.state.translateY + this._currentY - this._initialY
+                this.state.bubble.translateY + this._currentY - this._initialY
             }
           });
         } else if (gesture.numberActiveTouches === 2) {
@@ -127,9 +137,9 @@ class Bubble extends React.Component {
               bubble: {
                 ...this.state.bubble,
                 scale:
-                  (this.state.scale / this._initialDistance) *
+                  (this.state.bubble.scale / this._initialDistance) *
                   this._currentDistance,
-                rotateZ: this.state.rotateZ + this._diffAngle
+                rotateZ: this.state.bubble.rotateZ + this._diffAngle
               }
             });
           }
@@ -137,6 +147,7 @@ class Bubble extends React.Component {
       },
       onPanResponderRelease: (event, gestureState) => {
         this.props.updateBubble(this.state.bubble);
+        this.setState({ ...this.state, isOnDrag: false });
         this._initialX = 0;
         this._initialY = 0;
         this._currentX = 0;
@@ -155,16 +166,27 @@ class Bubble extends React.Component {
         translateX: this.props.translateX || 0,
         translateY: this.props.translateY || 0,
         scale: this.props.scale || 1
-      }
+      },
+      isOnDrag: false
     };
   }
   componentWillUnmount() {
     this.props.updateBubble(this.state.bubble);
   }
   render() {
-    console.log(this.props.layout);
+    console.log(this.state);
     return (
       <View {...this._panResponder.panHandlers}>
+        {this.state.isOnDrag ? (
+          <View
+            style={styles.trash}
+            onLayout={event => {
+              const layout = event.nativeEvent.layout;
+              console.log("layoutnative", event.nativeEvent);
+            }}
+          ></View>
+        ) : null}
+
         <View
           style={{
             transform: [
@@ -198,7 +220,7 @@ class Bubble extends React.Component {
                 this.props.updateBubble(this.state.bubble);
                 Keyboard.dismiss();
               }}
-              value={this.state.text}
+              value={this.state.bubble.text}
             ></TextInput>
           </ImageBackground>
         </View>
@@ -235,6 +257,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     width: "40%",
     height: "30%"
+  },
+  trash: {
+    position: "absolute",
+    borderWidth: 5,
+    borderColor: "white",
+    width: 20,
+    height: 30,
+    zIndex: 2,
+    alignSelf: "center"
   }
 });
 const mapStatetoProps = state => {
