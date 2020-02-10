@@ -172,20 +172,20 @@ class Bubble extends React.Component {
             source={bubbleImages[this.props.shape - 1]}
             style={styles.bubble}
           >
-            <TextInput
-              style={styles[`text${this.props.shape}`]}
-              multiline
-              numberOfLines={2}
-              editable
-              onChangeText={text =>
-                this.setState({ ...this.state, text: text })
-              }
-              onSubmitEditing={() => {
-                this.props.updateBubble(this.state);
-                Keyboard.dismiss();
-              }}
-              value={this.state.text}
-            ></TextInput>
+              <TextInput
+                style={styles[`text${this.props.shape}`]}
+                multiline
+                numberOfLines={2}
+                editable
+                onChangeText={text =>
+                  this.setState({ ...this.state, text: text })
+                }
+                onSubmitEditing={() => {
+                  this.props.updateBubble(this.state);
+                  // Keyboard.dismiss();
+                }}
+                value={this.state.text}
+              ></TextInput>
           </ImageBackground>
         </View>
       </View>

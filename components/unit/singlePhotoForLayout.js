@@ -74,7 +74,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     backToEdit: async () => {
       await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
-      // ownProps.navigation.navigate("Edit");
+      ownProps.navigation.navigate("Edit");
     }
   };
 };

@@ -5,7 +5,8 @@ import {
   View,
   ImageBackground,
   Keyboard,
-  PanResponder
+  PanResponder,
+  ScrollView
 } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
@@ -23,15 +24,19 @@ class SinglePhoto extends React.Component {
     // });
   }
   render() {
+    console.log("HEIGHT", this.props.height)
     return (
-      <View
+    <View style={{height: this.props.height - 10}}>
+      <ScrollView
         style={styles.singlePhoto}
+        scrollEnabled={false}
         onPress={() => this.props.backToEdit(this.props.photoIdx)}
         // {...this._panResponder.panHandlers}
       >
         <ImageBackground
           source={{ uri: this.props.currentPhoto.image.uri }}
           style={{
+            // flex:1,
             height: this.props.height - 10,
             width: this.props.width - 10,
             alignItems: "center",
@@ -53,15 +58,17 @@ class SinglePhoto extends React.Component {
               : null}
           </View>
         </ImageBackground>
+      </ScrollView>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+
   singlePhoto: {
     borderColor: "#658d9e",
-    borderWidth: 5
+    borderWidth: 5,
   },
   bubbleWrapper: {
     position: "absolute",
