@@ -61,27 +61,27 @@ const styles = StyleSheet.create({
   },
   text1: {
     position: "relative",
-    top: "19%",
-    left: "15%",
+    top: "23%",
+    left: "18%",
     fontSize: 15,
-    width: "60%",
-    height: "40%"
+    width: "58%",
+    height: "25%"
   },
   text2: {
     position: "relative",
-    top: "22%",
-    left: "11%",
+    top: "30%",
+    left: "14%",
     fontSize: 15,
-    width: "80%",
-    height: "40%"
+    width: "70%",
+    height: "25%"
   },
   text3: {
     position: "relative",
-    top: "34%",
-    left: "25%",
-    fontSize: 20,
-    width: "50%",
-    height: "40%"
+    top: "37%",
+    left: "28%",
+    fontSize: 18,
+    width: "40%",
+    height: "30%"
   }
 });
 
