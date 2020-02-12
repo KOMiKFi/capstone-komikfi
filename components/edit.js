@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../store";
 import SinglePhoto from "./unit/singlePhotoForEdit";
@@ -12,6 +12,14 @@ class Edit extends React.Component {
       this.props.layout === 1 ? styles.editContainerOne : styles.editContainer;
     return (
       <View style={styles.container}>
+        <View style={styles.text}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Preview')}>
+            <Text style={styles.done1}>Done</Text>
+          </TouchableOpacity>
+          <Text style={styles.edit}>Edit Photo</Text>
+          <Text style={styles.done2}>Done</Text>
+        </View>
         <View style={imageStyle}>
           <SinglePhoto
             photoIdx={this.props.currentPhotoIdx}
@@ -44,6 +52,28 @@ const styles = StyleSheet.create({
   nav: {
     justifyContent: "flex-end",
     flex: 0.3
+  },
+  text: {
+    height: 90,
+    width: '100%',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  edit: {
+    fontFamily: "Noteworthy",
+    fontSize: 30,
+    color: "#658d9e",
+  },
+  done1: {
+    fontFamily: "Noteworthy",
+    fontSize: 25,
+    color: "#e88010",
+  },
+  done2: {
+    fontFamily: "Noteworthy",
+    fontSize: 25,
+    color: '#dfe3e6'
   }
 });
 
