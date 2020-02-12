@@ -44,7 +44,7 @@ class Example extends Component {
   static defaultProps = {
     contrast: 1,
     saturation: 10,
-    brightness: 1
+    brightness: 2
   };
 }
 const styles = StyleSheet.create({

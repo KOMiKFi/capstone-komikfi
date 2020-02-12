@@ -3,6 +3,7 @@ import React from "react";
 import {
   StyleSheet,
   View,
+  Image,
   ImageBackground,
   Keyboard,
   PanResponder,
@@ -11,17 +12,11 @@ import {
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
 import Bubble from "./bubbleForEdit";
+import Filter from "./filter";
 
 class SinglePhoto extends React.Component {
   constructor(props) {
     super(props);
-    // this._panResponder = PanResponder.create({
-    //   onStartShouldSetPanResponder: () => true,
-
-    //   onPanResponderRelease: (event, gesture) => {
-    //     Keyboard.dismiss();
-    //   }
-    // });
   }
   render() {
     return (
@@ -30,45 +25,36 @@ class SinglePhoto extends React.Component {
           style={styles.singlePhoto}
           scrollEnabled={false}
           onPress={() => this.props.backToEdit(this.props.photoIdx)}
-          // {...this._panResponder.panHandlers}
         >
-          {/* <ImageBackground
-            source={{ uri: this.props.currentPhoto.image.uri }}
+          <View
+            //these are original imageBackground css
             style={{
-              // flex:1,
               height: this.props.height - 10,
               width: this.props.width - 10,
               alignItems: "center",
               justifyContent: "center"
             }}
-          > */}
-          <View style={styles.bubbleWrapper}>
-            {this.props.currentPhoto.bubbles[0]
-              ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
-                  return (
-                    <Bubble
-                      key={idx}
-                      photoIdx={this.props.photoIdx}
-                      {...bubble}
-                      bubbleIdx={idx}
-                    />
-                  );
-                })
-              : null}
+          >
+            <Filter photoIdx={this.props.photoIdx} {...this.props} />
+            {/* <Image
+              style={{ width: "100%", height: "100%" }}
+              source={{ uri: this.props.currentPhoto.image.uri }}
+            /> */}
+            <View style={styles.bubbleWrapper}>
+              {this.props.currentPhoto.bubbles[0]
+                ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
+                    return (
+                      <Bubble
+                        key={idx}
+                        photoIdx={this.props.photoIdx}
+                        {...bubble}
+                        bubbleIdx={idx}
+                      />
+                    );
+                  })
+                : null}
+            </View>
           </View>
-          <Filter
-            style={{
-              // flex:1,
-              height: this.props.height - 10,
-              width: this.props.width - 10,
-              alignItems: "center",
-              justifyContent: "center"
-            }}
-            photoIdx={this.props.photoIdx}
-            {...this.props}
-          ></Filter>
-
-          {/* </ImageBackground> */}
         </ScrollView>
       </View>
     );
@@ -78,18 +64,14 @@ class SinglePhoto extends React.Component {
 const styles = StyleSheet.create({
   singlePhoto: {
     borderColor: "#658d9e",
-    borderWidth: 5,
-    position: "relative"
+    borderWidth: 5
   },
   bubbleWrapper: {
     borderColor: "#658d9e",
     borderWidth: 5,
-    position: "relative",
-    top: 0,
-    left: 0,
+    position: "absolute",
     height: "100%",
-    width: "100%",
-    zIndex: 1
+    width: "100%"
   }
 });
 
