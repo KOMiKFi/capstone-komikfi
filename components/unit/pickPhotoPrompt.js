@@ -13,13 +13,21 @@ class PickPhotoPrompt extends React.Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
-          <Image source={{ uri: 'https://cdn1.iconfinder.com/data/icons/social-17/48/photos2-512.png' }}
-            style={{ height: 50, width: 50, margin: 100 }}
+          <Image
+            source={{
+              uri:
+                "https://cdn1.iconfinder.com/data/icons/social-17/48/photos2-512.png"
+            }}
+            style={styles.icon}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={this.props.accessingCamera}>
-          <Image source={{ uri: 'https://pngimage.net/wp-content/uploads/2018/05/camera-icon-png-transparent-background-3.png' }}
-            style={{ height: 50, width: 50, margin: 100 }}
+          <Image
+            source={{
+              uri:
+                "https://pngimage.net/wp-content/uploads/2018/05/camera-icon-png-transparent-background-3.png"
+            }}
+            style={styles.icon}
           />
         </TouchableOpacity>
       </View>
@@ -29,9 +37,13 @@ class PickPhotoPrompt extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 70,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly'
+    flexDirection: "row",
+    justifyContent: "space-evenly"
+  },
+  icon: {
+    height: 50,
+    width: 50,
+    margin: 20
   }
 });
 
@@ -44,12 +56,16 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getPhotoFromLibrary: async () => {
-      await dispatch(getPhotoFromLibrary(ownProps.photoIdx));
-      ownProps.navigation.push("Edit");
+      const result = await dispatch(getPhotoFromLibrary(ownProps.photoIdx));
+      if (!result) {
+        ownProps.navigation.push("Edit");
+      }
     },
     accessingCamera: async () => {
-      await dispatch(accessingCamera(ownProps.photoIdx));
-      ownProps.navigation.push("Edit");
+      const result = await dispatch(accessingCamera(ownProps.photoIdx));
+      if (!result) {
+        ownProps.navigation.push("Edit");
+      }
     }
   };
 };

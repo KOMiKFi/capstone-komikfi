@@ -44,7 +44,7 @@ class Bubble extends React.Component {
             source={bubbleImages[this.props.shape - 1]}
             style={styles.bubble}
           >
-            <Text style={styles[`text${this.props.shape}`]}>
+            <Text style={styles[`text${this.props.shape}`]} numberOfLines={2}>
               {this.props.text || ""}
             </Text>
           </ImageBackground>
