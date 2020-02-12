@@ -6,7 +6,6 @@ import { updateCurrentPhotoIdx } from "../../store";
 import { Shaders, Node, GLSL } from "gl-react";
 import { Surface } from "gl-react-expo";
 import colorScales from "../util/colorScales";
-import ndarray from "ndarray";
 
 const shaders = Shaders.create({
   Saturate: {
@@ -56,17 +55,17 @@ class Example extends Component {
     return (
       <Surface style={styles.singlePhoto}>
         <Saturate resizeMode="contain" {...this.props}>
-          <Colorify {...this.props}>
-            {{ uri: this.props.currentPhoto.image.uri }}
-          </Colorify>
+          {/* <Colorify {...this.props}> */}
+          {{ uri: this.props.currentPhoto.image.uri }}
+          {/* </Colorify> */}
         </Saturate>
       </Surface>
     );
   }
   static defaultProps = {
-    contrast: 2,
-    saturation: 2,
-    brightness: 5,
+    contrast: 1,
+    saturation: 3,
+    brightness: 1,
     interpolation: "nearest",
     colorScale: colorScales[Object.keys(colorScales)[8]]
   };
