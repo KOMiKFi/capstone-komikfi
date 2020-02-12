@@ -8,16 +8,17 @@ import EditNav from "./unit/editNav";
 
 class Edit extends React.Component {
   render() {
-    console.log('**',  this.props.navigation)
+    console.log('**', this.props.navigation)
     let imageStyle = this.props.layout === 1 ? styles.editContainerOne : styles.editContainer
     return (
       <View style={styles.container}>
         <View style={styles.text}>
-          {/* <TouchableOpacity
-            onPress={this.props.navigation.navigate('ComicLayout')}> */}
-            <Text style={styles.done}>Done</Text>
-          {/* </TouchableOpacity> */}
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('ComicLayout')}>
+            <Text style={styles.done1}>Done</Text>
+          </TouchableOpacity>
           <Text style={styles.edit}>Edit Photo</Text>
+          <Text style={styles.done2}>Done</Text>
         </View>
         <View style={imageStyle}>
           <SinglePhoto
@@ -53,21 +54,26 @@ const styles = StyleSheet.create({
     flex: 0.3
   },
   text: {
-    height: 100,
+    height: 90,
     width: '100%',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     flexDirection: 'row',
     alignItems: 'flex-end',
-    borderWidth: 5,
-    borderColor: 'red'
   },
   edit: {
-    fontFamily: "Noteworthy-Light",
+    fontFamily: "Noteworthy",
     fontSize: 30,
+    color: "#658d9e",
+  },
+  done1: {
+    fontFamily: "Noteworthy",
+    fontSize: 25,
     color: "#e88010",
   },
-  done: {
-    color: 'green'
+  done2: {
+    fontFamily: "Noteworthy",
+    fontSize: 25,
+    color: '#dfe3e6'
   }
 });
 

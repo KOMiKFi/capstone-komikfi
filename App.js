@@ -16,9 +16,9 @@ const AppNavigator = createStackNavigator(
     Edit: {
       screen: Edit,
       navigationOptions: {
-        header: null,
+        headerShown: false
       },
-    }
+    },
   },
   {
     defaultNavigationOptions: {
@@ -31,7 +31,8 @@ const AppNavigator = createStackNavigator(
       headerTintColor: "#e88010",
       headerTitleStyle: {
         color: "#dfe3e6",
-      }
+      },
+
     }
   }
 );
