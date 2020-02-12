@@ -13,7 +13,12 @@ const AppNavigator = createStackNavigator(
     Main: Main,
     ChooseLayout: ChooseLayout,
     ComicLayout: ComicLayout,
-    Edit: Edit,
+    Edit: {
+      screen: Edit,
+      navigationOptions: {
+        headerShown: false
+      },
+    },
   },
   {
     defaultNavigationOptions: {
@@ -21,12 +26,13 @@ const AppNavigator = createStackNavigator(
         backgroundColor: "#dfe3e6",
         elevation: 0,
         shadowOpacity: 0,
-        height: 90
+        height: 90,
       },
       headerTintColor: "#e88010",
       headerTitleStyle: {
-        color: "#dfe3e6"
-      }
+        color: "#dfe3e6",
+      },
+
     }
   }
 );
