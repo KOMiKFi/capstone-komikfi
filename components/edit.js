@@ -3,12 +3,13 @@ import React from "react";
 import { StyleSheet, View, Text, ImageBackgsdround } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../store";
-import SinglePhoto from "./unit/singlePhotoForEdit";
+import SinglePhoto from "./unit/filter";
 import EditNav from "./unit/editNav";
 
 class Edit extends React.Component {
   render() {
-    let imageStyle = this.props.layout === 1 ? styles.editContainerOne : styles.editContainer
+    let imageStyle =
+      this.props.layout === 1 ? styles.editContainerOne : styles.editContainer;
     return (
       <View style={styles.container}>
         <View style={imageStyle}>
@@ -30,15 +31,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: '#dfe3e6',
+    backgroundColor: "#dfe3e6"
   },
   editContainer: {
     marginTop: 50,
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center"
   },
   editContainerOne: {
-    flex: 1,
+    flex: 1
   },
   nav: {
     justifyContent: "flex-end",

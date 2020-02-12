@@ -32,7 +32,7 @@ class SinglePhoto extends React.Component {
           onPress={() => this.props.backToEdit(this.props.photoIdx)}
           // {...this._panResponder.panHandlers}
         >
-          <ImageBackground
+          {/* <ImageBackground
             source={{ uri: this.props.currentPhoto.image.uri }}
             style={{
               // flex:1,
@@ -41,22 +41,34 @@ class SinglePhoto extends React.Component {
               alignItems: "center",
               justifyContent: "center"
             }}
-          >
-            <View style={styles.bubbleWrapper}>
-              {this.props.currentPhoto.bubbles[0]
-                ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
-                    return (
-                      <Bubble
-                        key={idx}
-                        photoIdx={this.props.photoIdx}
-                        {...bubble}
-                        bubbleIdx={idx}
-                      />
-                    );
-                  })
-                : null}
-            </View>
-          </ImageBackground>
+          > */}
+          <View style={styles.bubbleWrapper}>
+            {this.props.currentPhoto.bubbles[0]
+              ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
+                  return (
+                    <Bubble
+                      key={idx}
+                      photoIdx={this.props.photoIdx}
+                      {...bubble}
+                      bubbleIdx={idx}
+                    />
+                  );
+                })
+              : null}
+          </View>
+          <Filter
+            style={{
+              // flex:1,
+              height: this.props.height - 10,
+              width: this.props.width - 10,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+            photoIdx={this.props.photoIdx}
+            {...this.props}
+          ></Filter>
+
+          {/* </ImageBackground> */}
         </ScrollView>
       </View>
     );
@@ -66,12 +78,18 @@ class SinglePhoto extends React.Component {
 const styles = StyleSheet.create({
   singlePhoto: {
     borderColor: "#658d9e",
-    borderWidth: 5
+    borderWidth: 5,
+    position: "relative"
   },
   bubbleWrapper: {
-    position: "absolute",
+    borderColor: "#658d9e",
+    borderWidth: 5,
+    position: "relative",
+    top: 0,
+    left: 0,
     height: "100%",
-    width: "100%"
+    width: "100%",
+    zIndex: 1
   }
 });
 
