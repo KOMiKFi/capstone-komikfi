@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
     left: "18%",
     fontSize: 15,
     width: "58%",
-    height: "25%"
+    height: "25%",
+    textAlign: "center"
   },
   text2: {
     position: "relative",
@@ -73,7 +74,8 @@ const styles = StyleSheet.create({
     left: "14%",
     fontSize: 15,
     width: "70%",
-    height: "25%"
+    height: "25%",
+    textAlign: "center"
   },
   text3: {
     position: "relative",
@@ -81,7 +83,8 @@ const styles = StyleSheet.create({
     left: "28%",
     fontSize: 18,
     width: "40%",
-    height: "30%"
+    height: "30%",
+    textAlign: "center"
   }
 });
 
