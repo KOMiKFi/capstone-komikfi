@@ -61,6 +61,8 @@ const CLEAR_PHOTOS = "CLEAR_PHOTOS";
 const IMAGE_HEIGHT = "IMAGE_HEIGHT";
 const UPDATE_BUBBLE = "UPDATE_BUBBLE";
 const DELETE_BUBBLE = "DELETE_BUBBLE";
+const ADD_FILTER = "ADD_FILTER";
+const DELETE_FILTER = "DELETE_FILTER";
 
 const gotPhoto = (image, idx) => {
   return {
@@ -162,6 +164,16 @@ export const gettingHeight = (height, width) => {
   };
 };
 
+export const addFilter = photoIdx => ({
+  type: ADD_FILTER,
+  photoIdx
+});
+
+export const deleteFilter = photoIdx => ({
+  type: DELETE_FILTER,
+  photoIdx
+});
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_PHOTO:
@@ -242,6 +254,22 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         layout: { ...state.layout, height: action.height, width: action.width }
+      };
+    case ADD_FILTER:
+      return {
+        ...state,
+        photos: {
+          ...state.photos,
+          [action.photoIdx]: { ...state.photos[action.photoIdx], filter: true }
+        }
+      };
+    case DELETE_FILTER:
+      return {
+        ...state,
+        photos: {
+          ...state.photos,
+          [action.photoIdx]: { ...state.photos[action.photoIdx], filter: false }
+        }
       };
     default:
       return state;

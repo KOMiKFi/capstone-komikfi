@@ -14,9 +14,9 @@ import { Asset } from 'expo-asset'
 const AppNavigator = createStackNavigator(
   {
     Main: Main,
-    ChooseLayout: ChooseLayout,
-    ComicLayout: ComicLayout,
-    Edit: Edit,
+    Layout: ChooseLayout,
+    Preview: ComicLayout,
+    Edit: Edit
   },
   {
     defaultNavigationOptions: {
