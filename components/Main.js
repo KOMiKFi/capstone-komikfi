@@ -9,7 +9,7 @@ export default class Main extends React.Component {
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.box}
-          onPress={() => this.props.navigation.push("ChooseLayout")}
+          onPress={() => this.props.navigation.push("Layout")}
         >
           <Text style={styles.text}>Create Comic</Text>
         </TouchableOpacity>
@@ -44,6 +44,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 25,
-    fontFamily: 'Noteworthy-Light',
+    fontFamily: "Noteworthy-Light"
   }
 });

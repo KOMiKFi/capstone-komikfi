@@ -16,14 +16,14 @@ export class ChooseCase extends React.Component {
             style={styles.subLayout}
             onPress={() => {
               this.props.settingLayout(1);
-              this.props.navigation.push("ComicLayout");
+              this.props.navigation.push("Preview");
             }}
           ></TouchableOpacity>
           <TouchableOpacity
             style={styles.subLayout}
             onPress={() => {
               this.props.settingLayout(2);
-              this.props.navigation.push("ComicLayout");
+              this.props.navigation.push("Preview");
             }}
           >
             <View style={styles.two} />
@@ -32,7 +32,7 @@ export class ChooseCase extends React.Component {
             style={styles.subLayout}
             onPress={() => {
               this.props.settingLayout(3);
-              this.props.navigation.push("ComicLayout");
+              this.props.navigation.push("Preview");
             }}
           >
             <View style={styles.three} />
@@ -41,7 +41,7 @@ export class ChooseCase extends React.Component {
             style={styles.subLayout}
             onPress={() => {
               this.props.settingLayout(4);
-              this.props.navigation.push("ComicLayout");
+              this.props.navigation.push("Preview");
             }}
           >
             <View style={styles.four} />
@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
   },
   message: {
     flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center"
   },
   container: {
     justifyContent: "space-evenly",
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
   },
   back: {
     flex: 1.5,
-    justifyContent: 'flex-end',
-    paddingLeft: 30,
+    justifyContent: "flex-end",
+    paddingLeft: 30
   },
   subLayout: {
     width: "40%",
