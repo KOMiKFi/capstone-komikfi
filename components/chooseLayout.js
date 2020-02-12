@@ -8,7 +8,6 @@ export class ChooseCase extends React.Component {
   render() {
     return (
       <View style={styles.main}>
-
         <View style={styles.message}>
           <Text style={styles.layout}>Select a layout</Text>
         </View>
@@ -63,7 +62,7 @@ const styles = StyleSheet.create({
   message: {
     flex: 2,
     justifyContent: 'center',
-        alignItems: 'center',
+    alignItems: 'center',
 
   },
   container: {
@@ -81,8 +80,6 @@ const styles = StyleSheet.create({
     flex: 1.5,
     justifyContent: 'flex-end',
     paddingLeft: 30,
-    // borderBottomColor: 'red',
-    // borderBottomWidth: 5,
   },
   subLayout: {
     width: '40%',

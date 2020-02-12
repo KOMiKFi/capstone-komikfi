@@ -9,14 +9,6 @@ import {
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
 import Bubble from "./bubbleForLayout";
-// import { FilterImage } from 'expo-pixi';
-// // import * as PIXI from 'pixi.js'
-import Expo from 'expo';
-import { FilterImage } from 'expo-pixi';
-import { GLView } from 'expo-gl'
-// import bubble1 from '../../assets/bubble1.png'
-
-
 
 
 class SinglePhoto extends React.Component {
@@ -25,46 +17,13 @@ class SinglePhoto extends React.Component {
   }
 
   render() {
-
     return (
       <TouchableOpacity
         style={styles.singlePhoto}
         onPress={() => this.props.backToEdit(this.props.photoIdx)}
       >
-
-        {/* <FilterImage
-          source={this.props.currentPhoto.image.uri}
-          resizeMode="cover"
-          filters={new PIXI.filters.DotFilter(0.5)}
-        /> */}
-
-        {/* 
-        <GLView
-          style={{ flex: 1, height: this.props.height - 10, width: this.props.width - 10 }}
-          onContextCreate={async context => {
-            const app = new PIXI.Application({ context });
-            const sprite = await PIXI.sprite.from(bubble1)
-            // filter({
-            //   filters: [DotFilter(0.5)],
-            //   uri: this.props.currentPhoto.image.uri
-            // }
-            // )
-            app.stage.addChild(sprite);
-            console.log('*******', sprite)
-          }}
-        /> */}
-
-        {/* <FilterImage
-          source={{ uri: this.props.currentPhoto.image.uri }}
-          // resizeMode="cover"
-          // filters={new PIXI.filters.DotFilter(0.5)}
-          // style={{
-          //   height: this.props.height - 10,
-          //   width: this.props.width - 10,
-          // }}
-        > */}
         <ImageBackground
-        source={{ uri: this.props.currentPhoto.image.uri }}
+          source={{ uri: this.props.currentPhoto.image.uri }}
           style={{
             height: this.props.height - 10,
             width: this.props.width - 10,
@@ -72,7 +31,7 @@ class SinglePhoto extends React.Component {
             justifyContent: "center",
           }}
         >
-        <View style={styles.bubbleWrapper}>
+          <View style={styles.bubbleWrapper}>
             {this.props.currentPhoto.bubbles[0]
               ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
 

@@ -4,8 +4,6 @@ import {
   StyleSheet,
   View,
   ImageBackground,
-  Keyboard,
-  PanResponder,
   ScrollView
 } from "react-native";
 import { connect } from "react-redux";
@@ -17,7 +15,6 @@ class SinglePhoto extends React.Component {
     super(props);
   }
   render() {
-    console.log("insingleforedit", this.props.currentPhoto.image.uri);
     return (
       <View style={{ height: this.props.height - 10 }}>
         <ScrollView
@@ -37,15 +34,15 @@ class SinglePhoto extends React.Component {
             <View style={styles.bubbleWrapper}>
               {this.props.currentPhoto.bubbles[0]
                 ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
-                    return (
-                      <Bubble
-                        key={idx}
-                        photoIdx={this.props.photoIdx}
-                        {...bubble}
-                        bubbleIdx={idx}
-                      />
-                    );
-                  })
+                  return (
+                    <Bubble
+                      key={idx}
+                      photoIdx={this.props.photoIdx}
+                      {...bubble}
+                      bubbleIdx={idx}
+                    />
+                  );
+                })
                 : null}
             </View>
           </ImageBackground>

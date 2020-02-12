@@ -6,8 +6,8 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 export default class Main extends React.Component {
   render() {
     return (
-      <View 
-      style={styles.container}>
+      <View
+        style={styles.container}>
         <TouchableOpacity
           style={styles.box}
           onPress={() => this.props.navigation.push("ChooseLayout")}
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   box: {
-    width: 300, 
-    height: 200, 
+    width: 300,
+    height: 200,
     backgroundColor: "#658d9e",
     alignItems: 'center',
     justifyContent: 'center',
@@ -48,6 +48,5 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 25,
     fontFamily: 'Noteworthy-Light',
-    // color: '#e88010'
   }
 });
