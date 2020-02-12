@@ -8,25 +8,42 @@ import {
   ImageBackground
 } from "react-native";
 import { connect } from "react-redux";
-import { getPhotoFromLibrary, addBubble } from "../../store";
+import {
+  getPhotoFromLibrary,
+  addBubble,
+  addFilter,
+  deleteFilter
+} from "../../store";
 import bubble1 from "../../assets/bubble1.png";
 import bubble2 from "../../assets/bubble2.png";
 import bubble3 from "../../assets/bubble3.png";
 
 class EditNav extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      bubbleMenuOn: false
+      bubbleMenuOn: false,
+      filterOn: false
     };
     this.toggleBubbleMenu = this.toggleBubbleMenu.bind(this);
+    this.toggleFilter = this.toggleFilter.bind(this);
   }
 
   toggleBubbleMenu() {
-    this.setState({ bubbleMenuOn: !this.state.bubbleMenuOn });
+    this.setState({ ...this.state, bubbleMenuOn: !this.state.bubbleMenuOn });
+  }
+
+  toggleFilter() {
+    this.setState({ ...this.state, filterOn: !this.state.filterOn });
+    if (!!this.state.filterOn) {
+      this.props.addFilter(this.props.currentPhotoIdx);
+    } else {
+      this.props.deleteFilter(this.props.currentPhotoIdx);
+    }
   }
 
   render() {
+    console.log("editnavstate", this.state);
     return (
       <View>
         <View style={styles.navBubble}>
@@ -70,7 +87,7 @@ class EditNav extends React.Component {
 
           <TouchableOpacity
             style={styles.textContainer}
-            onPress={() => alert("Coming Soon!")}
+            onPress={this.toggleFilter}
           >
             <Text style={styles.text}>Filter</Text>
           </TouchableOpacity>
@@ -139,6 +156,12 @@ const mapDispatchToProps = dispatch => {
     },
     addBubble: (idx, shape) => {
       dispatch(addBubble(idx, shape));
+    },
+    addFilter: idx => {
+      dispatch(addFilter(idx));
+    },
+    deleteFilter: idx => {
+      dispatch(deleteFilter(idx));
     }
   };
 };
