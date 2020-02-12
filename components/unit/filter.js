@@ -34,8 +34,16 @@ const Saturate = ({ contrast, saturation, brightness, children }) => (
 class Example extends Component {
   render() {
     return (
-      <Surface style={styles.singlePhoto}>
-        <Saturate {...this.props}>
+      <Surface
+        // style={styles.singlePhoto}
+        style={{
+          height: this.props.height - 10,
+          width: this.props.width - 10
+          // alignItems: "center",
+          // justifyContent: "center"
+        }}
+      >
+        <Saturate resizeMode="contain" {...this.props}>
           {{ uri: this.props.currentPhoto.image.uri }}
         </Saturate>
       </Surface>
@@ -43,16 +51,14 @@ class Example extends Component {
   }
   static defaultProps = {
     contrast: 1,
-    saturation: 10,
+    saturation: 5,
     brightness: 2
   };
 }
 const styles = StyleSheet.create({
   singlePhoto: {
-    borderColor: "black",
-    borderWidth: 5,
-    height: "100%",
-    width: "100%"
+    // height: "100%",
+    // width: "100%"
   }
 });
 const mapStateToProps = (state, ownProps) => {

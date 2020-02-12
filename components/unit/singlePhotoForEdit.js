@@ -5,8 +5,6 @@ import {
   View,
   Image,
   ImageBackground,
-  Keyboard,
-  PanResponder,
   ScrollView
 } from "react-native";
 import { connect } from "react-redux";
@@ -35,11 +33,16 @@ class SinglePhoto extends React.Component {
               justifyContent: "center"
             }}
           >
-            <Filter photoIdx={this.props.photoIdx} {...this.props} />
-            {/* <Image
-              style={{ width: "100%", height: "100%" }}
-              source={{ uri: this.props.currentPhoto.image.uri }}
-            /> */}
+            {/*turnary*/}
+            {this.props.filter ? (
+              <Filter photoIdx={this.props.photoIdx} />
+            ) : (
+              <Image
+                style={{ width: "100%", height: "100%" }}
+                source={{ uri: this.props.currentPhoto.image.uri }}
+              />
+            )}
+
             <View style={styles.bubbleWrapper}>
               {this.props.currentPhoto.bubbles[0]
                 ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
@@ -80,7 +83,8 @@ const mapStateToProps = (state, ownProps) => {
     currentPhoto: state.photos[ownProps.photoIdx],
     layout: state.layout.size,
     height: state.layout.height,
-    width: state.layout.width
+    width: state.layout.width,
+    filter: state.photos[ownProps.photoIdx].filter
   };
 };
 
