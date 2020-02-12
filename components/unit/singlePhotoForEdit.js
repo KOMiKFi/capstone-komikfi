@@ -15,13 +15,6 @@ import Bubble from "./bubbleForEdit";
 class SinglePhoto extends React.Component {
   constructor(props) {
     super(props);
-    // this._panResponder = PanResponder.create({
-    //   onStartShouldSetPanResponder: () => true,
-
-    //   onPanResponderRelease: (event, gesture) => {
-    //     Keyboard.dismiss();
-    //   }
-    // });
   }
   render() {
     console.log("insingleforedit", this.props.currentPhoto.image.uri);
@@ -31,12 +24,10 @@ class SinglePhoto extends React.Component {
           style={styles.singlePhoto}
           scrollEnabled={false}
           onPress={() => this.props.backToEdit(this.props.photoIdx)}
-          // {...this._panResponder.panHandlers}
         >
           <ImageBackground
             source={{ uri: this.props.currentPhoto.image.uri }}
             style={{
-              // flex:1,
               height: this.props.height - 10,
               width: this.props.width - 10,
               alignItems: "center",
