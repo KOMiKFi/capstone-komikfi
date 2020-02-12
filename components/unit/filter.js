@@ -64,7 +64,7 @@ class Example extends Component {
   }
   static defaultProps = {
     contrast: 1,
-    saturation: 3,
+    saturation: 5,
     brightness: 1,
     interpolation: "nearest",
     colorScale: colorScales[Object.keys(colorScales)[8]]
