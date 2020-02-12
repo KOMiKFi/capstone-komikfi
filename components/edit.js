@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import { StyleSheet, View, Text, ImageBackgsdround } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../store";
 import SinglePhoto from "./unit/singlePhotoForEdit";

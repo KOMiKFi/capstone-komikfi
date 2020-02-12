@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 25,
-    fontFamily: "Noteworthy-Light"
-    // color: '#e88010'
+    fontFamily: 'Noteworthy-Light',
   }
 });
