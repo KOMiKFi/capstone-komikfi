@@ -4,8 +4,6 @@ import {
   StyleSheet,
   View,
   ImageBackground,
-  Keyboard,
-  PanResponder,
   ScrollView
 } from "react-native";
 import { connect } from "react-redux";
@@ -15,13 +13,6 @@ import Bubble from "./bubbleForEdit";
 class SinglePhoto extends React.Component {
   constructor(props) {
     super(props);
-    // this._panResponder = PanResponder.create({
-    //   onStartShouldSetPanResponder: () => true,
-
-    //   onPanResponderRelease: (event, gesture) => {
-    //     Keyboard.dismiss();
-    //   }
-    // });
   }
   render() {
     return (
@@ -30,12 +21,10 @@ class SinglePhoto extends React.Component {
           style={styles.singlePhoto}
           scrollEnabled={false}
           onPress={() => this.props.backToEdit(this.props.photoIdx)}
-          // {...this._panResponder.panHandlers}
         >
           <ImageBackground
             source={{ uri: this.props.currentPhoto.image.uri }}
             style={{
-              // flex:1,
               height: this.props.height - 10,
               width: this.props.width - 10,
               alignItems: "center",
@@ -45,15 +34,15 @@ class SinglePhoto extends React.Component {
             <View style={styles.bubbleWrapper}>
               {this.props.currentPhoto.bubbles[0]
                 ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
-                    return (
-                      <Bubble
-                        key={idx}
-                        photoIdx={this.props.photoIdx}
-                        {...bubble}
-                        bubbleIdx={idx}
-                      />
-                    );
-                  })
+                  return (
+                    <Bubble
+                      key={idx}
+                      photoIdx={this.props.photoIdx}
+                      {...bubble}
+                      bubbleIdx={idx}
+                    />
+                  );
+                })
                 : null}
             </View>
           </ImageBackground>

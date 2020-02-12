@@ -13,7 +13,7 @@ const AppNavigator = createStackNavigator(
     Main: Main,
     ChooseLayout: ChooseLayout,
     ComicLayout: ComicLayout,
-    Edit: Edit
+    Edit: Edit,
   },
   {
     defaultNavigationOptions: {

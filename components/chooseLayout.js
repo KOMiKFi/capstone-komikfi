@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
   },
   message: {
     flex: 2,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   container: {
     justifyContent: "space-evenly",
@@ -76,10 +76,8 @@ const styles = StyleSheet.create({
   },
   back: {
     flex: 1.5,
-    justifyContent: "flex-end",
-    paddingLeft: 30
-    // borderBottomColor: 'red',
-    // borderBottomWidth: 5,
+    justifyContent: 'flex-end',
+    paddingLeft: 30,
   },
   subLayout: {
     width: "40%",

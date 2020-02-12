@@ -42,7 +42,7 @@ class ComicLayout extends React.Component {
         format: "png"
       });
       const asset = await MediaLibrary.createAssetAsync(uri);
-      Alert.alert('Hi there', "Awesome Job! The comic is now saved in your Camera Roll");
+      Alert.alert("Awesome Job!", "Your comic is now saved in your Camera Roll");
     } catch (error) {
       console.error(error);
     }
@@ -50,7 +50,6 @@ class ComicLayout extends React.Component {
 
   render() {
     const newArr = new Array(this.props.layout).fill(0);
-
     const findDimension = event => {
       this.props.gettingHeight(
         event.nativeEvent.layout.height,

@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View,
   ImageBackground,
+  Image,
   TextInput,
   PanResponder,
   Keyboard,
@@ -102,14 +103,14 @@ class Bubble extends React.Component {
           if (!this._initialDistance) {
             this._initialDistance = Math.sqrt(
               Math.pow(currentY1 - currentY0, 2) +
-                Math.pow(currentX1 - currentX0, 2)
+              Math.pow(currentX1 - currentX0, 2)
             );
           } else {
             this._initialDistance = this._currentDistance;
           }
           this._currentDistance = Math.sqrt(
             Math.pow(currentY1 - currentY0, 2) +
-              Math.pow(currentX1 - currentX0, 2)
+            Math.pow(currentX1 - currentX0, 2)
           );
 
           //for rotating
@@ -168,10 +169,9 @@ class Bubble extends React.Component {
     this.props.updateBubble(this.state.bubble);
   }
   render() {
-    console.log(this.state);
     return (
       <View {...this._panResponder.panHandlers}>
-        {this.state.isOnDrag ? <View style={styles.trash}></View> : null}
+        {this.state.isOnDrag ? <View><Image source={{ uri: 'https://www.shareicon.net/data/256x256/2016/09/10/827852_delete_512x512.png' }} style={styles.trash} /></View> : null}
 
         <View
           style={{
@@ -246,11 +246,8 @@ const styles = StyleSheet.create({
   },
   trash: {
     position: "absolute",
-    borderWidth: 5,
-    borderColor: "white",
-    width: 20,
-    height: 30,
-    zIndex: 2,
+    height: 50,
+    width: 50,
     alignSelf: "center"
   }
 });
