@@ -24,7 +24,6 @@ class SinglePhoto extends React.Component {
     // });
   }
   render() {
-    console.log("insingleforedit", this.props.currentPhoto.image.uri);
     return (
       <View style={{ height: this.props.height - 10 }}>
         <ScrollView
