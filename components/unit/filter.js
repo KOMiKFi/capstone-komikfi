@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
-import Bubble from "./bubbleForEdit";
 import { Shaders, Node, GLSL } from "gl-react";
 import { Surface } from "gl-react-expo";
 import colorScales from "../util/colorScales";
@@ -34,15 +33,7 @@ const Saturate = ({ contrast, saturation, brightness, children }) => (
 class Example extends Component {
   render() {
     return (
-      <Surface
-        // style={styles.singlePhoto}
-        style={{
-          height: this.props.height - 10,
-          width: this.props.width - 10
-          // alignItems: "center",
-          // justifyContent: "center"
-        }}
-      >
+      <Surface style={styles.singlePhoto}>
         <Saturate resizeMode="contain" {...this.props}>
           {{ uri: this.props.currentPhoto.image.uri }}
         </Saturate>
@@ -57,8 +48,8 @@ class Example extends Component {
 }
 const styles = StyleSheet.create({
   singlePhoto: {
-    // height: "100%",
-    // width: "100%"
+    height: "100%",
+    width: "100%"
   }
 });
 const mapStateToProps = (state, ownProps) => {
