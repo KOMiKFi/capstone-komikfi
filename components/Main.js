@@ -1,0 +1,49 @@
+/* eslint-disable prettier/prettier */
+import React from "react";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import example from "../assets/example.png";
+
+export default class Main extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.box}
+          onPress={() => this.props.navigation.push("ChooseLayout")}
+        >
+          <Text style={styles.text}>Create Comic</Text>
+        </TouchableOpacity>
+        <Image source={example} style={{ width: 280, height: 200 }}></Image>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    backgroundColor: "#dfe3e6",
+    borderRadius: 4
+  },
+  box: {
+    width: 300,
+    height: 200,
+    backgroundColor: "#658d9e",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { height: 3 },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+    borderWidth: 5,
+    borderColor: "#244654",
+    borderRadius: 4
+  },
+  text: {
+    fontSize: 25,
+    fontFamily: 'Noteworthy-Light',
+  }
+});
