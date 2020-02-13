@@ -10,7 +10,7 @@ import {
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
 import Bubble from "./bubbleForLayout";
-import Filter from "./filter";
+import { FilterA, FilterB, FilterC } from "../util/index";
 
 class SinglePhoto extends React.Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class SinglePhoto extends React.Component {
           }}
         >
           {this.props.filter ? (
-            <Filter photoIdx={this.props.photoIdx} />
+            <FilterB photoIdx={this.props.photoIdx} />
           ) : (
             <Image
               style={{ width: "100%", height: "100%" }}

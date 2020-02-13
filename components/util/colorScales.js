@@ -1,6 +1,10 @@
 import ndarray from "ndarray";
 
 export default {
+  whatever: ndarray(
+    new Float64Array([0, 0, 0, 1, 0.6, 0, 0.4, 1, 0.4, 0.1, 0.7, 1, 0, 0, 1]),
+    [5, 1, 3]
+  ).step(-1, 1, 1),
   heatmap: ndarray(
     new Float64Array([1, 0, 0, 1, 0.6, 0, 0.4, 1, 0.4, 0.1, 0.7, 1, 0, 0, 1]),
     [5, 1, 3]
@@ -1161,7 +1165,7 @@ export default {
       0.8,
       0.8
     ]),
-    [8, 1, 3]
+    [10, 1, 3]
   ).step(-1, 1, 1),
   Pastel1: ndarray(
     new Float64Array([
