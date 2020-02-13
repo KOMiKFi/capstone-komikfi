@@ -79,7 +79,6 @@ export default class App extends React.Component {
           "https://pngimage.net/wp-content/uploads/2018/05/camera-icon-png-transparent-background-3.png"
         ]
       )
-      console.log(loadedImages)
     }
     catch (error) {
       console.log(error)

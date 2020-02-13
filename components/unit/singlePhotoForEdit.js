@@ -17,6 +17,7 @@ class SinglePhoto extends React.Component {
     super(props);
   }
   render() {
+    console.log(this.props.filter)
     return (
       <View style={{ height: this.props.height - 10 }}>
         <ScrollView
