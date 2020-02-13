@@ -16,28 +16,31 @@ const AppNavigator = createStackNavigator(
     Main: Main,
     Layout: ChooseLayout,
     Preview: ComicLayout,
-    Edit: {
-      screen: Edit,
-      navigationOptions: {
-        headerShown: false
-      },
-    },
+    Edit: Edit,
+    // navigationOptions: {
+    //   headerShown: false
+    // },
   },
   {
     defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: "#dfe3e6",
-        elevation: 0,
-        shadowOpacity: 0,
-        height: 90,
-      },
-      headerTintColor: "#e88010",
-      headerTitleStyle: {
-        color: "#dfe3e6",
-      },
-
+      headerShown: false
     }
   }
+  // {
+  //   defaultNavigationOptions: {
+  //     headerStyle: {
+  //       backgroundColor: "#dfe3e6",
+  //       elevation: 0,
+  //       shadowOpacity: 0,
+  //       height: 90,
+  //     },
+  //     headerTintColor: "#e88010",
+  //     headerTitleStyle: {
+  //       color: "#dfe3e6",
+  //     },
+
+  //   }
+  // }
 );
 
 const AppContainer = createAppContainer(AppNavigator);
@@ -45,8 +48,9 @@ const AppContainer = createAppContainer(AppNavigator);
 function preloadImages(images) {
   return images.map((image) => {
     console.log(image)
-    Asset.fromModule(image).downloadAsync()})
-  }
+    Asset.fromModule(image).downloadAsync()
+  })
+}
 
 function preloadAssetsAsync(images = []) {
   return Promise.all([...preloadImages(images)])
@@ -83,16 +87,16 @@ export default class App extends React.Component {
       console.log(error)
     }
     finally {
-      this.setState({assetsLoaded: true})
+      this.setState({ assetsLoaded: true })
       console.log("APP COMPONENT STATE AFTER IMAGE PRELOADING", this.state)
     }
   }
 
   render() {
     return (
-        <Provider store={store}>
-          <AppContainer />
-        </Provider>
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
     );
   }
 }

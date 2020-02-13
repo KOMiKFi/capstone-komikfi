@@ -8,6 +8,7 @@ export class ChooseCase extends React.Component {
   render() {
     return (
       <View style={styles.main}>
+        <View style={styles.header}></View>
         <View style={styles.message}>
           <Text style={styles.layout}>Select a layout</Text>
         </View>
@@ -119,6 +120,9 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontFamily: "Noteworthy-Light",
     color: "#e88010"
+  },
+  header: {
+    height: 90
   }
 });
 

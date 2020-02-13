@@ -58,6 +58,7 @@ class ComicLayout extends React.Component {
     };
     return (
       <View style={styles.page}>
+        <View style={styles.header}></View>
         <View
           collapsable={false}
           ref={view => {
@@ -190,6 +191,9 @@ const styles = StyleSheet.create({
     fontFamily: "Noteworthy-Light",
     fontSize: 20,
     paddingBottom: 10
+  },
+  header: {
+    height: 90
   }
 });
 
