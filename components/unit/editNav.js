@@ -14,23 +14,28 @@ import {
   addFilter,
   deleteFilter
 } from "../../store";
-import bubble1 from "../../assets/bubble1.png";
-import bubble2 from "../../assets/bubble2.png";
-import bubble3 from "../../assets/bubble3.png";
+import FilterNav from "./filterNav"
+import BubbleNav from "./bubbleNav"
 
 class EditNav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       bubbleMenuOn: false,
-      filterOn: false
+      filterOn: false,
+      filterMenuOn: false
     };
     this.toggleBubbleMenu = this.toggleBubbleMenu.bind(this);
     this.toggleFilter = this.toggleFilter.bind(this);
+    this.toggleFilterMenu = this.toggleFilterMenu.bind(this);
   }
 
   toggleBubbleMenu() {
     this.setState({ ...this.state, bubbleMenuOn: !this.state.bubbleMenuOn });
+  }
+
+  toggleFilterMenu() {
+    this.setState({ ...this.state, filterMenuOn: !this.state.filterMenuOn });
   }
 
   toggleFilter() {
@@ -46,35 +51,19 @@ class EditNav extends React.Component {
     console.log("editnavstate", this.state);
     return (
       <View>
+
         <View style={styles.navBubble}>
           {this.state.bubbleMenuOn && (
-            <View style={styles.iconContainer}>
-              <TouchableOpacity
-                onPress={() =>
-                  this.props.addBubble(this.props.currentPhotoIdx, 1)
-                }
-              >
-                <Image source={bubble1} style={styles.navIcon} />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() =>
-                  this.props.addBubble(this.props.currentPhotoIdx, 2)
-                }
-              >
-                <Image source={bubble2} style={styles.navIcon} />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() =>
-                  this.props.addBubble(this.props.currentPhotoIdx, 3)
-                }
-              >
-                <Image source={bubble3} style={styles.navIcon} />
-              </TouchableOpacity>
-            </View>
+              <BubbleNav />
           )}
         </View>
+
+        <View style={styles.navBubble}>
+          {this.state.filterMenuOn && (
+              <FilterNav />
+          )}
+        </View>
+
         <View style={styles.navMain}>
           <TouchableOpacity
             style={styles.textContainer}
@@ -87,7 +76,7 @@ class EditNav extends React.Component {
 
           <TouchableOpacity
             style={styles.textContainer}
-            onPress={this.toggleFilter}
+            onPress={this.toggleFilterMenu}
           >
             <Text style={styles.text}>Filter</Text>
           </TouchableOpacity>
@@ -119,7 +108,7 @@ const styles = StyleSheet.create({
   },
   navMain: {
     width: "100%",
-    height: "50%",
+    height: "30%",
     borderColor: "#658d9e",
     borderTopWidth: 5,
     flexDirection: "row",
@@ -128,7 +117,11 @@ const styles = StyleSheet.create({
   },
   navBubble: {
     width: "100%",
-    height: "50%"
+    height: "30%"
+  },
+  navFilter: {
+    width: "100%",
+    height: "30%"
   },
   navIcon: {
     width: 50,

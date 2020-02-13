@@ -61,30 +61,30 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {
-    console.log('IN COMPONENT DID MOUNT')
     await this.loadAssetsAsync()
   }
 
   async loadAssetsAsync() {
     try {
-      console.log("APP COMPONENT STATE", this.state)
       const loadedImages = await preloadAssetsAsync(
         [
           require('./assets/bubble1.png'),
           require('./assets/bubble2.png'),
           require('./assets/bubble3.png'),
+          require('./assets/example.png'),
+          require('./assets/splash.png'),
+          require('./assets/photos-icon.png'),
+          require('./assets/camera-icon.png'),
           "https://cdn1.iconfinder.com/data/icons/social-17/48/photos2-512.png",
           "https://pngimage.net/wp-content/uploads/2018/05/camera-icon-png-transparent-background-3.png"
         ]
       )
-      console.log(loadedImages)
     }
     catch (error) {
       console.log(error)
     }
     finally {
       this.setState({assetsLoaded: true})
-      console.log("APP COMPONENT STATE AFTER IMAGE PRELOADING", this.state)
     }
   }
 
