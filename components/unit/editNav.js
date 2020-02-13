@@ -3,9 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
-  Image,
   TouchableOpacity,
-  ImageBackground
 } from "react-native";
 import { connect } from "react-redux";
 import {
@@ -22,11 +20,9 @@ class EditNav extends React.Component {
     super(props);
     this.state = {
       bubbleMenuOn: false,
-      filterOn: false,
       filterMenuOn: false
     };
     this.toggleBubbleMenu = this.toggleBubbleMenu.bind(this);
-    this.toggleFilter = this.toggleFilter.bind(this);
     this.toggleFilterMenu = this.toggleFilterMenu.bind(this);
   }
 
@@ -38,17 +34,7 @@ class EditNav extends React.Component {
     this.setState({ ...this.state, filterMenuOn: !this.state.filterMenuOn });
   }
 
-  toggleFilter() {
-    if (!this.state.filterOn) {
-      this.props.addFilter(this.props.currentPhotoIdx);
-    } else {
-      this.props.deleteFilter(this.props.currentPhotoIdx);
-    }
-    this.setState({ ...this.state, filterOn: !this.state.filterOn });
-  }
-
   render() {
-    console.log("editnavstate", this.state);
     return (
       <View>
 
