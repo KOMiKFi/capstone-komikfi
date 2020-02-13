@@ -58,7 +58,14 @@ class ComicLayout extends React.Component {
     };
     return (
       <View style={styles.page}>
-        <View style={styles.header}></View>
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Layout')}>
+            <Text style={styles.back1}>Back</Text>
+          </TouchableOpacity>
+          <Text style={styles.layout}>Layout</Text>
+          <Text style={styles.back2}>Back</Text>
+        </View>
         <View
           collapsable={false}
           ref={view => {
@@ -188,12 +195,31 @@ const styles = StyleSheet.create({
   },
   navItem: {
     color: "#e88010",
-    fontFamily: "Noteworthy-Light",
+    fontFamily: "Noteworthy",
     fontSize: 20,
     paddingBottom: 10
   },
   header: {
-    height: 90
+    height: 90,
+    width: '100%',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  layout: {
+    fontFamily: "Noteworthy-Light",
+    fontSize: 30,
+    color: "#658d9e",
+  },
+  back1: {
+    fontFamily: "Noteworthy",
+    fontSize: 25,
+    color: "#e88010",
+  }, 
+  back2: {
+    fontFamily: "Noteworthy",
+    fontSize: 25,
+    color: '#dfe3e6'
   }
 });
 

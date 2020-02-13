@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import splash from '../assets/splash.png'
+import logo from '../assets/logo.png'
 
 export default class Main extends React.Component {
   render() {
@@ -9,7 +9,8 @@ export default class Main extends React.Component {
       <View style={styles.container}>
         <View style={styles.header}></View>
         <View style={styles.instructions}>
-          <Text style={styles.name}>KOMiKFi</Text>
+          {/* <Text style={styles.name}>KOMiKFi</Text> */}
+          {/* <Image source={logo}></Image> */}
           <Text style={styles.easy}>Easy as 1-2-3!</Text>
           <Text style={styles.list}>1. Choose image</Text>
           <Text style={styles.list}>2. Add speech bubbles</Text>
@@ -21,6 +22,9 @@ export default class Main extends React.Component {
         >
           <Text style={styles.text}>Create Comic</Text>
         </TouchableOpacity>
+        <View style={styles.box2}></View>
+        <View style={styles.box2}></View>
+
       </View>
     );
   }
@@ -30,14 +34,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "space-between",
-
+    justifyContent: "space-evenly",
     backgroundColor: "#dfe3e6",
-    borderRadius: 4
+    borderRadius: 4,
+    // borderColor: 'red',
+    // borderWidth: 6
   },
   box: {
+    flex: 1,
     width: '90%',
-    height: '30%',
+    // height: '20%',
     backgroundColor: "#658d9e",
     alignItems: "center",
     justifyContent: "center",
@@ -61,22 +67,35 @@ const styles = StyleSheet.create({
     fontFamily: "Noteworthy-Light"
   },
   instructions: {
-    justifyContent: 'space-around',
+    flex: 3,
+    justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 4,
-    borderColor: 'red',
-    width: '90%',
-    height: '50%',
+    // borderWidth: 4,
+    // borderColor: 'red',
+    // width: '90%',
+    // height: '40%',
   },
   easy: {
-    fontSize: 20,
-    fontFamily: "Noteworthy-Light"
+    fontSize: 30,
+    fontFamily: "Noteworthy",
+    marginBottom: 20,
+    color: '#e88010'
+
   },
   list: {
     fontFamily: "Noteworthy-Light",
-    fontSize: 20
+    fontSize: 25,
+    color: '#e88010'
   },
   header: {
-    height: 90
+    height: 90,
+    // borderWidth: 4,
+    // borderColor: 'red',
+  },
+  box2: {
+    flex: 1,
+    width: '90%',
+    // borderWidth: 4,
+    // borderColor: 'red',
   }
 });

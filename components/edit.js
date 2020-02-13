@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   edit: {
-    fontFamily: "Noteworthy",
+    fontFamily: "Noteworthy-Light",
     fontSize: 30,
     color: "#658d9e",
   },

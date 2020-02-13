@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     alignSelf: "center",
-    fontFamily: "Noteworthy-Light",
+    fontFamily: "Noteworthy",
     color: "#e88010"
   }
 });
