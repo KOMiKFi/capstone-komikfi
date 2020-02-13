@@ -34,12 +34,12 @@ class EditNav extends React.Component {
   }
 
   toggleFilter() {
-    this.setState({ ...this.state, filterOn: !this.state.filterOn });
-    if (!!this.state.filterOn) {
+    if (!this.state.filterOn) {
       this.props.addFilter(this.props.currentPhotoIdx);
     } else {
       this.props.deleteFilter(this.props.currentPhotoIdx);
     }
+    this.setState({ ...this.state, filterOn: !this.state.filterOn });
   }
 
   render() {

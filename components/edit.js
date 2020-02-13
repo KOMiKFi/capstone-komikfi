@@ -14,7 +14,7 @@ class Edit extends React.Component {
       <View style={styles.container}>
         <View style={styles.text}>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('ComicLayout')}>
+            onPress={() => this.props.navigation.navigate('Preview')}>
             <Text style={styles.done1}>Done</Text>
           </TouchableOpacity>
           <Text style={styles.edit}>Edit Photo</Text>
