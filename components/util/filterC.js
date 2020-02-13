@@ -2,10 +2,9 @@
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import { updateCurrentPhotoIdx } from "../../store";
-import { Shaders, Node, GLSL } from "gl-react";
+import { Shaders, Uniform, Node, GLSL } from "gl-react";
 import { Surface } from "gl-react-expo";
-import colorScales from "../util/colorScales";
+import colorScales from "./colorScales";
 
 const shaders = Shaders.create({
   Saturate: {
@@ -23,17 +22,39 @@ const shaders = Shaders.create({
   },
   colorify: {
     frag: GLSL`
-precision highp float;
-varying vec2 uv;
-uniform sampler2D children, colorScale;
-float greyscale (vec3 c) { return 0.2125 * c.r + 0.7154 * c.g + 0.0721 * c.b; }
-void main() {
-  vec4 original = texture2D(children, uv);
-  vec4 newcolor = texture2D(colorScale, vec2(greyscale(original.rgb), 1));
-  gl_FragColor = vec4(newcolor.rgb, original.a * newcolor.a);
-}
-`
+  precision highp float;
+  varying vec2 uv;
+  uniform sampler2D children, colorScale;
+  float greyscale (vec3 c) { return 0.2125 * c.r + 0.7154 * c.g + 0.0721 * c.b; }
+  void main() {
+    vec4 original = texture2D(children, uv);
+    vec4 newcolor = texture2D(colorScale, vec2(greyscale(original.rgb), 1));
+    gl_FragColor = vec4(newcolor.rgb, original.a * newcolor.a);
   }
+  `
+  }
+  //   colorify: {
+  //     frag: GLSL`
+  // precision highp float;
+  // varying vec2 uv;
+  // uniform sampler2D children,colorScale ;
+  // uniform float childrenRatio;
+  // void main () {
+  // vec2 aspect = vec2(max(1.0, 0.6/childrenRatio), max(1.0, childrenRatio));
+  // vec2 p = uv * aspect + (1.0 - aspect) / 2.0;
+  // if (0.0>p.x||1.0<p.x||0.0>p.y||1.0<p.y) {
+  //   gl_FragColor = vec4(0.0);
+  // }
+  // else {
+  //   vec3 childrenC = texture2D(children, p).rgb;
+  //   gl_FragColor = vec4(
+  //     vec3(1.0) * texture2D(colorScale, p).r +
+  //     childrenC * mix(step(0.5, childrenC.r), 0.1, 0.2),
+  //   1.0);
+  // }
+  // }
+  //   `
+  //   }
 });
 
 const Saturate = ({ contrast, saturation, brightness, children }) => (
@@ -46,7 +67,11 @@ export const Colorify = ({ children, colorScale, interpolation }) => (
   <Node
     shader={shaders.colorify}
     uniformsOptions={{ colorScale: { interpolation } }}
-    uniforms={{ colorScale, children }}
+    uniforms={{
+      colorScale,
+      children
+      // childrenRatio: Uniform.textureSizeRatio(children)
+    }}
   />
 );
 
@@ -55,19 +80,19 @@ class Example extends Component {
     return (
       <Surface style={styles.singlePhoto}>
         <Saturate resizeMode="contain" {...this.props}>
-          {/* <Colorify {...this.props}> */}
-          {{ uri: this.props.currentPhoto.image.uri }}
-          {/* </Colorify> */}
+          <Colorify {...this.props}>
+            {{ uri: this.props.currentPhoto.image.uri }}
+          </Colorify>
         </Saturate>
       </Surface>
     );
   }
   static defaultProps = {
     contrast: 1,
-    saturation: 5,
+    saturation: -10,
     brightness: 1,
-    interpolation: "nearest",
-    colorScale: colorScales[Object.keys(colorScales)[8]]
+    interpolation: "linear",
+    colorScale: colorScales[Object.keys(colorScales)[22]]
   };
 }
 const styles = StyleSheet.create({
@@ -84,12 +109,5 @@ const mapStateToProps = (state, ownProps) => {
     width: state.layout.width
   };
 };
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    backToEdit: async () => {
-      await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
-      ownProps.navigation.push("Edit");
-    }
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Example);
+
+export default connect(mapStateToProps)(Example);

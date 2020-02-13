@@ -10,7 +10,7 @@ import {
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
 import Bubble from "./bubbleForEdit";
-import Filter from "./filter";
+import { FilterA, FilterB, FilterC } from "../util/index";
 
 class SinglePhoto extends React.Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class SinglePhoto extends React.Component {
           >
             {/*turnary*/}
             {this.props.filter ? (
-              <Filter photoIdx={this.props.photoIdx} />
+              <FilterC photoIdx={this.props.photoIdx} />
             ) : (
               <Image
                 style={{ width: "100%", height: "100%" }}
@@ -46,15 +46,15 @@ class SinglePhoto extends React.Component {
             <View style={styles.bubbleWrapper}>
               {this.props.currentPhoto.bubbles[0]
                 ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
-                  return (
-                    <Bubble
-                      key={idx}
-                      photoIdx={this.props.photoIdx}
-                      {...bubble}
-                      bubbleIdx={idx}
-                    />
-                  );
-                })
+                    return (
+                      <Bubble
+                        key={idx}
+                        photoIdx={this.props.photoIdx}
+                        {...bubble}
+                        bubbleIdx={idx}
+                      />
+                    );
+                  })
                 : null}
             </View>
           </View>
