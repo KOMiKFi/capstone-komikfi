@@ -31,15 +31,14 @@ class SinglePhoto extends React.Component {
               justifyContent: "center"
             }}
           >
-
+            {this.props.filter[2] && <FilterC  photoIdx={this.props.photoIdx}/>}
             {this.props.filter[0] && <FilterA  photoIdx={this.props.photoIdx}/>}
             {this.props.filter[1] && <FilterB  photoIdx={this.props.photoIdx}/>}
-            {this.props.filter[2] && <FilterC  photoIdx={this.props.photoIdx}/>}
             {!this.props.filterSelected &&
-                <Image
-                style={{ width: "100%", height: "100%" }}
-                source={{ uri: this.props.currentPhoto.image.uri }}
-              />}
+              <Image
+              style={{ width: "100%", height: "100%" }}
+              source={{ uri: this.props.currentPhoto.image.uri }}
+            />}
 
             <View style={styles.bubbleWrapper}>
               {this.props.currentPhoto.bubbles[0]
