@@ -121,8 +121,7 @@ export const getPhotoFromLibrary = idx => async dispatch => {
       return;
     }
     let image = await ImagePicker.launchImageLibraryAsync();
-
-    dispatch(gotPhoto(image, idx));
+    if (image.cancelled === false) dispatch(gotPhoto(image, idx));
     return image.cancelled;
   } catch (error) {
     console.error(error);
@@ -137,7 +136,7 @@ export const accessingCamera = idx => async dispatch => {
       return;
     }
     let camera = await ImagePicker.launchCameraAsync();
-    dispatch(gotPhoto(camera, idx));
+    if (camera.cancelled === false) dispatch(gotPhoto(camera, idx));
     return camera.cancelled;
   } catch (error) {
     console.error(error);

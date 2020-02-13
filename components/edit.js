@@ -81,7 +81,9 @@ const mapStateToProps = state => {
   return {
     currentPhotoIdx: state.currentPhotoIdx,
     currentPhoto: state.photos[state.currentPhotoIdx],
-    layout: state.layout.size
+    layout: state.layout.size,
+    height: state.layout.height,
+    width: state.layout.width
   };
 };
 

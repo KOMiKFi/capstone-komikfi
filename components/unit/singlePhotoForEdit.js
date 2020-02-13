@@ -27,21 +27,21 @@ class SinglePhoto extends React.Component {
           <View
             //these are original imageBackground css
             style={{
-              height: this.props.height - 10,
-              width: this.props.width - 10,
-              alignItems: "center",
-              justifyContent: "center"
-            }}
+                  height: this.props.height - 10,
+                  width: this.props.width - 10,
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
           >
             {/*turnary*/}
             {this.props.filter ? (
               <Filter photoIdx={this.props.photoIdx} />
             ) : (
-              <Image
-                style={{ width: "100%", height: "100%" }}
-                source={{ uri: this.props.currentPhoto.image.uri }}
-              />
-            )}
+                <Image
+                  style={{ width: '100%', height: '100%' }}
+                  source={{ uri: this.props.currentPhoto.image.uri }}
+                />
+              )}
 
             <View style={styles.bubbleWrapper}>
               {this.props.currentPhoto.bubbles[0]
@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
   },
   bubbleWrapper: {
     borderColor: "#658d9e",
-    borderWidth: 5,
     position: "absolute",
     height: "100%",
     width: "100%"
