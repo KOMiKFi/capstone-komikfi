@@ -2,7 +2,6 @@ import React from "react";
 import {
   StyleSheet,
   View,
-  Text,
   TouchableOpacity,
   Image
 } from "react-native";
@@ -54,19 +53,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center"
   },
-  navBubble: {
-    width: "100%",
-    height: "50%"
-  },
   navIcon: {
     width: 50,
     height: 50
-  },
-  text: {
-    fontSize: 20,
-    alignSelf: "center",
-    fontFamily: "Noteworthy-Light",
-    color: "#e88010"
   }
 })
 

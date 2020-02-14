@@ -27,25 +27,22 @@ class EditNav extends React.Component {
   }
 
   toggleBubbleMenu() {
-    this.setState({ ...this.state, bubbleMenuOn: !this.state.bubbleMenuOn });
+    this.setState({ ...this.state, bubbleMenuOn: !this.state.bubbleMenuOn, filterMenuOn: false });
   }
 
   toggleFilterMenu() {
-    this.setState({ ...this.state, filterMenuOn: !this.state.filterMenuOn });
+    this.setState({ ...this.state, filterMenuOn: !this.state.filterMenuOn, bubbleMenuOn: false });
   }
 
   render() {
     return (
       <View>
 
-        <View style={styles.navBubble}>
+        <View style={styles.navPopup}>
           {this.state.bubbleMenuOn && (
               <BubbleNav />
           )}
-        </View>
-
-        <View style={styles.navBubble}>
-          {this.state.filterMenuOn && (
+           {this.state.filterMenuOn && (
               <FilterNav />
           )}
         </View>
@@ -80,12 +77,6 @@ class EditNav extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  navContainer: {
-    flex: 1,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center"
-  },
   iconContainer: {
     flex: 1,
     flexDirection: "row",
@@ -94,24 +85,16 @@ const styles = StyleSheet.create({
   },
   navMain: {
     width: "100%",
-    height: "30%",
+    height: "50%",
     borderColor: "#658d9e",
     borderTopWidth: 5,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center"
   },
-  navBubble: {
+  navPopup: {
     width: "100%",
-    height: "30%"
-  },
-  navFilter: {
-    width: "100%",
-    height: "30%"
-  },
-  navIcon: {
-    width: 50,
-    height: 50
+    height: "50%"
   },
   text: {
     fontSize: 20,
