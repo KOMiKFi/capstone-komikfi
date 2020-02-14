@@ -25,11 +25,11 @@ class SinglePhoto extends React.Component {
         >
           <View
             style={{
-              height: this.props.height - 10,
-              width: this.props.width - 10,
-              alignItems: "center",
-              justifyContent: "center"
-            }}
+                  height: this.props.height - 10,
+                  width: this.props.width - 10,
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
           >
             {this.props.filter[2] && <FilterC  photoIdx={this.props.photoIdx}/>}
             {this.props.filter[0] && <FilterA  photoIdx={this.props.photoIdx}/>}
@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
   },
   bubbleWrapper: {
     borderColor: "#658d9e",
-    borderWidth: 5,
     position: "absolute",
     height: "100%",
     width: "100%"

@@ -15,6 +15,7 @@ import { updateBubble, deleteBubble } from "../../store";
 import bubble1 from "../../assets/bubble1.png";
 import bubble2 from "../../assets/bubble2.png";
 import bubble3 from "../../assets/bubble3.png";
+import trash from '../../assets/trash.png'
 
 const bubbleImages = [bubble1, bubble2, bubble3];
 
@@ -174,10 +175,10 @@ class Bubble extends React.Component {
         {this.state.isOnDrag ? (
           <View>
             <Image
-              source={{
-                uri:
-                  "https://www.shareicon.net/data/256x256/2016/09/10/827852_delete_512x512.png"
-              }}
+              source={trash
+                // uri:
+                //   "https://img.icons8.com/cotton/2x/delete.png"
+              }
               style={styles.trash}
             />
           </View>

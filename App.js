@@ -16,28 +16,31 @@ const AppNavigator = createStackNavigator(
     Main: Main,
     Layout: ChooseLayout,
     Preview: ComicLayout,
-    Edit: {
-      screen: Edit,
-      navigationOptions: {
-        headerShown: false
-      },
-    },
+    Edit: Edit,
+    // navigationOptions: {
+    //   headerShown: false
+    // },
   },
   {
     defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: "#dfe3e6",
-        elevation: 0,
-        shadowOpacity: 0,
-        height: 90,
-      },
-      headerTintColor: "#e88010",
-      headerTitleStyle: {
-        color: "#dfe3e6",
-      },
-
+      headerShown: false
     }
   }
+  // {
+  //   defaultNavigationOptions: {
+  //     headerStyle: {
+  //       backgroundColor: "#dfe3e6",
+  //       elevation: 0,
+  //       shadowOpacity: 0,
+  //       height: 90,
+  //     },
+  //     headerTintColor: "#e88010",
+  //     headerTitleStyle: {
+  //       color: "#dfe3e6",
+  //     },
+
+  //   }
+  // }
 );
 
 const AppContainer = createAppContainer(AppNavigator);
@@ -87,9 +90,9 @@ export default class App extends React.Component {
 
   render() {
     return (
-        <Provider store={store}>
-          <AppContainer />
-        </Provider>
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
     );
   }
 }

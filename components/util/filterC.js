@@ -78,7 +78,7 @@ export const Colorify = ({ children, colorScale, interpolation }) => (
 class Example extends Component {
   render() {
     return (
-      <Surface style={styles.singlePhoto}>
+      <Surface style={{height: this.props.height - 10, width: this.props.width -10}}>
         <Saturate resizeMode="contain" {...this.props}>
           <Colorify {...this.props}>
             {{ uri: this.props.currentPhoto.image.uri }}

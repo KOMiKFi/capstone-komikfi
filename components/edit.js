@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   edit: {
-    fontFamily: "Noteworthy",
+    fontFamily: "Noteworthy-Light",
     fontSize: 30,
     color: "#658d9e",
   },
@@ -81,7 +81,9 @@ const mapStateToProps = state => {
   return {
     currentPhotoIdx: state.currentPhotoIdx,
     currentPhoto: state.photos[state.currentPhotoIdx],
-    layout: state.layout.size
+    layout: state.layout.size,
+    height: state.layout.height,
+    width: state.layout.width
   };
 };
 

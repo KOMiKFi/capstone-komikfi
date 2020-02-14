@@ -40,7 +40,7 @@ varying vec2 uv;
 uniform sampler2D colorScale, children;
 uniform float childrenRatio;
 void main () {
-vec2 aspect = vec2(max(1.0, 0.6/childrenRatio), max(1.0, childrenRatio));
+vec2 aspect = vec2(max(1.0, 0.60/childrenRatio), max(1.0, childrenRatio*0.6));
 vec2 p = uv * aspect + (1.0 - aspect) / 2.0;
 if (0.0>p.x||1.0<p.x||0.0>p.y||1.0<p.y) {
   gl_FragColor = vec4(0.0);
@@ -78,7 +78,7 @@ export const Colorify = ({ children, colorScale, interpolation }) => (
 class Example extends Component {
   render() {
     return (
-      <Surface style={styles.singlePhoto}>
+      <Surface style={{ height: '100%', width: '100%'}}>
         <Saturate resizeMode="contain" {...this.props}>
           <Colorify {...this.props}>
             {{ uri: this.props.currentPhoto.image.uri }}
