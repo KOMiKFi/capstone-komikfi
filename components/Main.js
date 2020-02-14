@@ -8,14 +8,15 @@ export default class Main extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}></View>
+        <Image source={logo} style={{height: 120, width: 280}}></Image>
+        <View style={styles.box3}></View>        
         <View style={styles.instructions}>
-          {/* <Text style={styles.name}>KOMiKFi</Text> */}
-          {/* <Image source={logo}></Image> */}
           <Text style={styles.easy}>Easy as 1-2-3!</Text>
           <Text style={styles.list}>1. Choose image</Text>
           <Text style={styles.list}>2. Add speech bubbles</Text>
           <Text style={styles.list}>3. Add filters</Text>
         </View>
+        <View style={styles.box2}></View>
         <TouchableOpacity
           style={styles.box}
           onPress={() => this.props.navigation.push("Layout")}
@@ -24,7 +25,7 @@ export default class Main extends React.Component {
         </TouchableOpacity>
         <View style={styles.box2}></View>
         <View style={styles.box2}></View>
-
+        <View style={styles.box2}></View>
       </View>
     );
   }
@@ -37,13 +38,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     backgroundColor: "#dfe3e6",
     borderRadius: 4,
-    // borderColor: 'red',
-    // borderWidth: 6
   },
   box: {
     flex: 1,
     width: '90%',
-    // height: '20%',
     backgroundColor: "#658d9e",
     alignItems: "center",
     justifyContent: "center",
@@ -55,11 +53,9 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: "#244654",
     borderRadius: 4,
-    marginBottom: 40
-
   },
   text: {
-    fontSize: 25,
+    fontSize: 30,
     fontFamily: "Noteworthy-Light"
   },
   name: {
@@ -70,17 +66,13 @@ const styles = StyleSheet.create({
     flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    // borderWidth: 4,
-    // borderColor: 'red',
-    // width: '90%',
-    // height: '40%',
+    width: '90%'
   },
   easy: {
     fontSize: 30,
     fontFamily: "Noteworthy",
-    marginBottom: 20,
-    color: '#e88010'
-
+    marginBottom: 50,
+    color: '#c96e0a'
   },
   list: {
     fontFamily: "Noteworthy-Light",
@@ -88,14 +80,20 @@ const styles = StyleSheet.create({
     color: '#e88010'
   },
   header: {
-    height: 90,
-    // borderWidth: 4,
-    // borderColor: 'red',
+    flex: 1,
+    width: '100%',
+    height: '100%'
   },
   box2: {
-    flex: 1,
-    width: '90%',
-    // borderWidth: 4,
-    // borderColor: 'red',
+    flex: 0.5,
+    width: '100%',
+    height: '100%'
+  },
+  box3:{
+    flex: 0.5,
+    width: '80%',
+    height: '100%',
+    borderTopWidth: 3,
+    borderTopColor: '#244654'
   }
 });
