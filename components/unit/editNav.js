@@ -49,7 +49,6 @@ class EditNav extends React.Component {
 
         <View style={styles.navMain}>
           <TouchableOpacity
-            style={styles.textContainer}
             onPress={() =>
               this.props.getPhotoFromLibrary(this.props.currentPhotoIdx)
             }
@@ -58,14 +57,12 @@ class EditNav extends React.Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.textContainer}
             onPress={this.toggleFilterMenu}
           >
             <Text style={styles.text}>Filter</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.textContainer}
             onPress={() => this.toggleBubbleMenu()}
           >
             <Text style={styles.text}>Bubble</Text>
@@ -77,12 +74,6 @@ class EditNav extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  iconContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center"
-  },
   navMain: {
     width: "100%",
     height: "50%",

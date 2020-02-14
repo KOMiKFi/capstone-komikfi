@@ -3,6 +3,8 @@ import React from "react";
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, accessingCamera } from "../../store";
+const photoIcon = require("../../assets/photos-icon.png")
+const cameraIcon = require("../../assets/camera-icon.png")
 
 class PickPhotoPrompt extends React.Component {
   constructor(props) {
@@ -14,19 +16,13 @@ class PickPhotoPrompt extends React.Component {
       <View style={styles.container}>
         <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
           <Image
-            source={{
-              uri:
-                "https://cdn1.iconfinder.com/data/icons/social-17/48/photos2-512.png"
-            }}
+            source={photoIcon}
             style={styles.icon}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={this.props.accessingCamera}>
           <Image
-            source={{
-              uri:
-                "https://pngimage.net/wp-content/uploads/2018/05/camera-icon-png-transparent-background-3.png"
-            }}
+            source={cameraIcon}
             style={styles.icon}
           />
         </TouchableOpacity>
