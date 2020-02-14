@@ -21,14 +21,14 @@ class FilterNav extends React.Component {
           this.props.deleteFilter(this.props.currentPhotoIdx)
         }
       >
-        <Text style={styles.text}>OFF</Text>
+        <Text style={styles.text}>Original</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() =>
           this.props.addFilter(this.props.currentPhotoIdx, 0)
         }
       >
-        <Text style={styles.text}>Filter1</Text>
+        <Text style={styles.text}>Saturate</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -36,7 +36,7 @@ class FilterNav extends React.Component {
           this.props.addFilter(this.props.currentPhotoIdx, 1)
         }
       >
-        <Text style={styles.text}>Filter2</Text>
+        <Text style={styles.text}>Comic</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -44,7 +44,7 @@ class FilterNav extends React.Component {
           this.props.addFilter(this.props.currentPhotoIdx, 2)
         }
       >
-        <Text style={styles.text}>Filter3</Text>
+        <Text style={styles.text}>Scream</Text>
       </TouchableOpacity>
     </View>
     )

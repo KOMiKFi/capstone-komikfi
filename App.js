@@ -44,7 +44,6 @@ const AppContainer = createAppContainer(AppNavigator);
 
 function preloadImages(images) {
   return images.map((image) => {
-    console.log(image)
     Asset.fromModule(image).downloadAsync()})
   }
 
@@ -75,8 +74,6 @@ export default class App extends React.Component {
           require('./assets/splash.png'),
           require('./assets/photos-icon.png'),
           require('./assets/camera-icon.png'),
-          "https://cdn1.iconfinder.com/data/icons/social-17/48/photos2-512.png",
-          "https://pngimage.net/wp-content/uploads/2018/05/camera-icon-png-transparent-background-3.png"
         ]
       )
     }
