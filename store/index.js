@@ -13,19 +13,23 @@ const initialState = {
   photos: {
     0: {
       image: {},
-      bubbles: []
+      bubbles: [],
+      filter: [false, false, false]
     },
     1: {
       image: {},
-      bubbles: []
+      bubbles: [],
+      filter: [false, false, false]
     },
     2: {
       image: {},
-      bubbles: []
+      bubbles: [],
+      filter: [false, false, false]
     },
     3: {
       image: {},
-      bubbles: []
+      bubbles: [],
+      filter: [false, false, false]
     }
   },
   currentPhotoIdx: 0,
@@ -163,9 +167,10 @@ export const gettingHeight = (height, width) => {
   };
 };
 
-export const addFilter = photoIdx => ({
+export const addFilter = (photoIdx, filterIdx) => ({
   type: ADD_FILTER,
-  photoIdx
+  photoIdx,
+  filterIdx
 });
 
 export const deleteFilter = photoIdx => ({
@@ -181,8 +186,8 @@ const reducer = (state = initialState, action) => {
         photos: {
           ...state.photos,
           [action.idx]: {
-            image: action.image,
-            bubbles: state.photos[action.idx].bubbles
+            ...state.photos[action.idx],
+            image: action.image
           }
         },
         currentPhotoIdx: action.idx
@@ -259,7 +264,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         photos: {
           ...state.photos,
-          [action.photoIdx]: { ...state.photos[action.photoIdx], filter: true }
+          [action.photoIdx]: { ...state.photos[action.photoIdx],
+            filter: [...state.photos[action.photoIdx].filter].map (
+              (filter, index) => {
+                if (action.filterIdx === index) {
+                  return true
+                }
+                else return false
+              }
+            )
+          }
         }
       };
     case DELETE_FILTER:
@@ -267,7 +281,9 @@ const reducer = (state = initialState, action) => {
         ...state,
         photos: {
           ...state.photos,
-          [action.photoIdx]: { ...state.photos[action.photoIdx], filter: false }
+          [action.photoIdx]: { ...state.photos[action.photoIdx], filter: [
+            ...initialState.photos[action.photoIdx].filter
+          ] }
         }
       };
     default:

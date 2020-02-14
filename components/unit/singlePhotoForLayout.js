@@ -10,7 +10,7 @@ import {
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
 import Bubble from "./bubbleForLayout";
-import Filter from "./filter";
+import { FilterA, FilterB, FilterC } from "../util/index";
 
 class SinglePhoto extends React.Component {
   constructor(props) {
@@ -31,14 +31,17 @@ class SinglePhoto extends React.Component {
             justifyContent: "center"
           }}
         >
-          {this.props.filter ? (
-            <Filter photoIdx={this.props.photoIdx} />
-          ) : (
-            <Image
-              style={{ width: "100%", height: "100%" }}
-              source={{ uri: this.props.currentPhoto.image.uri }}
-            />
-          )}
+
+            {this.props.filter[0] && <FilterA  photoIdx={this.props.photoIdx}/>}
+            {this.props.filter[1] && <FilterB  photoIdx={this.props.photoIdx}/>}
+            {this.props.filter[2] && <FilterC  photoIdx={this.props.photoIdx}/>}
+            {!this.props.filterSelected &&
+                <Image
+                style={{ width: "100%", height: "100%" }}
+                source={{ uri: this.props.currentPhoto.image.uri }}
+              />}
+
+
           <View style={styles.bubbleWrapper}>
             {this.props.currentPhoto.bubbles[0]
               ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
@@ -78,7 +81,8 @@ const mapStateToProps = (state, ownProps) => {
     layout: state.layout.size,
     height: state.layout.height,
     width: state.layout.width,
-    filter: state.photos[ownProps.photoIdx].filter
+    filter: state.photos[ownProps.photoIdx].filter,
+    filterSelected: state.photos[ownProps.photoIdx].filter.some((element)=> {return element === true})
   };
 };
 
