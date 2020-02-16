@@ -20,8 +20,7 @@ import {
   gettingHeight
 } from "../store";
 import PickPhotoPrompt from "./unit/pickPhotoPrompt";
-import SinglePhoto from "./unit/singlePhotoForLayout";
-
+import SinglePhoto from "./unit/wrapperLayout";
 
 class ComicLayout extends React.Component {
   constructor() {
@@ -42,7 +41,10 @@ class ComicLayout extends React.Component {
         format: "png"
       });
       const asset = await MediaLibrary.createAssetAsync(uri);
-      Alert.alert("Awesome Job!", "Your comic is now saved in your Camera Roll");
+      Alert.alert(
+        "Awesome Job!",
+        "Your comic is now saved in your Camera Roll"
+      );
     } catch (error) {
       console.error(error);
     }
@@ -60,7 +62,8 @@ class ComicLayout extends React.Component {
       <View style={styles.page}>
         <View style={styles.header}>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Layout')}>
+            onPress={() => this.props.navigation.navigate("Layout")}
+          >
             <Text style={styles.back1}>Back</Text>
           </TouchableOpacity>
           <Text style={styles.layout}>Layout</Text>
@@ -92,11 +95,11 @@ class ComicLayout extends React.Component {
                     photoIdx={index}
                   />
                 ) : (
-                    <PickPhotoPrompt
-                      navigation={this.props.navigation}
-                      photoIdx={index}
-                    />
-                  )}
+                  <PickPhotoPrompt
+                    navigation={this.props.navigation}
+                    photoIdx={index}
+                  />
+                )}
               </TouchableOpacity>
             );
           })}
@@ -201,25 +204,25 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 90,
-    width: '100%',
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+    width: "100%",
+    justifyContent: "space-around",
+    flexDirection: "row",
+    alignItems: "flex-end"
   },
   layout: {
     fontFamily: "Noteworthy-Light",
     fontSize: 30,
-    color: "#658d9e",
+    color: "#658d9e"
   },
   back1: {
     fontFamily: "Noteworthy",
     fontSize: 25,
-    color: "#e88010",
-  }, 
+    color: "#e88010"
+  },
   back2: {
     fontFamily: "Noteworthy",
     fontSize: 25,
-    color: '#dfe3e6'
+    color: "#dfe3e6"
   }
 });
 

@@ -1,9 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
-import { StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import GLImage from "gl-react-image";
-import { updateCurrentPhotoIdx } from "../../store";
 import { Shaders, Node, GLSL } from "gl-react";
 import { Surface } from "gl-react-expo";
 
@@ -34,31 +32,26 @@ class Example extends Component {
   render() {
     return (
       <Surface style={{ width: "100%", height: "100%" }}>
-        <Saturate resizeMode="contain" {...this.props}>
+        <Saturate {...this.props}>
           <GLImage
+            resizeMode="cover"
             style={{
               height: this.props.height - 10,
               width: this.props.width - 10
             }}
             source={{ uri: this.props.currentPhoto.image.uri }}
           />
-          {/* {{ uri: this.props.currentPhoto.image.uri }} */}
         </Saturate>
       </Surface>
     );
   }
   static defaultProps = {
-    contrast: 2,
-    saturation: 5,
+    contrast: 0.5,
+    saturation: 3,
     brightness: 2
   };
 }
-const styles = StyleSheet.create({
-  singlePhoto: {
-    height: "100%",
-    width: "100%"
-  }
-});
+
 const mapStateToProps = (state, ownProps) => {
   return {
     currentPhoto: state.photos[ownProps.photoIdx],

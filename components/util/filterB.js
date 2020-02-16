@@ -34,6 +34,28 @@ const shaders = Shaders.create({
   // }
   // `
   //   }
+  //   colorify: {
+  //     frag: GLSL`
+  // precision highp float;
+  // varying vec2 uv;
+  // uniform sampler2D colorScale, children;
+  // uniform float childrenRatio;
+  // void main () {
+  // vec2 aspect = vec2(max(1.0, 0.60/childrenRatio), max(1.0, childrenRatio*0.6));
+  // vec2 p = uv * aspect + (1.0 - aspect) / 2.0;
+  // if (0.0>p.x||1.0<p.x||0.0>p.y||1.0<p.y) {
+  //   gl_FragColor = vec4(0.0);
+  // }
+  // else {
+  //   vec3 childrenC = texture2D(children, p).rgb;
+  //   gl_FragColor = vec4(
+  //     vec3(1.0) * texture2D(colorScale, p).r +
+  //     childrenC * mix(step(0.5, childrenC.r), 0.1, 0.2),
+  //   1.0);
+  // }
+  // }
+  //   `
+  //   }
   colorify: {
     frag: GLSL`
 precision highp float;
@@ -41,7 +63,7 @@ varying vec2 uv;
 uniform sampler2D colorScale, children;
 uniform float childrenRatio;
 void main () {
-vec2 aspect = vec2(max(1.0, 0.60/childrenRatio), max(1.0, childrenRatio*0.6));
+vec2 aspect = vec2(max(1.0, 1.0/childrenRatio), max(1.0, childrenRatio*1.0));
 vec2 p = uv * aspect + (1.0 - aspect) / 2.0;
 if (0.0>p.x||1.0<p.x||0.0>p.y||1.0<p.y) {
   gl_FragColor = vec4(0.0);
@@ -80,7 +102,7 @@ class Example extends Component {
   render() {
     return (
       <Surface style={{ height: "100%", width: "100%" }}>
-        <Saturate resizeMode="contain" {...this.props}>
+        <Saturate {...this.props}>
           <Colorify {...this.props}>
             <GLImage
               style={{
