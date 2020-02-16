@@ -2,7 +2,8 @@
 import React from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { connect } from "react-redux";
-import Bubble from "./bubbleForEdit";
+import BubbleForEdit from "./bubbleForEdit";
+import BubbleForLayout from "./bubbleForLayout";
 import { FilterA, FilterB, FilterC } from "../util/index";
 
 class SinglePhoto extends React.Component {
@@ -36,8 +37,15 @@ class SinglePhoto extends React.Component {
         <View style={styles.bubbleWrapper}>
           {this.props.currentPhoto.bubbles[0]
             ? this.props.currentPhoto.bubbles.map((bubble, idx) => {
-                return (
-                  <Bubble
+                return this.props.currentView === "edit" ? (
+                  <BubbleForEdit
+                    key={idx}
+                    photoIdx={this.props.photoIdx}
+                    {...bubble}
+                    bubbleIdx={idx}
+                  />
+                ) : (
+                  <BubbleForLayout
                     key={idx}
                     photoIdx={this.props.photoIdx}
                     {...bubble}
@@ -68,7 +76,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
   return {
     currentPhoto: state.photos[ownProps.photoIdx],
-    layout: state.layout.size,
     height: state.layout.height,
     width: state.layout.width,
     filter: state.photos[ownProps.photoIdx].filter,

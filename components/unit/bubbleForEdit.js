@@ -169,6 +169,7 @@ class Bubble extends React.Component {
   componentWillUnmount() {
     this.props.updateBubble(this.state.bubble);
   }
+
   render() {
     return (
       <View {...this._panResponder.panHandlers}>

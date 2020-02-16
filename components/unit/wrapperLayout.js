@@ -1,12 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  ImageBackground,
-  Image
-} from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { updateCurrentPhotoIdx } from "../../store";
 import SinglePhoto from "./singlePhoto";
@@ -36,19 +30,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    currentPhoto: state.photos[ownProps.photoIdx],
-    layout: state.layout.size,
-    height: state.layout.height,
-    width: state.layout.width,
-    filter: state.photos[ownProps.photoIdx].filter,
-    filterSelected: state.photos[ownProps.photoIdx].filter.some(element => {
-      return element === true;
-    })
-  };
-};
-
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     backToEdit: async () => {
@@ -58,4 +39,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LayoutWrapper);
+export default connect(null, mapDispatchToProps)(LayoutWrapper);

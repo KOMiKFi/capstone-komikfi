@@ -11,12 +11,11 @@ class EditWrapper extends React.Component {
   }
   render() {
     return (
-      <ScrollView
-        style={{ ...styles.singlePhoto, height: 1000 }}
-        scrollEnabled={false}
-      >
-        <SinglePhoto photoIdx={this.props.photoIdx} />
-      </ScrollView>
+      <View style={{ height: this.props.height - 10 }}>
+        <ScrollView style={{ ...styles.singlePhoto }} scrollEnabled={false}>
+          <SinglePhoto photoIdx={this.props.photoIdx} currentView="edit" />
+        </ScrollView>
+      </View>
     );
   }
 }
@@ -24,7 +23,7 @@ class EditWrapper extends React.Component {
 const styles = StyleSheet.create({
   singlePhoto: {
     borderColor: "#658d9e",
-    borderWidth: 12
+    borderWidth: 10
   }
 });
 

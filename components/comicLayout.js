@@ -93,6 +93,7 @@ class ComicLayout extends React.Component {
                   <SinglePhoto
                     navigation={this.props.navigation}
                     photoIdx={index}
+                    currentView="layout"
                   />
                 ) : (
                   <PickPhotoPrompt

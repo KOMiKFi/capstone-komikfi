@@ -1,12 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../store";
 import SinglePhoto from "./unit/wrapperEdit";
@@ -46,21 +40,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#dfe3e6",
-    borderColor: "green",
-    borderWidth: 5
+    backgroundColor: "#dfe3e6"
   },
   editContainer: {
     marginTop: 50,
     flex: 1,
-    justifyContent: "center",
-    borderColor: "red",
-    borderWidth: 5
+    justifyContent: "center"
   },
   editContainerOne: {
-    flex: 1,
-    borderColor: "red",
-    borderWidth: 5
+    flex: 1
   },
   singlePhoto: {
     borderColor: "#658d9e",
@@ -68,9 +56,7 @@ const styles = StyleSheet.create({
   },
   bottomNav: {
     justifyContent: "flex-end",
-    flex: 0.3,
-    borderColor: "yellow",
-    borderWidth: 5
+    flex: 0.3
   },
   topNav: {
     height: 90,
