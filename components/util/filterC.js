@@ -79,9 +79,7 @@ export const Colorify = ({ children, colorScale, interpolation }) => (
 class Example extends Component {
   render() {
     return (
-      <Surface
-        style={{ height: this.props.height - 10, width: this.props.width - 10 }}
-      >
+      <Surface style={{ height: "100%", width: "100%" }}>
         <Saturate resizeMode="contain" {...this.props}>
           <Colorify {...this.props}>
             <GLImage

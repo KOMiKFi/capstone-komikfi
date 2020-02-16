@@ -48,9 +48,9 @@ class Example extends Component {
     );
   }
   static defaultProps = {
-    contrast: 1,
+    contrast: 2,
     saturation: 5,
-    brightness: 1
+    brightness: 2
   };
 }
 const styles = StyleSheet.create({

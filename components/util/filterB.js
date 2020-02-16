@@ -84,8 +84,8 @@ class Example extends Component {
           <Colorify {...this.props}>
             <GLImage
               style={{
-                height: this.props.height - 10,
-                width: this.props.width - 10
+                width: this.props.height - 10,
+                height: this.props.width - 10
               }}
               source={{ uri: this.props.currentPhoto.image.uri }}
             />
