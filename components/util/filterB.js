@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { Shaders, Uniform, Node, GLSL } from "gl-react";
+import GLImage from "gl-react-image";
 import { Surface } from "gl-react-expo";
 import colorScales from "./colorScales";
 
@@ -78,10 +79,16 @@ export const Colorify = ({ children, colorScale, interpolation }) => (
 class Example extends Component {
   render() {
     return (
-      <Surface style={{ height: '100%', width: '100%'}}>
+      <Surface style={{ height: "100%", width: "100%" }}>
         <Saturate resizeMode="contain" {...this.props}>
           <Colorify {...this.props}>
-            {{ uri: this.props.currentPhoto.image.uri }}
+            <GLImage
+              style={{
+                height: this.props.height - 10,
+                width: this.props.width - 10
+              }}
+              source={{ uri: this.props.currentPhoto.image.uri }}
+            />
           </Colorify>
         </Saturate>
       </Surface>
@@ -89,7 +96,7 @@ class Example extends Component {
   }
   static defaultProps = {
     contrast: 1,
-    saturation: 2,
+    saturation: 1,
     brightness: 1,
     interpolation: "linear",
     colorScale: colorScales[Object.keys(colorScales)[1]]

@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import { connect } from "react-redux";
+import GLImage from "gl-react-image";
 import { updateCurrentPhotoIdx } from "../../store";
 import { Shaders, Node, GLSL } from "gl-react";
 import { Surface } from "gl-react-expo";
@@ -32,9 +33,16 @@ const Saturate = ({ contrast, saturation, brightness, children }) => (
 class Example extends Component {
   render() {
     return (
-      <Surface style={{height: this.props.height - 10, width: this.props.width -10}}>
+      <Surface style={{ width: "100%", height: "100%" }}>
         <Saturate resizeMode="contain" {...this.props}>
-          {{ uri: this.props.currentPhoto.image.uri }}
+          <GLImage
+            style={{
+              height: this.props.height - 10,
+              width: this.props.width - 10
+            }}
+            source={{ uri: this.props.currentPhoto.image.uri }}
+          />
+          {/* {{ uri: this.props.currentPhoto.image.uri }} */}
         </Saturate>
       </Surface>
     );
