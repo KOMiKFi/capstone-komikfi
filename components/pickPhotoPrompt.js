@@ -2,9 +2,9 @@
 import React from "react";
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { getPhotoFromLibrary, accessingCamera } from "../../store";
-const photoIcon = require("../../assets/photos-icon.png")
-const cameraIcon = require("../../assets/camera-icon.png")
+import { getPhotoFromLibrary, accessingCamera } from "../store";
+const photoIcon = require("../assets/photos-icon.png");
+const cameraIcon = require("../assets/camera-icon.png");
 
 class PickPhotoPrompt extends React.Component {
   constructor(props) {
@@ -15,16 +15,10 @@ class PickPhotoPrompt extends React.Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.props.getPhotoFromLibrary}>
-          <Image
-            source={photoIcon}
-            style={styles.icon}
-          />
+          <Image source={photoIcon} style={styles.icon} />
         </TouchableOpacity>
         <TouchableOpacity onPress={this.props.accessingCamera}>
-          <Image
-            source={cameraIcon}
-            style={styles.icon}
-          />
+          <Image source={cameraIcon} style={styles.icon} />
         </TouchableOpacity>
       </View>
     );

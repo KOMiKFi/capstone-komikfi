@@ -10,7 +10,9 @@ export default {
     [5, 1, 3]
   ).step(-1, 1, 1),
 
-  monochrome: ndarray(new Float64Array([1, 1, 1, 0.1, 0.2, 0.3]), [
+  // [1,0,0,0,0,1]
+
+  monochrome: ndarray(new Float64Array([0.9, 0.9, 0.9, 0.1, 0.1, 0.1]), [
     2,
     1,
     3

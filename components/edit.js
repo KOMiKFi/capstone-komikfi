@@ -3,8 +3,8 @@ import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../store";
-import SinglePhoto from "./unit/singlePhotoForEdit";
-import EditNav from "./unit/editNav";
+import SinglePhoto from "./singlePhoto/wrapperEdit";
+import EditNav from "./edit/editNav";
 
 class Edit extends React.Component {
   render() {
@@ -12,13 +12,14 @@ class Edit extends React.Component {
       this.props.layout === 1 ? styles.editContainerOne : styles.editContainer;
     return (
       <View style={styles.container}>
-        <View style={styles.text}>
+        <View style={styles.topNav}>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Preview')}>
-            <Text style={styles.done1}>Done</Text>
+            onPress={() => this.props.navigation.navigate("Preview")}
+          >
+            <Text style={styles.topNavLeft}>Done</Text>
           </TouchableOpacity>
-          <Text style={styles.edit}>Edit Photo</Text>
-          <Text style={styles.done2}>Done</Text>
+          <Text style={styles.topNavCenter}>Edit Photo</Text>
+          <Text style={styles.topNavRight}>Done</Text>
         </View>
         <View style={imageStyle}>
           <SinglePhoto
@@ -26,7 +27,7 @@ class Edit extends React.Component {
             navigation={this.props.navigation}
           />
         </View>
-        <View style={styles.nav}>
+        <View style={styles.bottomNav}>
           <EditNav />
         </View>
       </View>
@@ -49,31 +50,35 @@ const styles = StyleSheet.create({
   editContainerOne: {
     flex: 1
   },
-  nav: {
+  singlePhoto: {
+    borderColor: "#658d9e",
+    borderWidth: 20
+  },
+  bottomNav: {
     justifyContent: "flex-end",
     flex: 0.3
   },
-  text: {
+  topNav: {
     height: 90,
-    width: '100%',
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+    width: "100%",
+    justifyContent: "space-around",
+    flexDirection: "row",
+    alignItems: "flex-end"
   },
-  edit: {
+  topNavCenter: {
     fontFamily: "Noteworthy-Light",
     fontSize: 30,
-    color: "#658d9e",
+    color: "#658d9e"
   },
-  done1: {
+  topNavLeft: {
     fontFamily: "Noteworthy",
     fontSize: 25,
-    color: "#e88010",
+    color: "#e88010"
   },
-  done2: {
+  topNavRight: {
     fontFamily: "Noteworthy",
     fontSize: 25,
-    color: '#dfe3e6'
+    color: "#dfe3e6"
   }
 });
 

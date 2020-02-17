@@ -15,7 +15,7 @@ import { updateBubble, deleteBubble } from "../../store";
 import bubble1 from "../../assets/bubble1.png";
 import bubble2 from "../../assets/bubble2.png";
 import bubble3 from "../../assets/bubble3.png";
-import trash from '../../assets/trash.png'
+import trash from "../../assets/trash.png";
 
 const bubbleImages = [bubble1, bubble2, bubble3];
 
@@ -169,18 +169,13 @@ class Bubble extends React.Component {
   componentWillUnmount() {
     this.props.updateBubble(this.state.bubble);
   }
+
   render() {
     return (
       <View {...this._panResponder.panHandlers}>
         {this.state.isOnDrag ? (
           <View>
-            <Image
-              source={trash
-                // uri:
-                //   "https://img.icons8.com/cotton/2x/delete.png"
-              }
-              style={styles.trash}
-            />
+            <Image source={trash} style={styles.trash} />
           </View>
         ) : null}
 

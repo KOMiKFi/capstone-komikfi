@@ -75,11 +75,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 7
   },
-  back: {
-    flex: 1.5,
-    justifyContent: "flex-end",
-    paddingLeft: 30
-  },
   subLayout: {
     width: "40%",
     height: "38%",

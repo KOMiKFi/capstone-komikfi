@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import { updateCurrentPhotoIdx } from "../../store";
+import GLImage from "gl-react-image";
 import { Shaders, Node, GLSL } from "gl-react";
 import { Surface } from "gl-react-expo";
 
@@ -32,31 +32,32 @@ const Saturate = ({ contrast, saturation, brightness, children }) => (
 class Example extends Component {
   render() {
     return (
-      <Surface style={{height: this.props.height - 10, width: this.props.width -10}}>
-        <Saturate resizeMode="contain" {...this.props}>
-          {{ uri: this.props.currentPhoto.image.uri }}
+      <Surface style={styles.surface}>
+        <Saturate {...this.props}>
+          <GLImage
+            resizeMode="cover"
+            source={{ uri: this.props.currentPhoto.image.uri }}
+          />
         </Saturate>
       </Surface>
     );
   }
   static defaultProps = {
-    contrast: 1,
-    saturation: 5,
-    brightness: 1
+    contrast: 0.5,
+    saturation: 3,
+    brightness: 2
   };
 }
 const styles = StyleSheet.create({
-  singlePhoto: {
+  surface: {
     height: "100%",
     width: "100%"
   }
 });
+
 const mapStateToProps = (state, ownProps) => {
   return {
-    currentPhoto: state.photos[ownProps.photoIdx],
-    layout: state.layout.size,
-    height: state.layout.height,
-    width: state.layout.width
+    currentPhoto: state.photos[ownProps.photoIdx]
   };
 };
 
