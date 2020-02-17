@@ -1,26 +1,14 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ImageBackground,
-  TextInput,
-  PanResponder,
-  Keyboard
-} from "react-native";
+import { StyleSheet, View, ImageBackground, Text } from "react-native";
 
-import { connect } from "react-redux";
-import { updateBubble } from "../../store";
 import bubble1 from "../../assets/bubble1.png";
 import bubble2 from "../../assets/bubble2.png";
 import bubble3 from "../../assets/bubble3.png";
 
 const bubbleImages = [bubble1, bubble2, bubble3];
 
-class Bubble extends React.Component {
+export default class Bubble extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -87,12 +75,3 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    updateBubble: bubble =>
-      dispatch(updateBubble(bubble, ownProps.bubbleIdx, ownProps.photoIdx))
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Bubble);

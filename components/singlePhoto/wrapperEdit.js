@@ -12,7 +12,7 @@ class EditWrapper extends React.Component {
   render() {
     return (
       <View style={{ height: this.props.height - 10 }}>
-        <ScrollView style={{ ...styles.singlePhoto }} scrollEnabled={false}>
+        <ScrollView style={styles.singlePhoto} scrollEnabled={false}>
           <SinglePhoto photoIdx={this.props.photoIdx} currentView="edit" />
         </ScrollView>
       </View>
@@ -29,24 +29,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    currentPhoto: state.photos[ownProps.photoIdx],
-    layout: state.layout.size,
-    height: state.layout.height,
-    width: state.layout.width,
-    filter: state.photos[ownProps.photoIdx].filter,
-    filterSelected: state.photos[ownProps.photoIdx].filter.some(element => {
-      return element === true;
-    })
+    height: state.layout.height
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    backToEdit: async () => {
-      await dispatch(updateCurrentPhotoIdx(ownProps.photoIdx));
-      ownProps.navigation.push("Edit");
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditWrapper);
+export default connect(mapStateToProps, null)(EditWrapper);

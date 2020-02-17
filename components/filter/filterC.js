@@ -25,37 +25,19 @@ const shaders = Shaders.create({
     frag: GLSL`
   precision highp float;
   varying vec2 uv;
+
   uniform sampler2D children, colorScale;
   float greyscale (vec3 c) { return 0.2125 * c.r + 0.7154 * c.g + 0.0721 * c.b; }
+  float greyscale2 (vec3 c) { return c.b; }
+
   void main() {
     vec4 original = texture2D(children, uv);
-    vec4 newcolor = texture2D(colorScale, vec2(greyscale(original.rgb), 1));
+    vec4 newcolor = texture2D(colorScale, vec2(greyscale(original.rgb), 0.5));
+    gl_FragColor = vec4(vec3(greyscale(original.rgb)), 1.0);
     gl_FragColor = vec4(newcolor.rgb, original.a * newcolor.a);
   }
   `
   }
-  //   colorify: {
-  //     frag: GLSL`
-  // precision highp float;
-  // varying vec2 uv;
-  // uniform sampler2D children,colorScale ;
-  // uniform float childrenRatio;
-  // void main () {
-  // vec2 aspect = vec2(max(1.0, 0.6/childrenRatio), max(1.0, childrenRatio));
-  // vec2 p = uv * aspect + (1.0 - aspect) / 2.0;
-  // if (0.0>p.x||1.0<p.x||0.0>p.y||1.0<p.y) {
-  //   gl_FragColor = vec4(0.0);
-  // }
-  // else {
-  //   vec3 childrenC = texture2D(children, p).rgb;
-  //   gl_FragColor = vec4(
-  //     vec3(1.0) * texture2D(colorScale, p).r +
-  //     childrenC * mix(step(0.5, childrenC.r), 0.1, 0.2),
-  //   1.0);
-  // }
-  // }
-  //   `
-  //   }
 });
 
 const Saturate = ({ contrast, saturation, brightness, children }) => (
@@ -71,7 +53,6 @@ export const Colorify = ({ children, colorScale, interpolation }) => (
     uniforms={{
       colorScale,
       children
-      // childrenRatio: Uniform.textureSizeRatio(children)
     }}
   />
 );
@@ -79,18 +60,12 @@ export const Colorify = ({ children, colorScale, interpolation }) => (
 class Example extends Component {
   render() {
     return (
-      <Surface style={{ height: "100%", width: "100%" }}>
-        <Saturate resizeMode="contain" {...this.props}>
-          <Colorify {...this.props}>
-            <GLImage
-              style={{
-                height: this.props.height - 10,
-                width: this.props.width - 10
-              }}
-              source={{ uri: this.props.currentPhoto.image.uri }}
-            />
-          </Colorify>
-        </Saturate>
+      <Surface style={styles.surface}>
+        {/* <Saturate resizeMode="contain" {...this.props}> */}
+        <Colorify {...this.props}>
+          <GLImage source={{ uri: this.props.currentPhoto.image.uri }} />
+        </Colorify>
+        {/* </Saturate> */}
       </Surface>
     );
   }
@@ -98,22 +73,19 @@ class Example extends Component {
     contrast: 1,
     saturation: -10,
     brightness: 1,
-    interpolation: "linear",
-    colorScale: colorScales[Object.keys(colorScales)[22]]
+    interpolation: "nearest",
+    colorScale: colorScales[Object.keys(colorScales)[8]]
   };
 }
 const styles = StyleSheet.create({
-  singlePhoto: {
+  surface: {
     height: "100%",
     width: "100%"
   }
 });
 const mapStateToProps = (state, ownProps) => {
   return {
-    currentPhoto: state.photos[ownProps.photoIdx],
-    layout: state.layout.size,
-    height: state.layout.height,
-    width: state.layout.width
+    currentPhoto: state.photos[ownProps.photoIdx]
   };
 };
 

@@ -1,19 +1,9 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import {
-  getPhotoFromLibrary,
-  addBubble,
-  addFilter,
-  deleteFilter
-} from "../../store";
-import FilterNav from "./filterNav"
-import BubbleNav from "./bubbleNav"
+import { getPhotoFromLibrary } from "../../store";
+import FilterNav from "./filterNav";
+import BubbleNav from "./bubbleNav";
 
 class EditNav extends React.Component {
   constructor(props) {
@@ -27,24 +17,27 @@ class EditNav extends React.Component {
   }
 
   toggleBubbleMenu() {
-    this.setState({ ...this.state, bubbleMenuOn: !this.state.bubbleMenuOn, filterMenuOn: false });
+    this.setState({
+      ...this.state,
+      bubbleMenuOn: !this.state.bubbleMenuOn,
+      filterMenuOn: false
+    });
   }
 
   toggleFilterMenu() {
-    this.setState({ ...this.state, filterMenuOn: !this.state.filterMenuOn, bubbleMenuOn: false });
+    this.setState({
+      ...this.state,
+      filterMenuOn: !this.state.filterMenuOn,
+      bubbleMenuOn: false
+    });
   }
 
   render() {
     return (
       <View>
-
         <View style={styles.navPopup}>
-          {this.state.bubbleMenuOn && (
-              <BubbleNav />
-          )}
-           {this.state.filterMenuOn && (
-              <FilterNav />
-          )}
+          {this.state.bubbleMenuOn && <BubbleNav />}
+          {this.state.filterMenuOn && <FilterNav />}
         </View>
 
         <View style={styles.navMain}>
@@ -56,15 +49,11 @@ class EditNav extends React.Component {
             <Text style={styles.text}>Library</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={this.toggleFilterMenu}
-          >
+          <TouchableOpacity onPress={this.toggleFilterMenu}>
             <Text style={styles.text}>Filter</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => this.toggleBubbleMenu()}
-          >
+          <TouchableOpacity onPress={() => this.toggleBubbleMenu()}>
             <Text style={styles.text}>Bubble</Text>
           </TouchableOpacity>
         </View>
@@ -97,8 +86,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    currentPhotoIdx: state.currentPhotoIdx,
-    currentPhoto: state.photos[state.currentPhotoIdx]
+    currentPhotoIdx: state.currentPhotoIdx
   };
 };
 
@@ -106,15 +94,6 @@ const mapDispatchToProps = dispatch => {
   return {
     getPhotoFromLibrary: idx => {
       dispatch(getPhotoFromLibrary(idx));
-    },
-    addBubble: (idx, shape) => {
-      dispatch(addBubble(idx, shape));
-    },
-    addFilter: idx => {
-      dispatch(addFilter(idx));
-    },
-    deleteFilter: idx => {
-      dispatch(deleteFilter(idx));
     }
   };
 };

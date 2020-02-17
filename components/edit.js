@@ -3,8 +3,8 @@ import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { getPhotoFromLibrary, addBubble } from "../store";
-import SinglePhoto from "./unit/wrapperEdit";
-import EditNav from "./unit/editNav";
+import SinglePhoto from "./singlePhoto/wrapperEdit";
+import EditNav from "./edit/editNav";
 
 class Edit extends React.Component {
   render() {

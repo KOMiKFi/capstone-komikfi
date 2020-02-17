@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
+import { StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import GLImage from "gl-react-image";
 import { Shaders, Node, GLSL } from "gl-react";
@@ -31,14 +32,10 @@ const Saturate = ({ contrast, saturation, brightness, children }) => (
 class Example extends Component {
   render() {
     return (
-      <Surface style={{ width: "100%", height: "100%" }}>
+      <Surface style={styles.surface}>
         <Saturate {...this.props}>
           <GLImage
             resizeMode="cover"
-            style={{
-              height: this.props.height - 10,
-              width: this.props.width - 10
-            }}
             source={{ uri: this.props.currentPhoto.image.uri }}
           />
         </Saturate>
@@ -51,13 +48,16 @@ class Example extends Component {
     brightness: 2
   };
 }
+const styles = StyleSheet.create({
+  surface: {
+    height: "100%",
+    width: "100%"
+  }
+});
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    currentPhoto: state.photos[ownProps.photoIdx],
-    layout: state.layout.size,
-    height: state.layout.height,
-    width: state.layout.width
+    currentPhoto: state.photos[ownProps.photoIdx]
   };
 };
 

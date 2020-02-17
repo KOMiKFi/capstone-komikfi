@@ -1,14 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  PixelRatio,
-  Alert
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
 import { captureRef } from "react-native-view-shot";
 import * as Permissions from "expo-permissions";
@@ -19,8 +11,8 @@ import {
   clearPhotos,
   gettingHeight
 } from "../store";
-import PickPhotoPrompt from "./unit/pickPhotoPrompt";
-import SinglePhoto from "./unit/wrapperLayout";
+import PickPhotoPrompt from "./pickPhotoPrompt";
+import SinglePhoto from "./singlePhoto/wrapperLayout";
 
 class ComicLayout extends React.Component {
   constructor() {

@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
-import BubbleForEdit from "./bubbleForEdit";
-import BubbleForLayout from "./bubbleForLayout";
-import { FilterA, FilterB, FilterC } from "../util/index";
+import BubbleForEdit from "../bubbles/bubbleForEdit";
+import BubbleForLayout from "../bubbles/bubbleForLayout";
+
+import FilterWrapper from "./filterWrapper";
 
 class SinglePhoto extends React.Component {
   constructor(props) {
@@ -18,21 +19,9 @@ class SinglePhoto extends React.Component {
           width: this.props.width - 10,
           alignItems: "center",
           justifyContent: "center"
-          // transform: [{ translateX: 100 }, { translateY: 100 }, { scale: 2 }]
         }}
       >
-        {this.props.filter[2] && <FilterC photoIdx={this.props.photoIdx} />}
-        {this.props.filter[0] && <FilterA photoIdx={this.props.photoIdx} />}
-        {this.props.filter[1] && <FilterB photoIdx={this.props.photoIdx} />}
-        {!this.props.filterSelected && (
-          <Image
-            style={{
-              width: "100%",
-              height: "100%"
-            }}
-            source={{ uri: this.props.currentPhoto.image.uri }}
-          />
-        )}
+        <FilterWrapper photoIdx={this.props.photoIdx} />
 
         <View style={styles.bubbleWrapper}>
           {this.props.currentPhoto.bubbles[0]
@@ -61,10 +50,6 @@ class SinglePhoto extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  singlePhoto: {
-    borderColor: "#658d9e",
-    borderWidth: 5
-  },
   bubbleWrapper: {
     borderColor: "#658d9e",
     position: "absolute",
