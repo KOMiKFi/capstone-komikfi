@@ -7,33 +7,87 @@ import Edit from "./components/edit";
 import ComicLayout from "./components/comicLayout";
 import { Provider } from "react-redux";
 import store from "./store";
+import { Asset } from 'expo-asset'
+
+
 
 const AppNavigator = createStackNavigator(
   {
     Main: Main,
-    ChooseLayout: ChooseLayout,
-    ComicLayout: ComicLayout,
+    Layout: ChooseLayout,
+    Preview: ComicLayout,
     Edit: Edit,
+    // navigationOptions: {
+    //   headerShown: false
+    // },
   },
   {
     defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: "#dfe3e6",
-        elevation: 0,
-        shadowOpacity: 0,
-        height: 90
-      },
-      headerTintColor: "#e88010",
-      headerTitleStyle: {
-        color: "#dfe3e6"
-      }
+      headerShown: false
     }
   }
+  // {
+  //   defaultNavigationOptions: {
+  //     headerStyle: {
+  //       backgroundColor: "#dfe3e6",
+  //       elevation: 0,
+  //       shadowOpacity: 0,
+  //       height: 90,
+  //     },
+  //     headerTintColor: "#e88010",
+  //     headerTitleStyle: {
+  //       color: "#dfe3e6",
+  //     },
+
+  //   }
+  // }
 );
 
 const AppContainer = createAppContainer(AppNavigator);
 
+function preloadImages(images) {
+  return images.map((image) => {
+    Asset.fromModule(image).downloadAsync()})
+  }
+
+function preloadAssetsAsync(images = []) {
+  return Promise.all([...preloadImages(images)])
+}
+
 export default class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      assetsLoaded: false
+    }
+  }
+
+  async componentDidMount() {
+    await this.loadAssetsAsync()
+  }
+
+  async loadAssetsAsync() {
+    try {
+      const loadedImages = await preloadAssetsAsync(
+        [
+          require('./assets/bubble1.png'),
+          require('./assets/bubble2.png'),
+          require('./assets/bubble3.png'),
+          require('./assets/example.png'),
+          require('./assets/splash.png'),
+          require('./assets/photos-icon.png'),
+          require('./assets/camera-icon.png'),
+        ]
+      )
+    }
+    catch (error) {
+      console.log(error)
+    }
+    finally {
+      this.setState({assetsLoaded: true})
+    }
+  }
+
   render() {
     return (
       <Provider store={store}>

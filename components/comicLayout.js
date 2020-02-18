@@ -1,14 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  PixelRatio,
-  Alert
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
 import { captureRef } from "react-native-view-shot";
 import * as Permissions from "expo-permissions";
@@ -19,9 +11,8 @@ import {
   clearPhotos,
   gettingHeight
 } from "../store";
-import PickPhotoPrompt from "./unit/pickPhotoPrompt";
-import SinglePhoto from "./unit/singlePhotoForLayout";
-
+import PickPhotoPrompt from "./pickPhotoPrompt";
+import SinglePhoto from "./singlePhoto/wrapperLayout";
 
 class ComicLayout extends React.Component {
   constructor() {
@@ -42,7 +33,10 @@ class ComicLayout extends React.Component {
         format: "png"
       });
       const asset = await MediaLibrary.createAssetAsync(uri);
-      Alert.alert("Awesome Job!", "Your comic is now saved in your Camera Roll");
+      Alert.alert(
+        "Awesome Job!",
+        "Your comic is now saved in your Camera Roll"
+      );
     } catch (error) {
       console.error(error);
     }
@@ -58,6 +52,15 @@ class ComicLayout extends React.Component {
     };
     return (
       <View style={styles.page}>
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate("Layout")}
+          >
+            <Text style={styles.back1}>Back</Text>
+          </TouchableOpacity>
+          <Text style={styles.layout}>Layout</Text>
+          <Text style={styles.back2}>Back</Text>
+        </View>
         <View
           collapsable={false}
           ref={view => {
@@ -82,13 +85,14 @@ class ComicLayout extends React.Component {
                   <SinglePhoto
                     navigation={this.props.navigation}
                     photoIdx={index}
+                    currentView="layout"
                   />
                 ) : (
-                    <PickPhotoPrompt
-                      navigation={this.props.navigation}
-                      photoIdx={index}
-                    />
-                  )}
+                  <PickPhotoPrompt
+                    navigation={this.props.navigation}
+                    photoIdx={index}
+                  />
+                )}
               </TouchableOpacity>
             );
           })}
@@ -187,9 +191,31 @@ const styles = StyleSheet.create({
   },
   navItem: {
     color: "#e88010",
-    fontFamily: "Noteworthy-Light",
+    fontFamily: "Noteworthy",
     fontSize: 20,
     paddingBottom: 10
+  },
+  header: {
+    height: 90,
+    width: "100%",
+    justifyContent: "space-around",
+    flexDirection: "row",
+    alignItems: "flex-end"
+  },
+  layout: {
+    fontFamily: "Noteworthy-Light",
+    fontSize: 30,
+    color: "#658d9e"
+  },
+  back1: {
+    fontFamily: "Noteworthy",
+    fontSize: 25,
+    color: "#e88010"
+  },
+  back2: {
+    fontFamily: "Noteworthy",
+    fontSize: 25,
+    color: "#dfe3e6"
   }
 });
 

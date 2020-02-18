@@ -15,6 +15,7 @@ import { updateBubble, deleteBubble } from "../../store";
 import bubble1 from "../../assets/bubble1.png";
 import bubble2 from "../../assets/bubble2.png";
 import bubble3 from "../../assets/bubble3.png";
+import trash from "../../assets/trash.png";
 
 const bubbleImages = [bubble1, bubble2, bubble3];
 
@@ -103,14 +104,14 @@ class Bubble extends React.Component {
           if (!this._initialDistance) {
             this._initialDistance = Math.sqrt(
               Math.pow(currentY1 - currentY0, 2) +
-              Math.pow(currentX1 - currentX0, 2)
+                Math.pow(currentX1 - currentX0, 2)
             );
           } else {
             this._initialDistance = this._currentDistance;
           }
           this._currentDistance = Math.sqrt(
             Math.pow(currentY1 - currentY0, 2) +
-            Math.pow(currentX1 - currentX0, 2)
+              Math.pow(currentX1 - currentX0, 2)
           );
 
           //for rotating
@@ -168,10 +169,15 @@ class Bubble extends React.Component {
   componentWillUnmount() {
     this.props.updateBubble(this.state.bubble);
   }
+
   render() {
     return (
       <View {...this._panResponder.panHandlers}>
-        {this.state.isOnDrag ? <View><Image source={{ uri: 'https://www.shareicon.net/data/256x256/2016/09/10/827852_delete_512x512.png' }} style={styles.trash} /></View> : null}
+        {this.state.isOnDrag ? (
+          <View>
+            <Image source={trash} style={styles.trash} />
+          </View>
+        ) : null}
 
         <View
           style={{
@@ -226,7 +232,8 @@ const styles = StyleSheet.create({
     left: "18%",
     fontSize: 15,
     width: "58%",
-    height: "25%"
+    height: "25%",
+    textAlign: "center"
   },
   text2: {
     position: "relative",
@@ -234,7 +241,8 @@ const styles = StyleSheet.create({
     left: "14%",
     fontSize: 15,
     width: "70%",
-    height: "25%"
+    height: "25%",
+    textAlign: "center"
   },
   text3: {
     position: "relative",
@@ -242,7 +250,8 @@ const styles = StyleSheet.create({
     left: "28%",
     fontSize: 18,
     width: "40%",
-    height: "30%"
+    height: "30%",
+    textAlign: "center"
   },
   trash: {
     position: "absolute",

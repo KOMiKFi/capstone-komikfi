@@ -13,19 +13,23 @@ const initialState = {
   photos: {
     0: {
       image: {},
-      bubbles: []
+      bubbles: [],
+      filter: [false, false, false]
     },
     1: {
       image: {},
-      bubbles: []
+      bubbles: [],
+      filter: [false, false, false]
     },
     2: {
       image: {},
-      bubbles: []
+      bubbles: [],
+      filter: [false, false, false]
     },
     3: {
       image: {},
-      bubbles: []
+      bubbles: [],
+      filter: [false, false, false]
     }
   },
   currentPhotoIdx: 0,
@@ -61,6 +65,8 @@ const CLEAR_PHOTOS = "CLEAR_PHOTOS";
 const IMAGE_HEIGHT = "IMAGE_HEIGHT";
 const UPDATE_BUBBLE = "UPDATE_BUBBLE";
 const DELETE_BUBBLE = "DELETE_BUBBLE";
+const ADD_FILTER = "ADD_FILTER";
+const DELETE_FILTER = "DELETE_FILTER";
 
 const gotPhoto = (image, idx) => {
   return {
@@ -119,8 +125,7 @@ export const getPhotoFromLibrary = idx => async dispatch => {
       return;
     }
     let image = await ImagePicker.launchImageLibraryAsync();
-
-    dispatch(gotPhoto(image, idx));
+    if (image.cancelled === false) dispatch(gotPhoto(image, idx));
     return image.cancelled;
   } catch (error) {
     console.error(error);
@@ -135,7 +140,7 @@ export const accessingCamera = idx => async dispatch => {
       return;
     }
     let camera = await ImagePicker.launchCameraAsync();
-    dispatch(gotPhoto(camera, idx));
+    if (camera.cancelled === false) dispatch(gotPhoto(camera, idx));
     return camera.cancelled;
   } catch (error) {
     console.error(error);
@@ -162,6 +167,17 @@ export const gettingHeight = (height, width) => {
   };
 };
 
+export const addFilter = (photoIdx, filterIdx) => ({
+  type: ADD_FILTER,
+  photoIdx,
+  filterIdx
+});
+
+export const deleteFilter = photoIdx => ({
+  type: DELETE_FILTER,
+  photoIdx
+});
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_PHOTO:
@@ -170,8 +186,8 @@ const reducer = (state = initialState, action) => {
         photos: {
           ...state.photos,
           [action.idx]: {
-            image: action.image,
-            bubbles: state.photos[action.idx].bubbles
+            ...state.photos[action.idx],
+            image: action.image
           }
         },
         currentPhotoIdx: action.idx
@@ -242,6 +258,33 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         layout: { ...state.layout, height: action.height, width: action.width }
+      };
+    case ADD_FILTER:
+      return {
+        ...state,
+        photos: {
+          ...state.photos,
+          [action.photoIdx]: { ...state.photos[action.photoIdx],
+            filter: [...state.photos[action.photoIdx].filter].map (
+              (filter, index) => {
+                if (action.filterIdx === index) {
+                  return true
+                }
+                else return false
+              }
+            )
+          }
+        }
+      };
+    case DELETE_FILTER:
+      return {
+        ...state,
+        photos: {
+          ...state.photos,
+          [action.photoIdx]: { ...state.photos[action.photoIdx], filter: [
+            ...initialState.photos[action.photoIdx].filter
+          ] }
+        }
       };
     default:
       return state;
