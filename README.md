@@ -22,6 +22,8 @@ You can apply our fun filters from the filter menu to your image
 
 Finally, once your comic is all ready, you can save your masterpiece back to your camera roll!
 
+![save](https://media.giphy.com/media/cOWj17U8Hy8fjHcmvi/giphy.gif)
+
 ### OUR STACK:
 
 Our stack is purely front-end. We build it in React Native on Expo platform. We used Redux for state management gl-react library for image processing. Reacr-native-view-shot for screen to capture the screenshot of the finished comic.
