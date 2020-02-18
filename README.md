@@ -17,6 +17,7 @@ You can select a bubble from the bubble menu. Bubbles can be dragged, rotated, e
 ![bubble](https://media.giphy.com/media/S3WLa1bNqQgHmsc4A7/giphy.gif)
 
 You can apply our fun filters from the filter menu to your image
+
 ![filter](https://media.giphy.com/media/Tga8L9WZEn31d0yCF7/giphy.gif)
 
 Finally, once your comic is all ready, you can save your masterpiece back to your camera roll!
