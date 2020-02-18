@@ -1,6 +1,6 @@
 # KOMiKFi
 
-#### OVERVIEW:
+### OVERVIEW:
 
 Komikfi is a mobile application which allows users to create their own comic story. Users can upload images from their phone, add speech bubbles with text and filters to their images, and finally, save their comic back to their camera roll
 
@@ -14,11 +14,11 @@ You can apply our fun filters from the filter menu to your image
 
 Finally, once your comic is all ready, you can save your masterpiece back to your camera roll!
 
-#### OUR STACK:
+### OUR STACK:
 
 Our stack is purely front-end. We build it in React Native on Expo platform. We used Redux for state management gl-react library for image processing. Reacr-native-view-shot for screen to capture the screenshot of the finished comic.
 
-#### SAMPLES:
+### SAMPLES:
 
 Enjoy some sample comic stories that were made on our app.
 
