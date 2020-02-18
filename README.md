@@ -14,6 +14,7 @@ You can either choose images from your camera roll, or take a photo directly fro
 ![choose image](https://media.giphy.com/media/QumDZIZQ9SzgHpglVW/giphy.gif)
 
 You can select a bubble from the bubble menu. Bubbles can be dragged, rotated, enlarged and deleted
+![bubble](https://media.giphy.com/media/S3WLa1bNqQgHmsc4A7/giphy.gif)
 
 You can apply our fun filters from the filter menu to your image
 
