@@ -11,7 +11,7 @@ Upon opening the app, you can select the layout that best suits your comic story
 ![choose layout](https://media.giphy.com/media/QZQCwIa9WWhHuAyDkl/giphy.gif)
 
 You can either choose images from your camera roll, or take a photo directly from your camera
-![choose image](https://media.giphy.com/media/JTzMSyDsaBtMcMg9AV/giphy.gif)
+![choose image](https://media.giphy.com/media/QumDZIZQ9SzgHpglVW/giphy.gif)
 
 You can select a bubble from the bubble menu. Bubbles can be dragged, rotated, enlarged and deleted
 
