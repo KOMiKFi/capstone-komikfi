@@ -27,7 +27,7 @@ class FilterNav extends React.Component {
         <TouchableOpacity
           onPress={() => this.props.addFilter(this.props.currentPhotoIdx, 2)}
         >
-          <Text style={styles.text}>Scream</Text>
+          <Text style={styles.text}>B&W</Text>
         </TouchableOpacity>
       </View>
     );
