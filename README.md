@@ -32,3 +32,12 @@ Our stack is purely front-end. We build it in React Native on Expo platform. We 
 
 Enjoy some sample comic stories that were made on our app.
 
+
+### SET UP:
+
+To look at the repo and run the project locally, you'll need to take the following steps:
+
+1. Fork and clone this repo
+2. Npm install
+3. Npm start
+4. Scan the QR code, or run on an ios/android simulator (filters and camera don't work on simulators)
