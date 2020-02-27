@@ -28,10 +28,6 @@ Finally, once your comic is all ready, you can save your masterpiece back to you
 
 Our stack is purely front-end. We build it in React Native on Expo platform. We used Redux for state management gl-react library for image processing. Reacr-native-view-shot for screen to capture the screenshot of the finished comic.
 
-### SAMPLES:
-
-Enjoy some sample comic stories that were made on our app.
-
 
 ### SET UP:
 
